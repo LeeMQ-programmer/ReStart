@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.start.pro.mounui">
+
+
+<!-- 문의 게시판 -->
+
+<!-- 
+회원번호로 문의글 정보 가져오기
+SELECT MOUNUI_SEQ, 
+ CASE WHEN LENGTH(TITLE)>10 THEN SUBSTR(TITLE,1,10) || '....' ELSE TITLE END AS TITLE,
+ CONTENT, TO_CHAR(REGDATE,'YYYY-MM-DD') AS REGDATE , REPLYCHK 
+ FROM MOUNUI m 
+  WHERE USER_SEQ = '1' AND DELCHK = 'N'
+ -->
+ 
+ 
+ <!-- 
+ SEQ로 문의글 상세조회
+ SELECT MOUNUI_SEQ, TITLE, CONTENT, TO_CHAR(REGDATE,'YYYY-MM-DD') AS REGDATE , REPLYCHK, FILECHK 
+ FROM MOUNUI m 
+  WHERE BOARD_CODE = '0' AND
+   MOUNUI_SEQ = '1' AND 
+   DELCHK = 'N'0
+  -->
+  
+  
+ <!-- 
+ 글 seq로 문의글 정보 수정하기
+ UPDATE MOUNUI 
+ SET CATEGORY = '1', TITLE = '문의 수정해요~', CONTENT = '수정한 문의 내용이예영'
+  ,REGDATE = SYSDATE, FILECHK = 'Y'
+   WHERE MOUNUI_SEQ = '1'
+  -->
+  
+  
+  <!-- 
+  글 seq로 문의글 삭제여부 y로 변경하기
+  UPDATE MOUNUI 
+ SET DELCHK = 'Y'
+  WHERE MOUNUI_SEQ = '1'
+   -->
+
+<!-- 
+다중 seq 삭제여부 y로 변경하기 
+UPDATE MOUNUI 
+ SET DELCHK = 'Y'
+  WHERE MOUNUI_SEQ = '1'
+ -->
+ 
+ <!-- 
+ 전체 글 가져오기(삭제된 것까지)
+ SELECT MOUNUI_SEQ, USER_SEQ, CATEGORY, 
+ CASE WHEN LENGTH(TITLE)>10 THEN SUBSTR(TITLE,1,10) || '....' ELSE TITLE END AS TITLE,
+ REGDATE, REPLYCHK, FILECHK, DELCHK  
+ FROM MOUNUI m
+  -->
+
+<!-- 
+글 상세조회
+SELECT MOUNUI_SEQ, USER_SEQ, CATEGORY, TITLE, CONTENT, REGDATE, REPLYCHK, FILECHK, DELCHK 
+ FROM MOUNUI m 
+  WHERE BOARD_CODE = '0' AND MOUNUI_SEQ = '1'
+ -->
+
+
+<!-- 
+seq로 답변처리여부 y로 수정
+UPDATE MOUNUI SET REPLYCHK = 'Y' WHERE MOUNUI_SEQ = '1'
+ -->
+ 
+ <!-- 
+ seq로 단일 삭제하기
+ DELETE FROM MOUNUI
+ WHERE MOUNUI_SEQ='10'
+DELETE FROM R_EMAIL
+WHERE MOUNUI_SEQ='10'
+  -->
+
+<!-- 
+seq로 다중 삭제하기
+DELETE FROM MOUNUI
+ WHERE MOUNUI_SEQ='10'
+DELETE FROM R_EMAIL
+WHERE MOUNUI_SEQ='10'
+ -->
+
+
+
+
+
+</mapper>
