@@ -53,12 +53,16 @@
 		</if>
 	</update>
 	
+<!-- 	스위칭 기능 -->
 	<update id="updateGrade">
 		UPDATE USER SET 
 		<if test="user_grade == M">
 			USER_GRADE ='T'	
 		</if>
-		WHERE USER_GRADE='M' AND USER_SEQ =4 AND USER_TCHK ='Y'
+		<if test="user_grade == T">
+			USER_GRADE ='M'	
+		</if>
+		WHERE USER_SEQ =#{user_seq} AND USER_TCHK ='Y'
 	</update>
 
 	
