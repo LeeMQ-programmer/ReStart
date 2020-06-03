@@ -40,7 +40,7 @@ SELECT USER_EMAIL, USER_NICKNAME, USER_NAME,
  
  
  <!--비밀번호 틀린 횟수 가져오기 -->
-<select id="getPWFail" parameterType="java.lang.String">
+<select id="getPWFail" parameterType="java.lang.String" resultType="java.lang.String">
 SELECT PW_FAIL_CHK 
  FROM USER_LOG ul
   WHERE USER_SEQ = (SELECT USER_SEQ FROM "USER" WHERE USER_EMAIL = #{user_email})
