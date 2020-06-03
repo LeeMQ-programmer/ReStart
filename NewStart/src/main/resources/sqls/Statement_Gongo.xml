@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.start.pro.gongo">
+  
+<select id="">
+SELECT GONGGO_SEQ, BOARD_CODE, USER_SEQ, GONGGO_TITLE,
+	GONGGO_CONTENT, BIDDING, GONGGO_TIME, VIEWS, FILEOX 
+	FROM GONGO
+</select>
+  
+  
+  
+<insert id="">
+INSERT INTO GONGO
+	(GONGGO_SEQ, BOARD_CODE, USER_SEQ, GONGGO_TITLE, GONGGO_CONTENT, BIDDING, GONGGO_TIME, VIEWS, FILEOX)
+	VALUES(GONGO_SEQ.NEXTVAL, 2000, #{user_seq}, #{gonggo_title}, #{gonggo_content}, 'N', SYSDATE, 0, 'Y')
+</insert>
+  
+  
+  
+<update id="">
+UPDATE GONGO
+	SET GONGGO_TITLE = #{gonggo_title}, GONGGO_CONTENT = #{gonggo_content}
+	WHERE GONGGO_SEQ=#{gonggo_seq} AND BOARD_CODE=2000
+</update>
+  
+  
+<update id="">
+UPDATE GONGO
+	SET FILEOX = 'N'
+	WHERE GONGGO_SEQ=#{gonggo_seq} AND BOARD_CODE=2000
+</update>
+  
+  
+  
+<select id="">
+SELECT GONGGO_SEQ, BOARD_CODE, USER_SEQ, GONGGO_TITLE,
+	GONGGO_CONTENT, BIDDING, GONGGO_TIME, VIEWS, FILEOX 
+	FROM GONGO
+	WHERE GONGGO_SEQ=#{gonggo_seq}
+</select>
+  
+  
+<select id="">
+SELECT BIDDING
+	FROM GONGO g 
+	WHERE GONGGO_SEQ=#{gonggo_seq}
+화면에서
+if(위 결과가 Y라면){
+	SELECT BIDDINGER, BIDDINGER_W 
+		FROM BIDDING 
+		WHERE GONGGO_SEQ = #{gonggo_seq}
+</select>
+  
+  
+<select id="">
+SELECT FILEOX
+	FROM GONGO g 
+	WHERE GONGGO_SEQ=#{gonggo_seq}
+</select>
+  
+<select id="">
+SELECT FILE_SEQ, FILEBOARD, BOARD_SEQ, FILENAME, FILEREALNAME, FILEURL, FILEDATE, FILETYPE
+	FROM FILEBOARD 
+	WHERE FILEBOARD = 2000 AND BOARD_SEQ = #{board_seq}
+</select>
+  
+  
+</mapper>

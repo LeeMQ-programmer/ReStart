@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.start.pro.email">
+
+
+<!-- 인증 이메일 -->
+
+<!-- 
+인증 이메일 발송하면서 정보 입력
+INSERT INTO LJ_EMAIL
+(LJ_SEQ, USER_EMAIL, LJ_KEY, REGDATE)
+VALUES(LJ_EMAIL_SEQS.NEXTVAL, '1', '1234', SYSDATE);
+ -->
+ 
+ 
+<!-- 
+재발송하거나 인증 성공했을 때 만료 체크
+UPDATE LJ_EMAIL SET LJ_KEY = 'Y'
+	WHERE USER_EMAIL = '1' AND LJ_KEY = '1234'
+-->
+
+<!-- 
+ 유저 인증받기
+SELECT COUNT(*)
+	FROM LJ_EMAIL
+		WHERE USER_EMAIL = '1' AND LJ_KEY = '1234'
+ -->
+
+
+<!-- 
+생성일시부터 1년 지난거 데이터 삭제
+DELETE FROM LJ_EMAIL
+	WHERE LJ_SEQ = (SELECT LJ_SEQ 
+						FROM LJ_EMAIL le 
+							WHERE (REGDATE + (INTERVAL '1' YEAR)) <= SYSDATE)
+ -->
+ 
+
+<!-- 문의 답변 이메일  -->
+
+<!-- 
+문의 답변 정보들 입력
+INSERT INTO R_EMAIL
+(MOUNUI_SEQ, TITLE, CONTENT, REGDATE, SUCCESSCHK, FILECHK)
+VALUES('1', '문의 답변 드립니다', '확인해볼게요', SYSDATE, 'N', 'N')
+ -->
+
+<!-- 
+문의 답변 발송 성공 여부 수정 Y/N
+UPDATE R_EMAIL SET SUCCESSCHK = 'Y' WHERE MOUNUI_SEQ = '5'
+ -->
+
+
+<!-- 
+문의글 seq로 문의 답변 정보 조회
+관리자 :SELECT MOUNUI_SEQ, TITLE, CONTENT,  REGDATE, SUCCESSCHK
+ FROM R_EMAIL re
+  WHERE MOUNUI_SEQ = '1'
+사용자 :SELECT MOUNUI_SEQ, TITLE, CONTENT, TO_CHAR(REGDATE,'YYYY-MM-DD') AS REGDATE, SUCCESSCHK
+ FROM R_EMAIL re
+  WHERE  MOUNUI_SEQ = '1'
+ -->
+
+
+
+<!-- 자동 이메일  -->
+
+<!-- 
+처음 카테고리 코드에 따라 정보 입력
+INSERT INTO AUTO_EMAIL
+(CATEGORY_CODE, EMAIL_TITLE, EMAIL_CONTENT, FILECHK, REGDATE, USE_CHK)
+VALUES(0, '회원가입 축하합니다', '축하행 ㅎㅎ', 'N', SYSDATE, 'Y')
+ -->
+
+
+<!-- 
+카테고리 코드에 의해 정보 수정
+UPDATE AUTO_EMAIL
+SET EMAIL_TITLE='회원가입 축하행', EMAIL_CONTENT='수정했성 축하행', FILECHK='N', REGDATE=SYSDATE, USE_CHK='Y'
+WHERE CATEGORY_CODE=0
+ -->
+
+
+<!-- 
+등록된 글 전체 조회
+SELECT CATEGORY_CODE,
+ CASE WHEN LENGTH(EMAIL_TITLE)>10 THEN SUBSTR(EMAIL_TITLE,1,10) || '....' ELSE EMAIL_TITLE END AS EMAIL_TITLE ,
+ USE_CHK FROM AUTO_EMAIL ae 
+ -->
+ 
+ <!-- 
+ 카테고리 코드별로 글 상세조회
+ SELECT CATEGORY_CODE, EMAIL_TITLE, EMAIL_CONTENT,FILECHK, USE_CHK FROM AUTO_EMAIL ae 
+ WHERE CATEGORY_CODE = '0'
+  -->
+  
+ <!-- 이메일 발송 이력  -->
+ 
+ <!-- 
+ 메일 보낼때 정보 입력
+ INSERT INTO EMAIL_SAVE 
+(BOARD_CODE, EMAIL_SEQ, CATEGORY_CODE, EMAIL_TITLE, EMAIL_CONTENT, FILECHK, USER_EMAIL, SUCCESSCHK, REGDATE)
+	VALUES(002, EMAIL_SAVE_SEQS.NEXTVAL, 0, '수동발송해쪄염', '내용랄랄라', 'N', 'ckadl0118@naver.com', 'N', SYSDATE);
+  -->
+  
+  
+ <!-- 
+ 메일 성공여부 수정 Y/N
+UPDATE EMAIL_SAVE SET SUCCESSCHK = 'Y'
+ WHERE EMAIL_SEQ = '5'
+ 
+UPDATE EMAIL_SAVE SET FAIL_REASON = 'ckadl0118@naver.com'
+ WHERE EMAIL_SEQ = '5'
+	
+  --> 
+  
+  
+ <!-- 
+ 발송일 1년 지난거 데이터 삭제
+ DELETE FROM EMAIL_SAVE
+ WHERE (TO_CHAR(SYSDATE,'YYYYMMDD') - TO_CHAR(REGDATE,'YYYYMMDD')) >= 10000
+  -->
+ 
+ <!-- 
+ 전체 발송 이력 조회
+SELECT EMAIL_SEQ, CATEGORY_CODE, 
+	CASE WHEN LENGTH(EMAIL_TITLE)>10 THEN SUBSTR(EMAIL_TITLE,1,10) || '....' ELSE EMAIL_TITLE END AS EMAIL_TITLE
+	, USER_EMAIL, SUCCESSCHK, REGDATE 
+	FROM EMAIL_SAVE es
+  -->
+
+<!-- 
+발송 이력 상세 조회
+SELECT EMAIL_SEQ, EMAIL_TITLE, EMAIL_CONTENT, FILECHK, USER_EMAIL, SUCCESSCHK,FAIL_REASON , REGDATE 
+	FROM EMAIL_SAVE es 
+		WHERE EMAIL_SEQ = '5'
+ -->
+
+
+<!-- 
+필터에 따른 발송 이력 조회
+SELECT EMAIL_SEQ, CATEGORY_CODE,
+	CASE WHEN LENGTH(EMAIL_TITLE)>10 THEN SUBSTR(EMAIL_TITLE,1,10) || '....' ELSE EMAIL_TITLE END AS EMAIL_TITLE,
+	USER_EMAIL, SUCCESSCHK, REGDATE 
+	FROM EMAIL_SAVE es
+		WHERE (REGDATE >= '20200601' AND REGDATE <= '20200605') 
+			OR CATEGORY_CODE = '0'
+			OR (SELECT USER_GRADE FROM "USER" u WHERE u.USER_EMAIL = es.USER_EMAIL) = 'M' 
+			OR (SELECT USER_TYPE FROM "USER" u WHERE u.USER_EMAIL = es.USER_EMAIL) = 'N'
+ -->
+
+
+
+<!-- 수동 이메일 -->
+
+<!-- 
+필터에 따라서 회원 유저 이메일 정보 받아오기
+SELECT USER_EMAIL FROM "USER" u 
+ WHERE USER_GRADE = 'M' AND USER_ADCHK = 'Y'
+ -->
+
+
+
+
+</mapper>
