@@ -1,7 +1,11 @@
 {
 	"folders": {},
 	"connections": {
+<<<<<<< HEAD
+		"oracle_thin-1727f1ccced-452a6083e2a68eb": {
+=======
 		"oracle_thin-1727f357514-72db3807451ad3ce": {
+>>>>>>> branch 'workspace' of https://github.com/LeeMQ-programmer/NewStart.git
 			"provider": "oracle",
 			"driver": "oracle_thin",
 			"name": "xe",

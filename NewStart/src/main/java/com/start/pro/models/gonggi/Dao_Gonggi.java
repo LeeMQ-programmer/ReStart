@@ -21,9 +21,9 @@ public class Dao_Gonggi implements IDao_Gonggi {
 	private SqlSessionTemplate sqlSession;
 	
 	@Override
-	public List<DTO_Gonggi> GI_AllSelect(Map<String, Object> map) {
+	public List<DTO_Gonggi> GI_AllSelect() {
 		logger.info("GI_AllSelect");
-		return sqlSession.selectList(NS+"GI_AllSelect", map);
+		return sqlSession.selectList(NS+"GI_AllSelect");
 	}
 
 	@Override

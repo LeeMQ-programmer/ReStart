@@ -9,10 +9,9 @@ public interface IDao_Gonggi {
 
 	/**
 	 * 전체글 조회
-	 * @param map
 	 * @return List
 	 */
-	public List<DTO_Gonggi> GI_AllSelect(Map<String, Object> map);
+	public List<DTO_Gonggi> GI_AllSelect();
 	
 	/**
 	 * 상세글 조회
