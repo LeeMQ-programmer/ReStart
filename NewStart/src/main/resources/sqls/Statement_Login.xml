@@ -5,7 +5,7 @@
 <!-- 로그인 -->
 
 <!-- 아이디를 통해 비밀번호와 권한 가져온다  -->
-<select id="getPW" parameterType="java.lang.String" resultType="UserDto">
+<select id="getPW" parameterType="java.lang.String" resultType="UserDetailsDto">
 SELECT  USER_SEQ, USER_PW, USER_GRADE, USER_TYPE FROM "USER" u
  WHERE USER_EMAIL = #{user_email} AND USER_TYPE != 'D'
 </select>

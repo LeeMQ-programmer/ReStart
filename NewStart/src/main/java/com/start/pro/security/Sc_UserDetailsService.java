@@ -1,6 +1,7 @@
 package com.start.pro.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -16,9 +17,14 @@ public class Sc_UserDetailsService implements UserDetailsService{
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		
-//		Sc_User user =
+		Sc_User user = service.getPW(username);
+		System.out.println(user.toString());
 		
-		return null;
+		if (user == null) {
+	         throw new InternalAuthenticationServiceException(username);
+		}
+		
+		return user;
 	}
 
 }

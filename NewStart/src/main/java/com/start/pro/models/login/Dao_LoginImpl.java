@@ -8,6 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import com.start.pro.dto.DTO_User;
+import com.start.pro.security.Sc_User;
 
 @Repository
 public class Dao_LoginImpl implements IDao_Login {
@@ -22,7 +23,7 @@ public class Dao_LoginImpl implements IDao_Login {
 	
 	
 	@Override
-	public DTO_User getPW(String user_email) {
+	public Sc_User getPW(String user_email) {
 		return session.selectOne(NS+"getPW",user_email);
 	}
 

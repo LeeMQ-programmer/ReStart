@@ -33,7 +33,7 @@
 
 		<security:form-login
 			login-processing-url="/logingo.do"
-			 login-page="/main.do"
+			 login-page="/loginForm.do"
 			authentication-failure-handler-ref="loginFailureHandler"
 			authentication-success-handler-ref="loginSuccessHandler"	
 			 username-parameter="username"
