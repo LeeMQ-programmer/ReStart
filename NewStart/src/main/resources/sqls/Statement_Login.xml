@@ -5,114 +5,120 @@
 <!-- 로그인 -->
 
 <!-- 아이디를 통해 비밀번호와 권한 가져온다  -->
-<!-- SELECT USER_PW, USER_GRADE FROM "USER" u
- WHERE USER_EMAIL = '' -->
+<select id="getPW" parameterType="java.lang.String" resultType="UserDto">
+SELECT  USER_PW, USER_GRADE, USER_TYPE FROM "USER" u
+ WHERE USER_EMAIL = #{user_email}
+</select>
 
-<!-- 
-회원번호를 통해 회원 유형을 가져온다.
-SELECT USER_TYPE FROM "USER" u
- WHERE USER_SEQ  = ''
- -->
  
- <!-- 
- 회원번호 통해 유저 정보 가져온다 (세션에 담기 위해)
+ <!-- 회원번호 통해 유저 정보 가져온다 (세션에 담기 위해) -->
+<select id="getUser" parameterType="java.lang.String" resultType="UserDto">
 SELECT USER_EMAIL, USER_NICKNAME, USER_NAME, 
   USER_GRADE, USER_TYPE, USER_PHONE 
    FROM "USER" u
-    WHERE USER_SEQ  = ''
- -->
+    WHERE USER_SEQ  = #{user_seq}
+</select>
 
-<!-- 
-회원번호 통해 비밀번호 틀린 횟수 초기화
-UPDATE USER_LOG SET PW_FAIL_CHK = 0 
- WHERE USER_SEQ  = ''
- -->
- 
- 
- <!-- 
- 마지막 로그인 날짜 수정하기
- UPDATE USER_LOG SET LAST_LOGIN = SYSDATE
- WHERE USER_SEQ  = ''
-  -->
- 
- <!-- 
- 휴면회원을 일반회원으로 등급 변경
+
+<!-- 회원번호 통해 비밀번호 틀린 횟수, 로그인 날짜 업데이트-->
+ <update id="loginUpdate" parameterType="java.lang.String">
+ UPDATE USER_LOG SET PW_FAIL_CHK = 0, LAST_LOGIN = SYSDATE 
+ WHERE USER_SEQ  = (SELECT USER_SEQ FROM "USER" WHERE USER_EMAIL = #{user_email})
+ </update>
+  
+ <!-- 휴면회원을 일반회원으로 등급 변경  -->
+ <update id="changeSleep" parameterType="java.lang.String">
  UPDATE "USER" SET USER_TYPE = 'N'
-  WHERE USER_SEQ  = ''
-  -->
+  WHERE USER_SEQ  = #{user_seq}
+ </update>
+ 
+ <!-- 비밀번호 틀린 횟수 +1해주기 -->
+ <update id="plusPWFail" parameterType="java.lang.String">
+ UPDATE USER_LOG SET PW_FAIL_CHK  = PW_FAIL_CHK+1
+  WHERE USER_SEQ  = (SELECT USER_SEQ FROM "USER" WHERE USER_EMAIL = #{user_email})
+ </update>
  
  
- <!-- 
-  비밀번호 틀린 횟수 +1해주기
-  UPDATE USER_LOG SET PW_FAIL_CHK  = PW_FAIL_CHK+1
-  WHERE USER_SEQ  = ''
-  -->
- 
- 
- <!-- 
- 비밀번호 틀린 횟수 가져오기
- SELECT PW_FAIL_CHK 
+ <!--비밀번호 틀린 횟수 가져오기 -->
+<select id="getPWFail" parameterType="java.lang.String" resultType="java.lang.String">
+SELECT PW_FAIL_CHK 
  FROM USER_LOG ul
-  WHERE USER_SEQ = ''
-  -->
+  WHERE USER_SEQ = (SELECT USER_SEQ FROM "USER" WHERE USER_EMAIL = #{user_email})
+</select>
+  
+  
   
   
   <!-- 회원정보 -->
   
- <!-- 
- 아이디 중복검사
+ <!--아이디/ 닉네임 중복검사-->
+ <select id="MultipleChk" parameterType="java.util.Map" resultType="java.lang.Integer">
  SELECT COUNT(*) FROM "USER" u 
- WHERE USER_EMAIL = ''
-  -->
+	<choose>
+		<when test="USER_EMAIL != null">
+			 WHERE USER_EMAIL = #{user_email}
+		</when>
+		<when test="USER_NICKNAME != null">
+		 	 WHERE USER_NICKNAME = #{user_nickname}
+		</when>
+	</choose>
+ </select>
   
- <!-- 
- 닉네임 중복 검사
- SELECT COUNT(*) FROM "USER" u 
- WHERE USER_NICKNAME = ''
-  -->
   
- <!-- 
- 유저정보 넣기 / 권한은 잠금
- INSERT INTO "USER"
-(USER_SEQ, USER_EMAIL, USER_NICKNAME, USER_NAME, USER_GRADE, USER_TYPE, USER_PW, USER_PHONE, USER_ADCHK, USER_REGDATE,USER_TCHK )
-VALUES(USER_SEQS.NEXTVAL , 'ckadl0118@naver.com', '루삥뽕', '김참이', 'M', 'L', '1234', '010-8992-2455', 'Y', SYSDATE, 'N')
-  -->
+  
+  
+  
+ <!-- 유저정보 넣기 / 권한은 잠금 -->
+ <insert id="signUp" parameterType="UserDto">
+INSERT INTO "USER"
+(USER_SEQ, USER_EMAIL, USER_NICKNAME, USER_NAME, USER_PW, USER_PHONE, USER_ADCHK, USER_REGDATE)
+VALUES(USER_SEQS.NEXTVAL , #{user_email}, #{user_nickname}, #{user_name} ,#{user_pw}, #{user_phone}, #{user_adchk}, SYSDATE)
+ </insert>
  
  
-<!-- 
-유저로그에 정보 넣기
-INSERT INTO USER_LOG
-(USER_SEQ, LAST_LOGIN, PW_UPDATE_DATE, PW_FAIL_CHK)
-VALUES(0, NULL, NULL, 0)
- -->
+<!-- 유저로그에 정보 넣기-->
+ <insert id="singUpLog" parameterType="java.lang.String">
+	INSERT INTO USER_LOG
+		(USER_SEQ, PW_UPDATE_DATE)
+			VALUES(#{user_seq}, SYSDATE)
+ </insert>
  
-<!-- 
-유저 권한 일반 유저로 변환
-(이메일 인증 성공시)
-UPDATE "USER" SET USER_TYPE = 'N' WHERE USER_SEQ = ''
- -->
+ 
+ 
+<!-- 유저 권한 일반 유저로 변환(이메일 인증 성공시)-->
+ <update id="changeNomal" parameterType="java.lang.String">
+ UPDATE "USER" SET USER_TYPE = 'N'
+ 	 WHERE USER_SEQ = #{user_seq}
+ </update>
+ 
+ 
  
  <!-- 아이디 찾기 -->
  
  
- <!-- 
- 휴대폰 번호로 아이디 가져오기
- SELECT USER_EMAIL FROM "USER" u
- WHERE USER_PHONE = ''
-  -->
+ <!-- 휴대폰 번호로 아이디 가져오기-->
+<select id="findId" parameterType="java.lang.String" resultType="java.lang.String">
+	SELECT USER_EMAIL FROM "USER" u
+ 		WHERE USER_PHONE = #{user_phone}
+</select>
+
 
 <!-- 비밀번호 찾기 -->
 
-<!-- 
-이메일로 임시 비밀번호로 업데이트하기
-UPDATE "USER" SET USER_PW = '1234' 
- WHERE USER_EMAIL = ''
- -->
+<!-- 이메일로  비밀번호 업데이트하기-->
+ <update id="changePW" parameterType="java.util.Map">
+ 	UPDATE "USER" SET USER_PW = #{user_pw} 
+ 		WHERE USER_EMAIL = #{user_email}
+ </update>
  
- <!-- 
- 마지막 비밀번호 변경일 수정
- UPDATE USER_LOG SET PW_UPDATE_DATE = SYSDATE
- WHERE USER_SEQ = ''
-  -->
+ 
+ <!-- 마지막 비밀번호 변경일 수정 -->
+<update id="updatePWLog" parameterType="java.lang.String">
+	UPDATE USER_LOG SET PW_UPDATE_DATE = SYSDATE
+		WHERE USER_SEQ = 
+			(SELECT USER_SEQ 
+				FROM "USER" 
+					WHERE USER_EMAIL = #{user_email})	
+</update>
 
 </mapper>
