@@ -42,7 +42,7 @@
 
 		<!-- 로그아웃되면 세션 초기화 해준다 -->
 		<security:logout invalidate-session="true"
-			logout-url="/logout.do" logout-success-url="/main.do?logout"
+			logout-url="/logout.do" 
 			delete-cookies="JSESSIONID,SPRING_SECURITY_REMEMBER_ME_COOKIE"/>
 		<!-- 4주 -->
 		<security:remember-me key="nobrand" token-validity-seconds="2419200"
@@ -50,7 +50,7 @@
 
 		<security:csrf disabled="true"/>
 	
-	<security:session-management invalid-session-url="/main.do" session-fixation-protection="changeSessionId">
+	<security:session-management invalid-session-url="/loginForm.do?logout" session-fixation-protection="changeSessionId">
 		<security:concurrency-control max-sessions="1" expired-url="/main.do"/>
 	</security:session-management>
 	
@@ -73,8 +73,7 @@
 	
 	<!-- 로그인 성공 핸들러 -->
 	<bean id="loginSuccessHandler" class="com.start.pro.security.Sc_LoginSuccessHandler">
-		<property name="loginidname" value="username"/>
-		<property name="defaultUrl" value="/result.do"/>
+		<property name="defaultUrl" value="/loginResult.do"/>
 	</bean> 
 	
 	<!-- 로그인 실패 핸들러 -->

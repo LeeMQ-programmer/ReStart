@@ -6,6 +6,14 @@
 		<typeAlias type="com.start.pro.dto.DTO_User" alias="UserDto"/>
 		<typeAlias type="com.start.pro.dto.DTO_Gonggi" alias="GongGiDto"/>
 		<typeAlias type="com.start.pro.dto.DTO_Gonggo" alias="GGDto"/>
+		<!-- 이민규 -->
+		<typeAlias type="com.start.pro.dto.DTO_File" alias="FileDto"/>
+		<typeAlias type="com.start.pro.dto.DTO_Profile" alias="ProDto"/>
+		<typeAlias type="com.start.pro.dto.DTO_Review" alias="ReDto"/>
+		<typeAlias type="com.start.pro.dto.DTO_SMS" alias="SMSDto"/>
+		<typeAlias type="com.start.pro.dto.DTO_Declaration" alias="DecDto"/>
+		
+		
 		<typeAlias type="com.start.pro.security.Sc_User" alias="UserDetailsDto"/>
 	</typeAliases>
 
@@ -14,6 +22,12 @@
 	<mappers>
 		<mapper resource="/sqls/Statement_Login.xml"/>
 		<mapper resource="/sqls/Statement_Gonggi.xml"/>
+		<mapper resource="/sqls/Statement_Dec.xml"/>
+		<mapper resource="/sqls/Statement_File.xml"/>
+		<mapper resource="/sqls/Statement_Profile.xml"/>
+		<mapper resource="/sqls/Statement_Review.xml"/>
+		<mapper resource="/sqls/Statement_SMS.xml"/>
+		<mapper resource="/sqls/Statement_User.xml"/>
 	</mappers>
 
 </configuration>

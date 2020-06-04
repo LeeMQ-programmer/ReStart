@@ -74,6 +74,9 @@ SELECT PW_FAIL_CHK
 INSERT INTO "USER"
 (USER_SEQ, USER_EMAIL, USER_NICKNAME, USER_NAME, USER_PW, USER_PHONE, USER_ADCHK, USER_REGDATE)
 VALUES(USER_SEQS.NEXTVAL , #{user_email}, #{user_nickname}, #{user_name} ,#{user_pw}, #{user_phone}, #{user_adchk}, SYSDATE)
+<selectKey resultType="java.lang.String" order="AFTER" keyProperty="user_seq">
+ SELECT USER_SEQ FROM "USER" WHERE USER_EMAIL = #{user_email}
+</selectKey>
  </insert>
  
  
