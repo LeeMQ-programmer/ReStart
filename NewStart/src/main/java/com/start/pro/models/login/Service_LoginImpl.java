@@ -51,9 +51,10 @@ public class Service_LoginImpl implements IService_Login{
 	@Transactional
 	@Override
 	public boolean signUp(DTO_User userDto) {
-		boolean isc1 = dao.signUp(userDto);
+		dao.signUp(userDto);
+		
 		boolean isc2 = dao.signUpLog(userDto.getUser_seq());
-		return (isc1||isc2)? true : false;
+		return isc2;
 	}
 
 	@Override

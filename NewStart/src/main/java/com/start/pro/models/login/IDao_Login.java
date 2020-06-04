@@ -74,7 +74,7 @@ public interface IDao_Login {
 		 * @param 유저 Dto(DTO_User)
 		 * @return boolean(성공, 실패)
 		 */
-		public boolean signUp(DTO_User userDto);
+		public DTO_User signUp(DTO_User userDto);
 		
 		
 		/**

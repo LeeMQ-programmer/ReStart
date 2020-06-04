@@ -58,15 +58,16 @@ public class Dao_LoginImpl implements IDao_Login {
 	}
 
 	@Override
-	public boolean signUp(DTO_User userDto) {
+	public DTO_User signUp(DTO_User userDto) {
 		String enPw = passwordencoder.encode(userDto.getUser_pw());
 		userDto.setUser_pw(enPw);
-		return (session.insert(NS+"signUp", userDto) > 0 )? true : false;
+		session.insert(NS+"signUp", userDto);
+		return userDto;
 	}
 	
 	@Override
 	public boolean signUpLog(String user_seq) {
-		return session.insert(NS+"singUpLog", user_seq) > 0 ? true : false;
+		return session.insert(NS+"signUpLog", user_seq) > 0 ? true : false;
 	}
 
 

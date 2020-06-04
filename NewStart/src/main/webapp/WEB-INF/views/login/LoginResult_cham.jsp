@@ -9,8 +9,7 @@
 <body>
 로그인 성공!
 ${dto}
-<form action="./logout.do" method="post">
-<input type="submit" value="로그아웃">
-</form>
+
+<a href="./logout.do">로그아웃</a>
 </body>
 </html>

@@ -13,7 +13,7 @@
 이름 : <input type="text" name="user_name">
 비밀번호 :<input type="text" name="user_pw">
 핸드폰 번호 : <input type="text" name="user_phone">
-광고알림 : <input type="text" name="user_phone" value="Y">
+광고알림 : <input type="text" name="user_adchk" value="Y">
 
 <input type="submit" value="회원가입">
 </form>

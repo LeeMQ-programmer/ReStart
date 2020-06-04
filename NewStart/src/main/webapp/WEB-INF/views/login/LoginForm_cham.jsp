@@ -8,7 +8,8 @@
 <title>로그인 화면</title>
 </head>
 <body>
-${error}
+${msg}
+${dto}
 <form action="./logingo.do" method="post">
 
 아이디 : 
