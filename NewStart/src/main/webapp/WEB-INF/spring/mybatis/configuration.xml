@@ -13,12 +13,6 @@
 		<typeAlias type="com.start.pro.dto.DTO_SMS" alias="SMSDto"/>
 		<typeAlias type="com.start.pro.dto.DTO_Declaration" alias="DecDto"/>
 		
-		<typeAlias type="com.start.pro.dto.DTO_" alias="Dto"/>
-		<typeAlias type="com.start.pro.dto.DTO_" alias="Dto"/>
-		<typeAlias type="com.start.pro.dto.DTO_" alias="Dto"/>
-		<typeAlias type="com.start.pro.dto.DTO_" alias="Dto"/>
-		<typeAlias type="com.start.pro.dto.DTO_" alias="Dto"/>
-		<typeAlias type="com.start.pro.dto.DTO_" alias="Dto"/>
 		
 		<typeAlias type="com.start.pro.security.Sc_User" alias="UserDetailsDto"/>
 	</typeAliases>
@@ -34,14 +28,6 @@
 		<mapper resource="/sqls/Statement_Review.xml"/>
 		<mapper resource="/sqls/Statement_SMS.xml"/>
 		<mapper resource="/sqls/Statement_User.xml"/>
-		
-		<mapper resource="/sqls/Statement_.xml"/>
-		<mapper resource="/sqls/Statement_.xml"/>
-		<mapper resource="/sqls/Statement_.xml"/>
-		<mapper resource="/sqls/Statement_.xml"/>
-		<mapper resource="/sqls/Statement_.xml"/>
-		<mapper resource="/sqls/Statement_.xml"/>
-		<mapper resource="/sqls/Statement_.xml"/>
 	</mappers>
 
 </configuration>
