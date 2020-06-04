@@ -2,86 +2,77 @@ package com.start.pro.models.login;
 
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.start.pro.dto.DTO_User;
 
+@Service
 public class Service_LoginImpl implements IService_Login{
+
+	@Autowired
+	private IDao_Login dao;
 
 	@Override
 	public DTO_User getPW(String user_email) {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.getPW(user_email);
 	}
 
 	@Override
 	public DTO_User getUser(String user_seq) {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.getUser(user_seq);
 	}
 
 	@Override
 	public boolean loginUpdate(String user_email) {
-		// TODO Auto-generated method stub
-		return false;
+		return dao.loginUpdate(user_email);
 	}
 
 	@Override
 	public boolean changeSleep(String user_seq) {
-		// TODO Auto-generated method stub
-		return false;
+		return dao.changeSleep(user_seq);
 	}
 
+	@Transactional
 	@Override
-	public boolean plusPWFail(String user_email) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public String getPWFail(String user_email) {
-		// TODO Auto-generated method stub
-		return null;
+	public String PWFail(String user_email) {
+		dao.plusPWFail(user_email);
+		String pwfail = dao.getPWFail(user_email);
+		return pwfail;
 	}
 
 	@Override
 	public boolean MultipleChk(Map<String, String> map) {
-		// TODO Auto-generated method stub
-		return false;
+		return dao.MultipleChk(map);
 	}
 
+	@Transactional
 	@Override
 	public boolean signUp(DTO_User userDto) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean singUpLog(String user_seq) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean isc1 = dao.signUp(userDto);
+		boolean isc2 = dao.signUpLog(userDto.getUser_seq());
+		return (isc1||isc2)? true : false;
 	}
 
 	@Override
 	public boolean changeNomal(String user_seq) {
-		// TODO Auto-generated method stub
-		return false;
+		return dao.changeNomal(user_seq);
 	}
 
 	@Override
 	public String findId(String user_phone) {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.findId(user_phone);
 	}
-
+	
+	@Transactional
 	@Override
-	public boolean changePW(Map<String, String> map) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean updatePW(Map<String, String> map) {
+		boolean isc1 = dao.changePW(map);
+		boolean isc2 = dao.updatePWLog(map.get("user_email"));
+		return (isc1||isc2)? true : false;
 	}
-
-	@Override
-	public boolean updatePWLog(String user_email) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+	
+	
 
 }

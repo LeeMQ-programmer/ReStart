@@ -58,13 +58,13 @@
 
 
 	<!-- UserDetailsService 핸들러 -->
-	<bean id="memberService" class="com.start.pro.security.NSUserDetailsService" />
+	<bean id="memberService" class="com.start.pro.security.Sc_UserDetailsService" />
 
 	<!-- User 핸들러 -->
-	<bean id="details" class="com.start.pro.security.NSUser"/>
+	<bean id="details" class="com.start.pro.security.Sc_User"/>
 	
 	<!-- AuthenticationProvider 핸들러-->
-	<bean id="customProvider" class="com.start.pro.security.NSAuthenticationProvider"/>
+	<bean id="customProvider" class="com.start.pro.security.Sc_AuthenticationProvider"/>
 	
 	
 
@@ -72,13 +72,13 @@
 	<bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
 	
 	<!-- 로그인 성공 핸들러 -->
-	<bean id="loginSuccessHandler" class="com.start.pro.security.LoginSuccessHandler">
+	<bean id="loginSuccessHandler" class="com.start.pro.security.Sc_LoginSuccessHandler">
 		<property name="loginidname" value="username"/>
 		<property name="defaultUrl" value="/result.do"/>
 	</bean> 
 	
 	<!-- 로그인 실패 핸들러 -->
-	<bean id="loginFailureHandler" class="com.start.pro.security.LoginFailureHandler">
+	<bean id="loginFailureHandler" class="com.start.pro.security.Sc_LoginFailureHandler">
 		<property name="loginidname" value="username"/>
     	<property name="loginpwdname" value="password"/>
 		<property name="errormsgname" value="ERRORMSG"/>
