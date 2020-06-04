@@ -3,35 +3,57 @@
 <mapper namespace="com.start.pro.gonggi">
 
 <!-- 전체글 조회 -->
-<select id="GI_AllSelect">
+<select id="GI_AllSelect" parameterType="java.util.Map" resultType="GongGiDto">
 SELECT GI_SEQ, GI_TITLE, TO_CHAR(GI_REGDATE,'YYYY-MM-DD') AS GI_REGDATE
 	FROM GONGGI
 </select>
 
 <!-- 상세글 조회 -->
-<select id="GI_OneSelect">
+<select id="GI_OneSelect" parameterType="java.lang.String" resultType="GongGiDto">
 SELECT GI_TITLE, GI_CONTENT, TO_CHAR(GI_REGDATE,'YYYY-MM-DD') AS GI_REGDATE
 	FROM GONGGI
-		<where>	
-			<if test="gi_category == 'Y'">
-				GI_SEQ = #{gi_seq} AND GI_CATEGORY = "Y"
-			</if>
-		</where>
+	<choose>
+		<when test="gi_category == 'Y'">
+			GI_SEQ = #{gi_seq} AND GI_CATEGORY = "Y"
+		</when>
+		<otherwise>
+			GI_SEQ = #{gi_seq} AND GI_CATEGORY = "N"
+		</otherwise>
+	</choose>
+	ORDER BY GI_SEQ DESC
 </select>
 
-<!-- 공지글 수정 -->
-<!-- UPDATE GONGGI -->
-<!-- 	SET GI_CATEGORY="Y", GI_TITLE=#{gi_title}, GI_CONTENT=#{gi_content}, GI_REGDATE=SYSDATE -->
-<!-- 		WHERE GI_SEQ = #{gi_seq} -->
+<!-- 중요 공지글 등록 -->
+<insert id="GI_Imp_Insert" parameterType="GongGiDto">
+INSERT INTO GONGGI(GI_SEQ, BOARD_CODE, GI_CATEGORY, GI_TITLE, GI_CONTENT, GI_REGDATE)
+	VALUES(GI_SEQ.NEXTVAL, 1000, "Y", #{gi_title}, #{gi_content}, SYSDATE)
+</insert>
 
-<!-- 공지글 등록 -->
-<!-- INSERT INTO GONGGI -->
-<!-- (GI_SEQ, BOARD_CODE, GI_CATEGORY, GI_TITLE, GI_CONTENT, GI_REGDATE) -->
-<!-- VALUES(GI_SEQ.NEXTVAL, 1000, "Y", #{gi_title}, #{gi_content}, SYSDATE) -->
+<!-- 일반 공지글 등록 -->
+<insert id="GI_UImp_Insert" parameterType="GongGiDto">
+INSERT INTO GONGGI(GI_SEQ, BOARD_CODE, GI_CATEGORY, GI_TITLE, GI_CONTENT, GI_REGDATE)
+	VALUES(GI_SEQ.NEXTVAL, 1000, "N", #{gi_title}, #{gi_content}, SYSDATE)
+</insert>
+
+<!-- 공지글 수정 Y -> N, N -> Y -->
+<update id="GI_Update" parameterType="GongGiDto">
+UPDATE GONGGI
+	<set>
+		<if test="gi_category == 'Y'">
+			GI_CATEGORY="N", GI_TITLE=#{gi_title}, GI_CONTENT=#{gi_content}, GI_REGDATE=SYSDATE
+		</if>
+		<if test="gi_category == 'N'">
+			GI_CATEGORY="Y", GI_TITLE=#{gi_title}, GI_CONTENT=#{gi_content}, GI_REGDATE=SYSDATE
+		</if>
+	</set>
+		WHERE GI_SEQ = #{gi_seq}
+</update>
 
 <!-- 공지글 삭제 -->
-<!-- DELETE FROM GONGGI -->
-<!-- 	WHERE GI_SEQ = #{gi_seq} -->
+<delete id="GI_Delete" parameterType="java.lang.String">
+DELETE FROM GONGGI
+	WHERE GI_SEQ = #{gi_seq}
+</delete>
 
 
 </mapper>
