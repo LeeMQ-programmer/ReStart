@@ -83,6 +83,8 @@ public class Dao_LoginImpl implements IDao_Login {
 
 	@Override
 	public boolean changePW(Map<String, String> map) {
+		String newPW = passwordencoder.encode(map.get("user_pw"));
+		map.put("user_pw", newPW);
 		return session.update(NS+"changePW", map) > 0 ? true : false;
 	}
 

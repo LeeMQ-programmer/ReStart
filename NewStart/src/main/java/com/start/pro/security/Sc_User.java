@@ -10,26 +10,31 @@ import org.springframework.security.core.userdetails.UserDetails;
 public class Sc_User implements UserDetails {
 
 	
-	private String user_seq;
+
+	private static final long serialVersionUID = -1230485721195931703L;
+	
+	private String user_email;
 	private String user_pw;
 	private String user_grade;
 	private String user_type;
 
 	public Sc_User() {}
 
-	public Sc_User(String user_seq, String user_pw, String user_grade, String user_type) {
+	public Sc_User(String user_email, String user_pw, String user_grade, String user_type) {
 		super();
-		this.user_seq = user_seq;
+		this.user_email = user_email;
 		this.user_pw = user_pw;
 		this.user_grade = user_grade;
 		this.user_type = user_type;
 	}
 
 	
-	
-	public String getUser_seq() {
-		return user_seq;
+
+
+	public String getUser_email() {
+		return user_email;
 	}
+
 
 
 	@Override
@@ -47,7 +52,7 @@ public class Sc_User implements UserDetails {
 
 	@Override
 	public String getUsername() {
-		return user_seq;
+		return user_email;
 	}
 
 	//계정이 만료되지 않았는 지 리턴한다. (true: 만료안됨)
@@ -59,7 +64,8 @@ public class Sc_User implements UserDetails {
 	//계정이 잠겨있지 않았는 지 리턴한다. (true: 잠기지 않음)
 	@Override
 	public boolean isAccountNonLocked() {
-		return (!user_type.equalsIgnoreCase("L")) ? true : false;
+//		return (!user_type.equalsIgnoreCase("L")) ? true : false;
+		return true;
 	}
 
 	//비밀번호가 만료되지 않았는 지 리턴한다. (true: 만료안됨)

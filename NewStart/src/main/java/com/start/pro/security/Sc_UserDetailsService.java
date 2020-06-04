@@ -16,9 +16,8 @@ public class Sc_UserDetailsService implements UserDetailsService{
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		
+		System.out.println("d??"+username);
 		Sc_User user = service.getPW(username);
-		System.out.println(user.toString());
 		
 		if (user == null) {
 	         throw new InternalAuthenticationServiceException(username);
