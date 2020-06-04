@@ -1,5 +1,5 @@
 package com.start.pro.security;
 
-public class NSUserDetailsService {
+public class Sc_User {
 
 }
