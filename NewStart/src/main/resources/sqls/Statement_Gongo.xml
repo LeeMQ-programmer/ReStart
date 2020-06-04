@@ -85,14 +85,17 @@ SELECT FILE_SEQ, FILEBOARD, BOARD_SEQ, FILENAME, FILEREALNAME, FILEURL, FILEDATE
   
   
 <!--  BIDDING 필요기능 1. 입찰하기(GONGO테이블 업데이트 필요 입찰자 유무 조회에서 Y로 바꾸기) -->
+<insert id="">
 INSERT INTO NEW_START.BIDDING
 (BIDDING_SEQ, GONGGO_SEQ, BOARD_CODE, BIDDINGER, BIDDINGER_W)
 VALUES(BIDDING_SEQ.NEXTVAL, #{gonggo_seq}, 2000, #{biddinger}, #{biddinger_w})
+</insert>
 <!-- 성공하면 UPDATE되게 만들기 -->
+<update id="">
 UPDATE GONGO 
 	SET BIDDING = 'Y'
 	WHERE GONGGO_SEQ= #{gonggo_seq} AND BOARD_CODE=2000
-  
+</update>
   
   
   
