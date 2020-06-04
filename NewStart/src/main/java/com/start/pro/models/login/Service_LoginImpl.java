@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.start.pro.dto.DTO_User;
+import com.start.pro.security.Sc_User;
 
 @Service
 public class Service_LoginImpl implements IService_Login{
@@ -15,7 +16,7 @@ public class Service_LoginImpl implements IService_Login{
 	private IDao_Login dao;
 
 	@Override
-	public DTO_User getPW(String user_email) {
+	public Sc_User getPW(String user_email) {
 		return dao.getPW(user_email);
 	}
 

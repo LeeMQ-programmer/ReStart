@@ -25,6 +25,12 @@ public class Sc_User implements UserDetails {
 		this.user_type = user_type;
 	}
 
+	
+	
+	public String getUser_seq() {
+		return user_seq;
+	}
+
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -36,7 +42,7 @@ public class Sc_User implements UserDetails {
 
 	@Override
 	public String getPassword() {
-		return null;
+		return user_pw;
 	}
 
 	@Override

@@ -3,6 +3,7 @@ package com.start.pro.models.login;
 import java.util.Map;
 
 import com.start.pro.dto.DTO_User;
+import com.start.pro.security.Sc_User;
 
 public interface IService_Login {
 
@@ -14,7 +15,7 @@ public interface IService_Login {
 		 * @param 사용자가 입력한 아이디(user_email)
 		 * @return 유저 Dto(DTO_User) 
 		 */
-		public DTO_User getPW(String user_email);
+		public Sc_User getPW(String user_email);
 
 		/**
 		 * 로그인에 성공했을 시 세션에 담을 회원정보들을 가져옵니다.
