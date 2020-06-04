@@ -2,10 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.start.pro.gongo">
   
-<select id="">
-SELECT GONGGO_SEQ, BOARD_CODE, USER_SEQ, GONGGO_TITLE,
+<select id="gonggo_show" parameterType="">
+SELECT GONGGO_SEQ, BOARD_CODE, g.USER_SEQ, GONGGO_TITLE,
 	GONGGO_CONTENT, BIDDING, GONGGO_TIME, VIEWS, FILEOX 
-	FROM GONGO
+	FROM GONGO g, "USER" u
+	WHERE g.USER_SEQ = u.USER_SEQ AND
+	<choose>
+		<when test="user_grade = 'M'">
+			 FILEOX = 'Y' AND u.USER_GRADE = 'T'
+        </when>
+		<when test="user_grade = 'T'">
+			 FILEOX = 'Y' AND u.USER_GRADE = 'M'
+		</when>
+		<otherwise>
+			 (u.USER_GRADE = 'T' OR u.USER_GRADE = 'M')
+		</otherwise>
+	</choose>
 </select>
   
   
