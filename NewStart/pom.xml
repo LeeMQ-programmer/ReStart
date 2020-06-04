@@ -22,6 +22,7 @@
 		<springframework>5.2.1.RELEASE</springframework>
 		<aspect>1.9.2</aspect>
 		<slf4j>1.7.25</slf4j>
+		<spring.security.version>4.2.7.RELEASE</spring.security.version>
 	</properties>
 
 
@@ -284,7 +285,21 @@
 			    <artifactId>spring-messaging</artifactId>
 			    <version>${springframework}</version>
 			</dependency>
-		   
+			
+			
+			<!-- 시큐리티 -->
+			<dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-web</artifactId>
+				<version>${spring.security.version}</version>
+			</dependency>
+		
+			<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-config -->
+			<dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-config</artifactId>
+				<version>${spring.security.version}</version>
+			</dependency>
 	</dependencies>
 	
 	<build>
