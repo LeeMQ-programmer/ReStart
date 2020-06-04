@@ -19,6 +19,7 @@
 	<!-- @Cotroller를 통해 MVC 만들기 -->
 	<mvc:annotation-driven />
 
+	<bean id="commonsMultipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
 	<!-- Resolver설정 -->
 	<!-- DispatcherServlet에의해 반환된 String을 조합하여 화면으로 이동 -->
 	<!-- TilesResolver로 검색을해가지고 그 레이아웃자체를 긁어다 붙혀 쓰는게 국룰 -->
@@ -34,6 +35,5 @@
 
 
 
-	<!-- <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"></bean> -->
 	
 </beans>

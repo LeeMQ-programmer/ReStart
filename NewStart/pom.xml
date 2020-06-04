@@ -232,76 +232,89 @@
 		</dependency>
 
 
-	
-		<!-- java mail API를 통해서 Spring에서 메일을 보낼 수 있도록 하는 라이브러리, java mail API와 이걸 spring으로 받아줄 수 있는 spring-context-support가 둘다 필요-->
+
+		<!-- java mail API를 통해서 Spring에서 메일을 보낼 수 있도록 하는 라이브러리, java mail API와 
+			이걸 spring으로 받아줄 수 있는 spring-context-support가 둘다 필요 -->
 		<dependency>
-		    <groupId>javax.mail</groupId>
-		    <artifactId>mail</artifactId>
-		    <version>1.4.7</version>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4.7</version>
 		</dependency>
 		<dependency>
-		    <groupId>org.springframework</groupId>
-		    <artifactId>spring-context-support</artifactId>
-		    <version>${springframework}</version>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>${springframework}</version>
 		</dependency>
-		
-		
-		
-		<!-- spring Security : web에서 사용할 것이기 때문에 config와 web을 가져와야한다.-->
+
+
+
+		<!-- spring Security : web에서 사용할 것이기 때문에 config와 web을 가져와야한다. -->
 		<dependency>
-		    <groupId>org.springframework.security</groupId>
-		    <artifactId>spring-security-web</artifactId>
-		    <version>${springframework}</version>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>${springframework}</version>
 		</dependency>
 		<dependency>
-		    <groupId>org.springframework.security</groupId>
-		    <artifactId>spring-security-config</artifactId>
-		    <version>${springframework}</version>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>${springframework}</version>
 		</dependency>
-		
+
 		<!-- ajax를 json으로 반환해주는 객체 -->
 		<dependency>
-		    <groupId>com.googlecode.json-simple</groupId>
-		    <artifactId>json-simple</artifactId>
-		    <version>1.1.1</version>
+			<groupId>com.googlecode.json-simple</groupId>
+			<artifactId>json-simple</artifactId>
+			<version>1.1.1</version>
 		</dependency>
-		
-		
-		   <dependency>
-		      <groupId>net.sf.json-lib</groupId>
-		      <artifactId>json-lib</artifactId>
-		      <version>2.4</version>
-		      <classifier>jdk15</classifier>
-		   </dependency>
-		   
-		   <!-- websocket과 메시지 -->
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-websocket</artifactId>
-				<version>${springframework}</version>
-			</dependency>
-			<dependency>
-			    <groupId>org.springframework</groupId>
-			    <artifactId>spring-messaging</artifactId>
-			    <version>${springframework}</version>
-			</dependency>
-			
-			
-			<!-- 시큐리티 -->
-			<dependency>
-				<groupId>org.springframework.security</groupId>
-				<artifactId>spring-security-web</artifactId>
-				<version>${spring.security.version}</version>
-			</dependency>
-		
-			<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-config -->
-			<dependency>
-				<groupId>org.springframework.security</groupId>
-				<artifactId>spring-security-config</artifactId>
-				<version>${spring.security.version}</version>
-			</dependency>
+
+
+		<dependency>
+			<groupId>net.sf.json-lib</groupId>
+			<artifactId>json-lib</artifactId>
+			<version>2.4</version>
+			<classifier>jdk15</classifier>
+		</dependency>
+
+		<!-- websocket과 메시지 -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-websocket</artifactId>
+			<version>${springframework}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-messaging</artifactId>
+			<version>${springframework}</version>
+		</dependency>
+
+
+		<!-- 시큐리티 -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>${spring.security.version}</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-config -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>${spring.security.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.2.1</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>1.4</version>
+		</dependency>
+
 	</dependencies>
-	
+
 	<build>
 		<finalName>NewStart</finalName>
 		<plugins>
