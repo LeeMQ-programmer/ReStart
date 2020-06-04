@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.start.pro.Review">
+
+
+	<!-- 게시물 조회 -->
+	<select id="searchAll">
+		SELECT RE_SEQ, USER_SEQ, RE_TITLE, TO_CHAR(RE_REGDATE,'YY-MM-DD HH24:MI:SS') RE_REGDATE , RE_CONTENT, RE_TEACHER,RE_GROUP, RE_REPLY, RE_DELETE, RE_STAR
+			FROM REVIEWBOARD
+			ORDER BY RE_GROUP ,RE_SEQ
+	</select>
+	
+	<!-- 게시물 상세 조회 -->
+	<select id="searchDetail">
+		SELECT RE_SEQ, USER_SEQ, RE_TITLE, TO_CHAR(RE_REGDATE,'YY-MM-DD HH24:MI:SS') RE_REGDATE , RE_CONTENT, RE_TEACHER, RE_STAR
+			FROM NEW_START.REVIEWBOARD
+				WHERE RE_SEQ =#{re_seq}
+	</select>
+	
+	<!-- 게시물 등록 -->
+	<insert id="insertReview">
+	INSERT INTO REVIEWBOARD
+		(BOARD_CODE, RE_SEQ, USER_SEQ, 
+		 RE_TITLE, RE_CONTENT, RE_TEACHER, 
+		 RE_GROUP,RE_STAR)
+	VALUES(#{board_code}, RE_SEQ.NEXTVAL, #{user_seq}, 
+		   #{re_title}, #{re_content}, #{re_teacher}, 
+		   RE_GROUP_SEQ.NEXTVAL, #{re_star})
+	</insert>
+	
+	<!-- 게시물 수정 -->
+	<update id="updateReview">
+		UPDATE REVIEWBOARD 
+		SET RE_TITLE =#{re_title}, RE_CONTENT=#{re_content}
+		WHERE RE_SEQ =#{re_seq} AND RE_REPLY ='N'
+	</update>
+	
+	<!-- 게시물 삭제 -->
+	<update id="delReview">
+		UPDATE REVIEWBOARD 
+		SET RE_DELETE ='Y'
+		WHERE RE_SEQ =#{re_seq} AND RE_REPLY ='N'
+	</update>
+	
+	<!-- 게시물 신고 -->
+	<insert id="decReview">
+	INSERT INTO DECBOARD
+      (DEC_SEQ, DEC_VICTIM, DEC_SUSPECT, 
+       BOARD_CODE, BOARD_SEQ, CONTENT)
+	VALUES(DEC_SEQS.NEXTVAL, #{dec_victim}, #{dec_suspect}, 
+		   #{board_code}, #{board_seq}, #{content})
+	</insert>
+	
+	<!-- 답글 등록 -->
+	<!-- 부모글 업데이트 -->
+	<update id="updateParent">
+		UPDATE REVIEWBOARD 
+			SET RE_REPLY ='Y' 
+			WHERE RE_SEQ =#{re_seq}
+	</update>
+	<!-- 답글 등록 -->
+	<insert id="insertReply">
+		INSERT INTO REVIEWBOARD
+			(BOARD_CODE, RE_SEQ, USER_SEQ, 
+			RE_TITLE, RE_REGDATE, RE_CONTENT, 
+			RE_GROUP, RE_REPLY, RE_STAR)
+		VALUES
+			(#{board_code}, RE_SEQ.NEXTVAL, (SELECT RE_TEACHER FROM REVIEWBOARD WHERE RE_SEQ =#{re_seq}),
+			 #{re_title}, SYSDATE, #{re_content},
+			 (SELECT RE_GROUP FROM REVIEWBOARD WHERE RE_SEQ=#{re_seq}), 'Y', #{re_star})
+	</insert>
+	
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
