@@ -19,9 +19,9 @@ public class Service_Gonggi implements IService_Gonggi {
 	private IDao_Gonggi dao;
 	
 	@Override
-	public List<DTO_Gonggi> GI_AllSelect() {
-		logger.info("GI_AllSelect 전체조회, {}");
-		return dao.GI_AllSelect();
+	public List<DTO_Gonggi> GI_AllSelect(DTO_Gonggi dto) {
+		logger.info("GI_AllSelect 전체조회, {}", dto);
+		return dao.GI_AllSelect(dto);
 	}
 
 	@Override

@@ -9,7 +9,7 @@ public class DTO_Gonggi {
 	private char gi_category;
 	private String gi_title;
 	private String gi_content;
-	private Date gi_regdate;
+	private String gi_regdate;
 	private int admin_seq;
 	
 	public DTO_Gonggi() {
@@ -63,11 +63,11 @@ public class DTO_Gonggi {
 		this.gi_content = gi_content;
 	}
 
-	public Date getGi_regdate() {
+	public String getGi_regdate() {
 		return gi_regdate;
 	}
 
-	public void setGi_regdate(Date gi_regdate) {
+	public void setGi_regdate(String gi_regdate) {
 		this.gi_regdate = gi_regdate;
 	}
 
@@ -80,7 +80,7 @@ public class DTO_Gonggi {
 	}
 
 	public DTO_Gonggi(int gi_seq, int board_code, char gi_category, String gi_title, String gi_content,
-			Date gi_regdate) {
+			String gi_regdate) {
 		super();
 		this.gi_seq = gi_seq;
 		this.board_code = board_code;
