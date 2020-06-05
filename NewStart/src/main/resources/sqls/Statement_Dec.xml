@@ -3,7 +3,7 @@
 <mapper namespace="com.start.pro.Dec">
 
 	<!-- 신고 전체 조회 / 상세 조회 -->
-	<select id="searchDec">
+	<select id="searchDec" parameterType="java.lang.Integer" resultType="DecDto">
 		SELECT DEC_SEQ, DEC_VICTIM, DEC_SUSPECT, BOARD_CODE, BOARD_SEQ,
 		TO_CHAR(DEC_DATE,'YYYY-MM-DD') AS DEC_DATE, DEC_PRODATE, CONTENT
 		FROM
@@ -14,7 +14,7 @@
 	</select>
 
 	<!-- 경고를 받아 경고횟수 1회 증가 -->
-	<update id="updateDeccnt">
+	<update id="updateDeccnt" parameterType="java.lang.Integer">
 		UPDATE USER 
 		SET DEC_CNT=DEC_CNT+1
 		WHERE USER_SEQ =
@@ -24,7 +24,7 @@
 	</update>
 
 	<!-- 경고 횟수 증가 후 경고횟수 3회를 넘으면 회원 탈퇴 -->
-	<update id="delCntCHk">
+	<update id="delCntCHk" parameterType="java.lang.Integer">
 		UPDATE USER
 		SET USER_TYPE ='D' 
 		WHERE USER_SEQ = 

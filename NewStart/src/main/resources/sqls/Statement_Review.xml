@@ -4,21 +4,21 @@
 
 
 	<!-- 게시물 조회 -->
-	<select id="searchAll">
+	<select id="searchAll" resultType="ReDto">
 		SELECT RE_SEQ, USER_SEQ, RE_TITLE, TO_CHAR(RE_REGDATE,'YY-MM-DD HH24:MI:SS') RE_REGDATE , RE_CONTENT, RE_TEACHER,RE_GROUP, RE_REPLY, RE_DELETE, RE_STAR
 			FROM REVIEWBOARD
 			ORDER BY RE_GROUP ,RE_SEQ
 	</select>
 	
 	<!-- 게시물 상세 조회 -->
-	<select id="searchDetail">
+	<select id="searchDetail" parameterType="java.lang.Integer" resultType="ReDto">
 		SELECT RE_SEQ, USER_SEQ, RE_TITLE, TO_CHAR(RE_REGDATE,'YY-MM-DD HH24:MI:SS') RE_REGDATE , RE_CONTENT, RE_TEACHER, RE_STAR
 			FROM NEW_START.REVIEWBOARD
 				WHERE RE_SEQ =#{re_seq}
 	</select>
 	
 	<!-- 게시물 등록 -->
-	<insert id="insertReview">
+	<insert id="insertReview" parameterType="ReDto">
 	INSERT INTO REVIEWBOARD
 		(BOARD_CODE, RE_SEQ, USER_SEQ, 
 		 RE_TITLE, RE_CONTENT, RE_TEACHER, 
@@ -29,21 +29,21 @@
 	</insert>
 	
 	<!-- 게시물 수정 -->
-	<update id="updateReview">
+	<update id="updateReview" parameterType="ReDto">
 		UPDATE REVIEWBOARD 
 		SET RE_TITLE =#{re_title}, RE_CONTENT=#{re_content}
 		WHERE RE_SEQ =#{re_seq} AND RE_REPLY ='N'
 	</update>
 	
 	<!-- 게시물 삭제 -->
-	<update id="delReview">
+	<update id="delReview" parameterType="java.lang.Integer">
 		UPDATE REVIEWBOARD 
 		SET RE_DELETE ='Y'
 		WHERE RE_SEQ =#{re_seq} AND RE_REPLY ='N'
 	</update>
 	
 	<!-- 게시물 신고 -->
-	<insert id="decReview">
+	<insert id="decReview" parameterType="DecDto">
 	INSERT INTO DECBOARD
       (DEC_SEQ, DEC_VICTIM, DEC_SUSPECT, 
        BOARD_CODE, BOARD_SEQ, CONTENT)
@@ -53,13 +53,13 @@
 	
 	<!-- 답글 등록 -->
 	<!-- 부모글 업데이트 -->
-	<update id="updateParent">
+	<update id="updateParent" parameterType="java.lang.Integer">
 		UPDATE REVIEWBOARD 
 			SET RE_REPLY ='Y' 
 			WHERE RE_SEQ =#{re_seq}
-	</update>
+;	</update>
 	<!-- 답글 등록 -->
-	<insert id="insertReply">
+	<insert id="insertReply" parameterType="ReDto">
 		INSERT INTO REVIEWBOARD
 			(BOARD_CODE, RE_SEQ, USER_SEQ, 
 			RE_TITLE, RE_REGDATE, RE_CONTENT, 
