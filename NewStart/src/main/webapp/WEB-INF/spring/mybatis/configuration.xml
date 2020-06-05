@@ -6,9 +6,9 @@
 		<typeAlias type="com.start.pro.dto.DTO_User" alias="UserDto"/>
 		<typeAlias type="com.start.pro.dto.DTO_Gonggi" alias="GongGiDto"/>
 		<typeAlias type="com.start.pro.dto.DTO_Gonggo" alias="GGDto"/>
-		<typeAlias type="com.start.pro.dto.DTO_Bindding" alias="BiddingDto"/>
+		<typeAlias type="com.start.pro.dto.DTO_Bidding" alias="BiddingDto"/>
 		<typeAlias type="com.start.pro.dto.DTO_BWL" alias="BWL_Dto"/>
-		<!-- 이민규 -->
+		
 		<typeAlias type="com.start.pro.dto.DTO_File" alias="FileDto"/>
 		<typeAlias type="com.start.pro.dto.DTO_Profile" alias="ProDto"/>
 		<typeAlias type="com.start.pro.dto.DTO_Review" alias="ReDto"/>
