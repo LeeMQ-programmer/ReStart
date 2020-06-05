@@ -4,10 +4,12 @@
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:util="http://www.springframework.org/schema/util"
 	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.2.xsd
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd">
 	
 	<context:component-scan base-package="com.start.pro"/>
 	
@@ -42,15 +44,15 @@
 
 		<!-- 로그아웃되면 세션 초기화 해준다 -->
 		<security:logout invalidate-session="true"
-			logout-url="/logout.do" 
+			logout-url="/logout.do" logout-success-url="/loginForm.do?logout"
 			delete-cookies="JSESSIONID,SPRING_SECURITY_REMEMBER_ME_COOKIE"/>
 		<!-- 4주 -->
-		<security:remember-me key="nobrand" token-validity-seconds="2419200"
+		<security:remember-me key="new_start" token-validity-seconds="2419200"
 		remember-me-parameter="remember_me"/>
 
 		<security:csrf disabled="true"/>
 	
-	<security:session-management invalid-session-url="/loginForm.do?logout" session-fixation-protection="changeSessionId">
+	<security:session-management invalid-session-url="/main.do"  session-fixation-protection="changeSessionId">
 		<security:concurrency-control max-sessions="1" expired-url="/main.do"/>
 	</security:session-management>
 	
@@ -73,6 +75,7 @@
 	
 	<!-- 로그인 성공 핸들러 -->
 	<bean id="loginSuccessHandler" class="com.start.pro.security.Sc_LoginSuccessHandler">
+		<property name="loginidname" value="username"/>
 		<property name="defaultUrl" value="/loginResult.do"/>
 	</bean> 
 	
@@ -81,7 +84,7 @@
 		<property name="loginidname" value="username"/>
     	<property name="loginpwdname" value="password"/>
 		<property name="errormsgname" value="ERRORMSG"/>
-    	<property name="defaultFailureUrl" value="/main.do?error"/>
+    	<property name="defaultFailureUrl" value="/loginForm.do?error"/>
 	</bean>
 
 	<!-- 오류 메세지 핸들링 -->
@@ -112,6 +115,21 @@
 	
 	
 	
+		<!-- 캡챠 설정 -->
+	<!-- 전송위한 String apiURL 빈 생성 -->
+	<bean class="java.lang.String" id="apiURL">
+		<constructor-arg value="https://openapi.naver.com/v1/captcha/nkey?code="/>
+	</bean>
+	
+	<!-- 클라이언트 아이디와 시크릿 번호 담은 Map bean 생성 -->
+	<util:map id="captchaMap" map-class="java.util.HashMap">
+		<entry key="X-Naver-Client-Id">
+			<value>_IL4ccU76VeEECDveKaq</value>
+		</entry>
+		<entry key="X-Naver-Client-Secret">
+			<value>_vKeWYMEmb</value>
+		</entry>
+	</util:map>	
 	
 	
 	

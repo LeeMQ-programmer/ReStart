@@ -28,9 +28,19 @@ public class Sc_LoginSuccessHandler implements AuthenticationSuccessHandler{
 	private RequestCache requestCache = new HttpSessionRequestCache();
 	private RedirectStrategy redirectStratgy = new DefaultRedirectStrategy();
 	
+	private String loginidname;
 	private String defaultUrl;
 	
+	
 
+
+	public String getLoginidname() {
+		return loginidname;
+	}
+
+	public void setLoginidname(String loginidname) {
+		this.loginidname = loginidname;
+	}
 
 	public String getDefaultUrl() {
 		return defaultUrl;
@@ -51,9 +61,9 @@ public class Sc_LoginSuccessHandler implements AuthenticationSuccessHandler{
 		String id = req.getParameter("username");
 		System.out.println(id);
 
-		String seq = (String)authentication.getPrincipal();
-		System.out.println(seq);
-		DTO_User userDto = service.getUser(seq);
+//		String id = (String)authentication.getPrincipal();
+//		System.out.println(seq);
+		DTO_User userDto = service.getUser(id);
 		
 		// 에러 지우기
 		clearErrorSession(req, userDto);
@@ -62,15 +72,19 @@ public class Sc_LoginSuccessHandler implements AuthenticationSuccessHandler{
 		
 		
 		
-		resultRedirectStrategy(req, resp, authentication);
+		resultRedirectStrategy(req, resp, authentication, userDto);
 	}
 	
 	protected void resultRedirectStrategy(HttpServletRequest req, HttpServletResponse resp,
-			Authentication authentication) throws IOException, ServletException {
+			Authentication authentication,DTO_User dto) throws IOException, ServletException {
 
 		SavedRequest savedRequest = requestCache.getRequest(req, resp);
 		
-		if(savedRequest!=null) {
+		System.out.println("사용자 권한은?" + dto.getUser_type());
+		System.out.println("이건되고 왜 저건 안대"+defaultUrl);
+		if(dto.getUser_type().equalsIgnoreCase("L") || dto.getUser_grade().equalsIgnoreCase("H")) {
+			redirectStratgy.sendRedirect(req, resp, "/EmailChk.do");
+		}else if(savedRequest!=null) {
 			String targetUrl = savedRequest.getRedirectUrl();
 			System.out.println("어디로 가려했어??"+targetUrl);
 			redirectStratgy.sendRedirect(req, resp, targetUrl);
@@ -83,10 +97,11 @@ public class Sc_LoginSuccessHandler implements AuthenticationSuccessHandler{
 	private void clearErrorSession(HttpServletRequest req, DTO_User userDto) {
 		HttpSession session = req.getSession(false);
 		//유저 세션 담기
-		session.setAttribute("user", userDto);
+//		session.setAttribute("user", userDto);
 		
 		String error = (String) session.getAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
 		System.out.println("에러가 세션에 담겨있나요??"+error);
+		
 		if(session==null) return;
 		session.removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
 	}

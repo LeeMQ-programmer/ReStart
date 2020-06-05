@@ -6,7 +6,7 @@
 
 <!-- 아이디를 통해 비밀번호와 권한 가져온다  -->
 <select id="getPW" parameterType="java.lang.String" resultType="UserDetailsDto">
-SELECT  USER_SEQ, USER_PW, USER_GRADE, USER_TYPE FROM "USER" u
+SELECT  USER_EMAIL, USER_PW, USER_GRADE, USER_TYPE FROM "USER" u
  WHERE USER_EMAIL = #{user_email} AND USER_TYPE != 'D'
 </select>
 
@@ -16,7 +16,7 @@ SELECT  USER_SEQ, USER_PW, USER_GRADE, USER_TYPE FROM "USER" u
 SELECT USER_SEQ, USER_EMAIL, USER_NICKNAME, USER_NAME, 
   USER_GRADE, USER_TYPE, USER_PHONE, USER_ADCHK, USER_REGDATE, USER_TCHK
    FROM "USER" u
-    WHERE USER_SEQ  = #{user_seq}
+    WHERE USER_EMAIL  = #{user_email} AND USER_TYPE != 'D'
 </select>
 
 
@@ -55,10 +55,10 @@ SELECT PW_FAIL_CHK
  <select id="MultipleChk" parameterType="java.util.Map" resultType="java.lang.Integer">
  SELECT COUNT(*) FROM "USER" u 
 	<choose>
-		<when test="USER_EMAIL != null">
+		<when test="user_email != null">
 			 WHERE USER_EMAIL = #{user_email}
 		</when>
-		<when test="USER_NICKNAME != null">
+		<when test="user_nickname != null">
 		 	 WHERE USER_NICKNAME = #{user_nickname}
 		</when>
 	</choose>

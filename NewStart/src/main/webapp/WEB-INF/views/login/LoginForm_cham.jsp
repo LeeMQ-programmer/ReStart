@@ -9,14 +9,14 @@
 </head>
 <body>
 ${msg}
-${dto}
+${error}
 <form action="./logingo.do" method="post">
 
 아이디 : 
 <input type="text" name="username" value="${id}">
 비밀번호
 <input type="text" name="password">
-<input id = "remember-me" name ="remember_me" type = "checkbox"/>Remember me
+<input id="remember_me" name ="remember_me" type = "checkbox"/>Remember me
 <input type="submit" value="제출">
 </form>
 
@@ -28,6 +28,6 @@ ${dto}
     </font>
 </c:if>
 
-<a href="./signUp.do">회원가입</a>
+<a href="./singUpform.do">회원가입</a>
 </body>
 </html>

@@ -34,7 +34,7 @@ public class Sc_AuthenticationProvider implements AuthenticationProvider {
         }
 		
 		
-		return new UsernamePasswordAuthenticationToken(user.getUser_seq(), pw, user.getAuthorities());
+		return new UsernamePasswordAuthenticationToken(id, pw, user.getAuthorities());
 	}
 
 	@Override

@@ -4,9 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>공지 게시판</title>
+<title>Insert title here</title>
 </head>
 <body>
-	${lists}
+비밀번호가 성공적으로 변경되었습니다
 </body>
 </html>

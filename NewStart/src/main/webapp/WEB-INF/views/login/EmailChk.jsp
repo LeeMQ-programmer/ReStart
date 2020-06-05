@@ -4,9 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>공지 게시판</title>
+<title>Insert title here</title>
 </head>
 <body>
-	${lists}
+이메일 인증 받으세요!!
 </body>
 </html>

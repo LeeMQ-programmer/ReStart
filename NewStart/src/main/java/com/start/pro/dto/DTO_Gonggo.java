@@ -11,11 +11,26 @@ public class DTO_Gonggo {
 	private String views         ;
 	private String fileox        ;
 	private String user_grade    ;
+	private String grade_seq;
 	
 	public DTO_Gonggo() {
 	}
 	
 	
+	public DTO_Gonggo(String user_seq, String gonggo_title, String gonggo_content) {
+		super();
+		this.user_seq = user_seq;
+		this.gonggo_title = gonggo_title;
+		this.gonggo_content = gonggo_content;
+	}
+
+
+	public DTO_Gonggo(String grade_seq) {
+		super();
+		this.grade_seq = grade_seq;
+	}
+
+
 	public DTO_Gonggo(String gonggo_seq, String board_code, String user_seq, String gonggo_title, String gonggo_content,
 			String bidding, String gonggo_time, String views, String fileox) {
 		super();
