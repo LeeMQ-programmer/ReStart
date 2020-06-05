@@ -3,7 +3,7 @@
 <mapper namespace="com.start.pro.gonggi">
 
 <!-- 전체글 조회 -->
-<select id="GI_AllSelect" parameterType="java.util.Map" resultType="GongGiDto">
+<select id="GI_AllSelect" parameterType="GongGiDto" resultType="GongGiDto">
 SELECT GI_SEQ, GI_TITLE, TO_CHAR(GI_REGDATE,'YYYY-MM-DD') AS GI_REGDATE
 	FROM GONGGI
 		WHERE BOARD_CODE = 1000
