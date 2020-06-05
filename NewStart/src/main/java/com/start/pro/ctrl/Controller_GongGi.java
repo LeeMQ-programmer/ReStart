@@ -2,6 +2,7 @@ package com.start.pro.ctrl;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -23,14 +24,14 @@ public class Controller_GongGi {
 	@Autowired
 	private IService_Gonggi service;
 	
-	@RequestMapping(value = "/gongGiList.do", method = RequestMethod.GET)
-	public String gongGiList(Model model) {
+	@RequestMapping(value = "/board/gonggi/gongGiList.do", method = RequestMethod.GET)
+	public String gongGiList(Model model, DTO_Gonggi dto) {
 		logger.info("gongGiList.do : \t {}", new Date());
 		
-		DTO_Gonggi dto = (DTO_Gonggi) service.GI_AllSelect();
-		model.addAttribute("dto", dto);
+		List<DTO_Gonggi> lists = service.GI_AllSelect(dto);
+		model.addAttribute("lists", lists);
 		
-		return "gonggi";
+		return "board/gonggi/gonggi";
 	}
 	
 }

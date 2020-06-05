@@ -7,6 +7,6 @@
 <title>공지 게시판</title>
 </head>
 <body>
-	${dto}
+	${lists}
 </body>
 </html>
