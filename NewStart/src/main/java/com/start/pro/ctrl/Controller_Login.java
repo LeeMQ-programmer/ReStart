@@ -3,17 +3,24 @@ package com.start.pro.ctrl;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.start.pro.captcha.ICaptchaKey;
 import com.start.pro.dto.DTO_User;
 import com.start.pro.models.login.IService_Login;
 
@@ -24,6 +31,56 @@ public class Controller_Login {
 	private IService_Login service;
 
 
+	//키를 받아오는 클래스
+	@Resource(name = "getKey")
+	private ICaptchaKey getKey;
+	
+	// 사용자 입력값 판단하는 클래스
+	@Resource(name = "valChk")
+	private ICaptchaKey valchk;
+	
+	//캡챠가 구현되는 페이지
+		@ResponseBody
+		@RequestMapping(value = "/getKey.do", method = RequestMethod.POST)
+		public String main() {
+			
+			String key = getKey.get("0");
+			System.out.println(key+"키 받아왔나요?");
+			
+			// json으로 key 값 뽑아오기
+	        JSONParser parser  = new JSONParser();
+	        Object obj = null;
+			try {
+				obj = parser.parse(key);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+	        JSONObject jsonobj = (JSONObject) obj;
+	        
+	        key = (String) jsonobj.get("key");
+	        System.out.println(key);
+	        	//model.addAttribute("key",key);
+	        return key;
+	        
+		}
+	
+		
+		//결과값을 표출하는 페이지
+		@RequestMapping(value = "/valchk.do", method = RequestMethod.POST)
+		@ResponseBody
+		public String chk(String chk, String key) {
+			
+			System.out.println("아작스 실행??"+key+":"+chk);
+			
+			String attach = "1&key="+key+"&value="+chk;
+			String result = valchk.get(attach);
+			System.out.println(result);
+			
+			return result;
+		}
+		
+		
+	
 	//로그인창 
 	@RequestMapping(value = "/loginForm.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public String loginForm(@RequestParam(value = "logout", required = false) String logout,
@@ -113,33 +170,21 @@ public class Controller_Login {
 	}
 	
 	//./MultiChkId.do
-	@RequestMapping(value = "/MultiChkId.do", method = RequestMethod.GET)
-	public String MultiChkId(String id, Model model) {
+
+	@ResponseBody
+	@RequestMapping(value = "/{pathval}/MultiChk.do", method = RequestMethod.POST)
+	public boolean MultiChk(@PathVariable String pathval, String val) {
+		System.out.println(pathval+":"+val);
 		Map<String, String> map = new HashMap<String, String>();
-		map.put("user_email", id);
+		map.put(pathval, val);
 		boolean isc = service.MultipleChk(map);
-		model.addAttribute("result", isc);
-		return "login/MultiChkId2";
+		return isc;
 	}
-	
-	
-
-	
-	@RequestMapping(value = "/MultiChkNick.do", method = RequestMethod.GET)
-	public String MultiChkNick(String name, Model model) {
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("user_nickname", name);
-		boolean isc = service.MultipleChk(map);
-		model.addAttribute("result", isc);
-		return "login/MultiChkId2";
-	}
-
-
 	
 	// 휴면회원을 일반회원으로 등급변경(이메일 인증시)
 	@RequestMapping(value = "/changeN.do", method = RequestMethod.GET)
 	public String changeN(String seq) {
-		service.changeNomal(seq);
+		service.changeSleep(seq);
 		return "login/LoginForm_cham";
 	}
 	
@@ -148,5 +193,13 @@ public class Controller_Login {
 	public String EmailChk() {
 		return "login/EmailChk";
 	}
+	
+	// 잠금계정 풀기(이메일 인증시)
+	@RequestMapping(value = "/UnLock.do", method = RequestMethod.GET)
+	public String UnLock(String seq) {
+		service.changeNomal(seq);
+		return "login/LoginForm_cham";
+	}
+	
 	
 }

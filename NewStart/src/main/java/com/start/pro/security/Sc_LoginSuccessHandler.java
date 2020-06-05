@@ -97,7 +97,7 @@ public class Sc_LoginSuccessHandler implements AuthenticationSuccessHandler{
 	private void clearErrorSession(HttpServletRequest req, DTO_User userDto) {
 		HttpSession session = req.getSession(false);
 		//유저 세션 담기
-//		session.setAttribute("user", userDto);
+		session.setAttribute("user", userDto);
 		
 		String error = (String) session.getAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
 		System.out.println("에러가 세션에 담겨있나요??"+error);
