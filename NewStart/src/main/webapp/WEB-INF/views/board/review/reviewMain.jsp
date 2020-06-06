@@ -9,39 +9,74 @@
 <body>
 	<%@ include file="/WEB-INF/views/boardTopMenu.jsp"%>
 	<h1>review Mian</h1>
-	<form action="#" method="post" id="frm">
+	<form action="./writeReview.do" method="get" id="frm">
 		<div>
-			<table>
+			<table class="table">
 				<thead>
 					<tr>
 						<th>글번호</th>
+						<th>유저 번호</th>
 						<th>제목</th>
 						<th>해당 강사</th>
 						<th>별점</th>
 						<th>작성일</th>
-						<c:if test="${newstart eq 'A' }">
-							<th>삭제여부</th>
-						</c:if>
+						<th>RE_GROUP</th>
+						<th>RE_REPLY</th>
+						<th>RE_DELETE</th>
+						
+<%-- 						<c:if test="${newstart eq 'A' }"> --%>
+<!-- 							<th>삭제여부</th> -->
+<%--RE_GROUP, RE_REPLY, RE_DELETE, 						</c:if> --%>
+
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach var="list" items="${lists}" varStatus="vs">
 						<tr>
-							<th>${list.re_seq }&nbsp;&nbsp;</th>
-							<th>${list.user_seq }&nbsp;&nbsp;</th>
-							<th>${list.re_title }&nbsp;&nbsp;</th>
-							<th>${list.re_teacher }&nbsp;&nbsp;</th>
-							<th>${list.re_regdate }&nbsp;&nbsp;</th>
-							<th>${list.re_star }&nbsp;&nbsp;</th>
-							<c:if test="${newstart eq 'A' }">
-								<th>${list.re_delete })</th>
-							</c:if>
-
+							<td>${list.re_seq }&nbsp;&nbsp;</td>
+							<td>${list.user_seq }&nbsp;&nbsp;</td>
+							<td>${list.re_title }&nbsp;&nbsp;</td>
+							<td><a href="./reviewDetail.do?re_seq=${list.re_seq}">${list.re_teacher }&nbsp;&nbsp;</a></td>
+							<td>${list.re_regdate }&nbsp;&nbsp;</td>
+							<td>${list.re_star }&nbsp;&nbsp;</td>
+<%-- 							<c:if test="${newstart eq 'A' }"> --%>
+<%-- 								<td>${list.re_delete })</td> --%>
+<%-- 							</c:if> --%>
+							<td>${list.re_group }</td>
+							<td>${list.re_reply }</td>
+							<td>${list.re_delete }</td>
 						</tr>
 					</c:forEach>
 				</tbody>
+				<tfoot>
+					
+				</tfoot>
 			</table>
 		</div>
+		<input type="submit" value="새글 쓰기">
 	</form>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

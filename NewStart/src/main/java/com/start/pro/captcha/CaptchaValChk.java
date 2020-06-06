@@ -13,7 +13,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Component;
 
-@Component(value = "valChk")
+//@Component(value = "valChk")
 public class CaptchaValChk implements ICaptchaKey{
 
 
