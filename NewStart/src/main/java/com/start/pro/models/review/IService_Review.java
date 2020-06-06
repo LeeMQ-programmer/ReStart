@@ -47,5 +47,23 @@ public interface IService_Review {
 	 */
 	public boolean replyInsert(int re_seq, DTO_Review dto);
 	
+	/**
+	 * 내가 올린 공고 중 매칭 시도가 있는 게시글
+	 * @param user_seq(사용자의 번호)
+	 * @return 공고 글의 번호
+	 */
+	public List<Integer> searchMaching(int user_seq);
+	
+	/**
+	 * 매칭이 성공한 공고의 강사 찾기
+	 * @param gonggo_seq(공고글 번호 )
+	 * @return 매칭이 성공한 강사가 있으면  강사 seq, 없으면 null 반환(화면에서 처리)
+	 */
+	public String searchTeacher(int gonggo_seq);
 	
 }
+
+
+
+
+

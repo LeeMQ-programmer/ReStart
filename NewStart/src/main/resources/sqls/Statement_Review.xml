@@ -23,7 +23,7 @@
 		(BOARD_CODE, RE_SEQ, USER_SEQ, 
 		 RE_TITLE, RE_CONTENT, RE_TEACHER, 
 		 RE_GROUP,RE_STAR)
-	VALUES(#{board_code}, RE_SEQ.NEXTVAL, #{user_seq}, 
+	VALUES('4000', RE_SEQ.NEXTVAL, #{user_seq}, 
 		   #{re_title}, #{re_content}, #{re_teacher}, 
 		   RE_GROUP_SEQ.NEXTVAL, #{re_star})
 	</insert>
@@ -48,7 +48,7 @@
       (DEC_SEQ, DEC_VICTIM, DEC_SUSPECT, 
        BOARD_CODE, BOARD_SEQ, CONTENT)
 	VALUES(DEC_SEQS.NEXTVAL, #{dec_victim}, #{dec_suspect}, 
-		   #{board_code}, #{board_seq}, #{content})
+		   4000, #{board_seq}, #{content})
 	</insert>
 	
 	<!-- 답글 등록 -->
@@ -57,7 +57,7 @@
 		UPDATE REVIEWBOARD 
 			SET RE_REPLY ='Y' 
 			WHERE RE_SEQ =#{re_seq}
-;	</update>
+	</update>
 	<!-- 답글 등록 -->
 	<insert id="insertReply" parameterType="ReDto">
 		INSERT INTO REVIEWBOARD
@@ -65,12 +65,26 @@
 			RE_TITLE, RE_REGDATE, RE_CONTENT, 
 			RE_GROUP, RE_REPLY, RE_STAR)
 		VALUES
-			(#{board_code}, RE_SEQ.NEXTVAL, (SELECT RE_TEACHER FROM REVIEWBOARD WHERE RE_SEQ =#{re_seq}),
+			(4000, RE_SEQ.NEXTVAL, (SELECT RE_TEACHER FROM REVIEWBOARD WHERE RE_SEQ =#{re_seq}),
 			 #{re_title}, SYSDATE, #{re_content},
 			 (SELECT RE_GROUP FROM REVIEWBOARD WHERE RE_SEQ=#{re_seq}), 'Y', #{re_star})
 	</insert>
 	
+	<!-- 내가 올린 공고 중 매칭 성공한 공고들  -->
+	<select id="searchMaching" parameterType="java.lang.Integer" 
+			resultType="java.lang.Integer">
+		SELECT GONGGO_SEQ 
+		FROM GONGO g 
+		WHERE USER_SEQ =#{user_seq} AND BIDDING ='Y'
+	</select>
 	
+	<!-- 성공한 공고의 강사 찾기 -->
+	<select id="searchTeacher" parameterType="java.lang.Integer" 
+			resultType="java.lang.String">
+		SELECT SUCCESS_PERSON
+		FROM BIDDING_W_LIST 
+		WHERE GONGGO_SEQ = #{gonggo_seq}
+	</select>
 </mapper>
 
 
