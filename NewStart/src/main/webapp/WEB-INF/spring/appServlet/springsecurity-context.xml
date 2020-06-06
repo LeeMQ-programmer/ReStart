@@ -20,8 +20,6 @@
 		<security:access-denied-handler error-page="/access_denied_page.do"/>
 		
 		
-		<security:intercept-url pattern="/main.do"
-			access="permitAll" />
 
 		<security:intercept-url pattern="/resources/**"
 			access="permitAll" />
@@ -52,8 +50,8 @@
 
 		<security:csrf disabled="true"/>
 	
-	<security:session-management invalid-session-url="/main.do"  session-fixation-protection="changeSessionId">
-		<security:concurrency-control max-sessions="1" expired-url="/main.do"/>
+	<security:session-management invalid-session-url="/loginForm.do"  session-fixation-protection="changeSessionId">
+		<security:concurrency-control max-sessions="1" expired-url="/loginForm.do"/>
 	</security:session-management>
 	
 	</security:http>

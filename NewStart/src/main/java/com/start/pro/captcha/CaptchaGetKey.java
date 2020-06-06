@@ -13,7 +13,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Component;
 
-//@Component(value = "getKey")
+@Component(value = "getKey")
 public class CaptchaGetKey implements ICaptchaKey{
 	
 	//관리자 키와 비밀번호가 들어있는 map

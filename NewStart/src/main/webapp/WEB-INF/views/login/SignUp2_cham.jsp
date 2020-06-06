@@ -31,10 +31,10 @@ var Multichk = function(url,val){
 		dataType : "text",
 		success: function(data){
 			if(data == 'false'){
-				//alert("가능");
+				alert("사용 가능");
 				$('input[name='+url+']').attr("id",val);
 			}else{
-				//alert("불가");
+				alert("사용 불가");
 			}
 		},
 		error: function(){
