@@ -27,9 +27,9 @@ public class Dao_Gonggi implements IDao_Gonggi {
 	}
 
 	@Override
-	public DTO_Gonggi GI_OneSelect(String seq) {
+	public DTO_Gonggi GI_OneSelect(Map<String, Object> map) {
 		logger.info("GI_OneSelect");
-		return sqlSession.selectOne(NS+"GI_OneSelect", seq);
+		return sqlSession.selectOne(NS+"GI_OneSelect", map);
 	}
 
 	@Override
@@ -49,14 +49,14 @@ public class Dao_Gonggi implements IDao_Gonggi {
 	@Override
 	public Boolean GI_Update(DTO_Gonggi dto) {
 		logger.info("GI_Update");
-		int a = sqlSession.update(NS+"GI_UImp_Insert", dto);
+		int a = sqlSession.update(NS+"GI_Update", dto);
 		return  (a > 0) ? true : false;
 	}
 
 	@Override
 	public Boolean GI_Delete(String seq) {
 		logger.info("GI_Delete");
-		int a = sqlSession.delete(NS+"GI_UImp_Insert", seq);
+		int a = sqlSession.delete(NS+"GI_Delete", seq);
 		return  (a > 0) ? true : false;
 	}
 

@@ -4,24 +4,24 @@
 
 <!-- 전체글 조회 -->
 <select id="GI_AllSelect" parameterType="GongGiDto" resultType="GongGiDto">
-SELECT GI_SEQ, GI_TITLE, TO_CHAR(GI_REGDATE,'YYYY-MM-DD') AS GI_REGDATE
+SELECT GI_SEQ, GI_TITLE, GI_CONTENT, TO_CHAR(GI_REGDATE,'YYYY-MM-DD') AS GI_REGDATE, GI_CATEGORY
 	FROM GONGGI
 		WHERE BOARD_CODE = 1000
 </select>
 
 <!-- 상세글 조회 -->
-<select id="GI_OneSelect" parameterType="java.lang.String" resultType="GongGiDto">
-SELECT GI_TITLE, GI_CONTENT, TO_CHAR(GI_REGDATE,'YYYY-MM-DD') AS GI_REGDATE
+<select id="GI_OneSelect" parameterType="java.util.Map" resultType="GongGiDto">
+SELECT GI_SEQ, GI_TITLE, GI_CONTENT, TO_CHAR(GI_REGDATE,'YYYY-MM-DD') AS GI_REGDATE, GI_CATEGORY
 	FROM GONGGI
+		WHERE GI_SEQ = #{gi_seq} AND
 	<choose>
-		<when test="gi_category == 'Y'">
-			GI_SEQ = #{gi_seq} AND GI_CATEGORY = "Y"
+		<when test='gi_category == "Y"'>
+			 GI_CATEGORY = #{gi_category}
 		</when>
 		<otherwise>
-			GI_SEQ = #{gi_seq} AND GI_CATEGORY = "N"
+			GI_CATEGORY = #{gi_category}
 		</otherwise>
 	</choose>
-	ORDER BY GI_SEQ DESC
 </select>
 
 <!-- 중요 공지글 등록 -->
@@ -40,12 +40,20 @@ INSERT INTO GONGGI(GI_SEQ, BOARD_CODE, GI_CATEGORY, GI_TITLE, GI_CONTENT, GI_REG
 <update id="GI_Update" parameterType="GongGiDto">
 UPDATE GONGGI
 	<set>
-		<if test="gi_category == 'Y'">
-			GI_CATEGORY="N", GI_TITLE=#{gi_title}, GI_CONTENT=#{gi_content}, GI_REGDATE=SYSDATE
-		</if>
-		<if test="gi_category == 'N'">
-			GI_CATEGORY="Y", GI_TITLE=#{gi_title}, GI_CONTENT=#{gi_content}, GI_REGDATE=SYSDATE
-		</if>
+		<choose>
+			<when test='gi_category == "Y"'>
+				GI_CATEGORY='N', GI_TITLE=#{gi_title}, GI_CONTENT=#{gi_content}, GI_REGDATE=SYSDATE
+			</when>
+			<otherwise>
+				GI_CATEGORY='Y', GI_TITLE=#{gi_title}, GI_CONTENT=#{gi_content}, GI_REGDATE=SYSDATE
+			</otherwise>
+		</choose>
+<!-- 		<if test='gi_category = "Y"'> -->
+<!-- 			GI_CATEGORY="N", GI_TITLE=#{gi_title}, GI_CONTENT=#{gi_content}, GI_REGDATE=SYSDATE -->
+<!-- 		</if> -->
+<!-- 		<if test='gi_category = "N"'> -->
+<!-- 			GI_CATEGORY="Y", GI_TITLE=#{gi_title}, GI_CONTENT=#{gi_content}, GI_REGDATE=SYSDATE -->
+<!-- 		</if> -->
 	</set>
 		WHERE GI_SEQ = #{gi_seq}
 </update>
