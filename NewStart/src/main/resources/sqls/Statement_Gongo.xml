@@ -3,19 +3,19 @@
 <mapper namespace="com.start.pro.gongo">
   
 <!-- 유저 조회 기능만 넣자 -->
-<select id="">
+<!-- <select id="">
 	SELECT USER_SEQ, USER_EMAIL, USER_NICKNAME, USER_NAME, USER_GRADE, USER_TYPE, USER_PW, USER_PHONE, USER_ADCHK, USER_REGDATE, DEC_CNT
 	FROM "USER" u 
 	WHERE USER_SEQ = #{user_seq}
 </select>  
   
-<!-- 유저 조회 기능만 넣자 -->
+유저 조회 기능만 넣자
 <select id="">
 SELECT ADMIN_SEQ, ADMIN_EMAIL, ADMIN_PW, ADMIN_GRADE, ADMIN_NAME, ADMIN_NICKNAME, ADMIN_PHONE
 	FROM ADMIN a 
 	WHERE ADMIN_SEQ = #{admin_seq}
 </select>  
-  
+   -->
   
   
 <!-- 필요기능 1. 공고글 전체 조회 USER_GRADE = grade_seq-->
