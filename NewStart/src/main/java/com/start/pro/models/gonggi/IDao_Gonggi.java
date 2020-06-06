@@ -16,10 +16,10 @@ public interface IDao_Gonggi {
 	
 	/**
 	 * 상세글 조회
-	 * @param seq
+	 * @param map
 	 * @return dto
 	 */
-	public DTO_Gonggi GI_OneSelect(String seq);
+	public DTO_Gonggi GI_OneSelect(Map<String, Object> map);
 	
 	/**
 	 * 중요 공지글 등록
