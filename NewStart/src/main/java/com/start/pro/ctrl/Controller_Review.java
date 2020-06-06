@@ -67,7 +67,6 @@ public class Controller_Review {
 		System.out.println("완료");
 		return "board/review/reviewMain";
 	}
-//	
 	
 }
 
