@@ -1,12 +1,11 @@
 package com.start.pro.dto;
 
-import java.util.Date;
 
 public class DTO_Gonggi {
 
-	private int gi_seq;
-	private int board_code;
-	private char gi_category;
+	private String gi_seq;
+	private int board_code = 1000;
+	private String gi_category;
 	private String gi_title;
 	private String gi_content;
 	private String gi_regdate;
@@ -23,11 +22,11 @@ public class DTO_Gonggi {
 				+ ", admin_seq=" + admin_seq + "]";
 	}
 
-	public int getGi_seq() {
+	public String getGi_seq() {
 		return gi_seq;
 	}
 
-	public void setGi_seq(int gi_seq) {
+	public void setGi_seq(String gi_seq) {
 		this.gi_seq = gi_seq;
 	}
 
@@ -39,11 +38,11 @@ public class DTO_Gonggi {
 		this.board_code = board_code;
 	}
 
-	public char getGi_category() {
+	public String getGi_category() {
 		return gi_category;
 	}
 
-	public void setGi_category(char gi_category) {
+	public void setGi_category(String gi_category) {
 		this.gi_category = gi_category;
 	}
 
@@ -79,7 +78,7 @@ public class DTO_Gonggi {
 		this.admin_seq = admin_seq;
 	}
 
-	public DTO_Gonggi(int gi_seq, int board_code, char gi_category, String gi_title, String gi_content,
+	public DTO_Gonggi(String gi_seq, int board_code, String gi_category, String gi_title, String gi_content,
 			String gi_regdate) {
 		super();
 		this.gi_seq = gi_seq;
@@ -88,6 +87,20 @@ public class DTO_Gonggi {
 		this.gi_title = gi_title;
 		this.gi_content = gi_content;
 		this.gi_regdate = gi_regdate;
+	}
+
+	public DTO_Gonggi(String seq, String category) {
+		super();
+		this.gi_seq = seq;
+		this.gi_category = category;
+	}
+
+	public DTO_Gonggi(String gi_seq, String gi_title, String gi_content, String gi_category) {
+		super();
+		this.gi_seq = gi_seq;
+		this.gi_title = gi_title;
+		this.gi_content = gi_content;
+		this.gi_category = gi_category;
 	}
 
 	

@@ -25,9 +25,9 @@ public class Service_Gonggi implements IService_Gonggi {
 	}
 
 	@Override
-	public DTO_Gonggi GI_OneSelect(String seq) {
-		logger.info("GI_OneSelect 상세조회, {}", seq);
-		return dao.GI_OneSelect(seq);
+	public DTO_Gonggi GI_OneSelect(Map<String, Object> map) {
+		logger.info("GI_OneSelect 상세조회, {}", map);
+		return dao.GI_OneSelect(map);
 	}
 
 	@Override
