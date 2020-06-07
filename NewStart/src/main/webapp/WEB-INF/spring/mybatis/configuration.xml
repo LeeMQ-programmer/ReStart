@@ -33,6 +33,7 @@
 		<mapper resource="/sqls/Statement_Review.xml"/>
 		<mapper resource="/sqls/Statement_SMS.xml"/>
 		<mapper resource="/sqls/Statement_User.xml"/>
+		<mapper resource="/sqls/Statement_Email.xml"/>
 	</mappers>
 
 </configuration>
