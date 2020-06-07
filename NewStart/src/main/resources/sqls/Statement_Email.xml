@@ -104,7 +104,7 @@ WHERE CATEGORY_CODE=#{category_code}
 	(BOARD_CODE, EMAIL_SEQ, CATEGORY_CODE, EMAIL_TITLE, 
 	EMAIL_CONTENT, FILECHK, USER_EMAIL, SUCCESSCHK, REGDATE)
  		VALUES(002, EMAIL_SAVE_SEQS.NEXTVAL, #{category_code}, #{email_title}, 
- 			#{email_content}, #{filechk}, #{user_email}, 'S', SYSDATE)
+ 			#{email_content}, #{filechk}, #{user_email}, #{successchk}, SYSDATE)
  <selectKey order="AFTER" resultType="java.lang.String" keyProperty="email_seq">
  	SELECT EMAIL_SAVE_SEQS.CURRVAL AS EMAIL_SEQ FROM DUAL
  </selectKey>
@@ -117,27 +117,16 @@ WHERE CATEGORY_CODE=#{category_code}
   <if test="fail_reason != null">
   	, FAIL_REASON = #{fail_reason}
   </if>
+  <if test="user_email != null">
+  	, USER_EMAIL = #{user_email}
+  </if>
 	 WHERE EMAIL_SEQ = #{email_seq}
  </update>
   
   
- <!-- 대량메일 실패가 존재 --> 
- <insert id="ManyMailFin" parameterType="EmailDto">
- INSERT INTO EMAIL_SAVE 
-	(BOARD_CODE, EMAIL_SEQ, CATEGORY_CODE, EMAIL_TITLE,
-	 EMAIL_CONTENT, FILECHK, USER_EMAIL, SUCCESSCHK, REGDATE)
-		 VALUES(002, EMAIL_SAVE_SEQS.NEXTVAL, #{category_code}, #{email_title}, 
-		 #{email_content}, #{filechk}, #{user_email}, 'F', SYSDATE)
- </insert>
 
-<update id="ManyMailFup" parameterType="java.lang.String">
-UPDATE EMAIL_SAVE SET SUCCESSCHK = 'Y', USER_EMAIL = 
-	(SELECT  SUBSTR(USER_EMAIL,1,INSTR(USER_EMAIL,'/',1,1)) ||
-		(SUBSTR(USER_EMAIL,INSTR(USER_EMAIL,'/',1,1)+1) +2)  AS USER_EMAIL 
-		FROM EMAIL_SAVE es 
-			WHERE EMAIL_SEQ = #{email_seq})
-	WHERE EMAIL_SEQ = #{email_seq}
-</update>		 
+
+	 
   
   
  <!-- 재전송 -->
