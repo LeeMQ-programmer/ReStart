@@ -103,9 +103,7 @@
 	</bean>
 	
 	<bean class="com.start.pro.util.Util_Message" id="messageUtils"/>
-	
-	<task:executor id="myex" pool-size="10" />
-	<task:annotation-driven executor="myex"/> 
+
 	<!-- 메일 보내기 설정 -->
 	<bean 
 		class="org.springframework.mail.javamail.JavaMailSenderImpl">

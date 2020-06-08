@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.start.pro.dto.DTO_Email;
+import com.start.pro.dto.DTO_Filter;
 
 @Repository
 public class Dao_EmailImpl implements IDao_Email{
@@ -90,13 +91,13 @@ public class Dao_EmailImpl implements IDao_Email{
 	}
 
 	@Override
-	public List<DTO_Email> SelMailFilter(Map<String, String> map) {
-		return session.selectList(NS+"SelMailFilter", map);
+	public List<DTO_Email> SelMailFilter(DTO_Filter dto) {
+		return session.selectList(NS+"SelMailFilter", dto);
 	}
 
 	@Override
-	public List<DTO_Email> SelUserFiter(Map<String, String> map) {
-		return session.selectOne(NS+"SelUserFiter", map);
+	public List<String> SelUserFiter(Map<String, String[]> map) {
+		return session.selectList(NS+"SelUserFiter", map);
 	}
 
 

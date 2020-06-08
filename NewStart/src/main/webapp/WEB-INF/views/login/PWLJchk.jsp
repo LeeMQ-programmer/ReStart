@@ -7,11 +7,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-비밀번호 찾으러 가자
-<form action="./goFPW1.do" method="post">
-아이디 : 
-<input type="text" name="email">
-<input type="submit" value="제출">
+<form action="./ljmailchk.do" method="post">
+인증번호 : 
+<input type="text" name="key">
+<input type="hidden" name="email" value="${email}">
+<input type="submit">
 </form>
 </body>
 </html>

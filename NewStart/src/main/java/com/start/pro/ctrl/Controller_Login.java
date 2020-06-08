@@ -164,9 +164,16 @@ public class Controller_Login {
 	}
 
 	@RequestMapping(value = "/goFPW1.do", method = RequestMethod.POST)
-	public String goFPW1() {
-		return "login/EmailChk";
+	public String goFPW1(String email,Model model, HttpServletResponse resp) {
+		
+		model.addAttribute("email", email);
+		
+		emailSend.LJMail("1", email, resp);
+		
+		return "login/PWLJchk";
 	}
+
+
 
 	
 	@RequestMapping(value = "/ChangePW.do", method = RequestMethod.POST)
@@ -210,7 +217,7 @@ public class Controller_Login {
 	@RequestMapping(value = "/EmailChk.do", method = RequestMethod.GET)
 	public String EmailChk(String email, HttpServletResponse resp) {
 		
-		emailSend.LJMail("1", email, resp);
+		emailSend.LJMail("2", email, resp);
 		
 		return "login/EmailChk";
 	}

@@ -22,7 +22,8 @@
 	<!-- @Cotroller를 통해 MVC 만들기 -->
 	<mvc:annotation-driven />
 
-
+		<task:executor id="myex" pool-size="10" />
+	<task:annotation-driven executor="myex"/> 
 
 	<bean id="commonsMultipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
 	<!-- Resolver설정 -->

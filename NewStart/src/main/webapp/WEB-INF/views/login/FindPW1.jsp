@@ -8,7 +8,7 @@
 </head>
 <body>
 <form action="./ChangePW.do" method="POST">
-이메일 : <input type="text" name="email">
+<input type="hidden" name="email" value="${email}">
 새로운 비밀번호 : <input type="text" name="newPW">
 <input type="submit">
 </form>
