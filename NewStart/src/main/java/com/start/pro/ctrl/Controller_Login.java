@@ -61,7 +61,7 @@ public class Controller_Login {
 	        System.out.println(key);
 	        	//model.addAttribute("key",key);
 	        return key;
-	        
+	         
 		}
 	
 		
@@ -114,11 +114,11 @@ public class Controller_Login {
 	@RequestMapping(value = "/loginResult.do", method = RequestMethod.GET)
 	public String loginResult(HttpSession session, Authentication auth, Model model) {
 //		System.out.println(session.getAttribute("user").toString());
-		System.out.println(auth.toString());
-//		DTO_User dto = (DTO_User) session.getAttribute("user");
-		model.addAttribute("dto",auth.toString());
-
-		return "login/LoginResult_cham";
+//		System.out.println(auth.toString());
+		DTO_User newstart = (DTO_User) session.getAttribute("user");
+		model.addAttribute("dto",newstart);
+		
+		return "board/review/reviewMain";
 	}
 
 	//회원가입쪽으로

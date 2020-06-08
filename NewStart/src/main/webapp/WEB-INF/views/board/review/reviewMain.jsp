@@ -8,6 +8,7 @@
 </head>
 <body>
 	<%@ include file="/WEB-INF/views/boardTopMenu.jsp"%>
+<h1>aaa</h1>${newstart }
 	<h1>review Mian</h1>
 	<form action="./writeReview.do" method="get" id="frm">
 		<div>
@@ -35,10 +36,10 @@
 						<tr>
 							<td>${list.re_seq }&nbsp;&nbsp;</td>
 							<td>${list.user_seq }&nbsp;&nbsp;</td>
-							<td>${list.re_title }&nbsp;&nbsp;</td>
-							<td><a href="./reviewDetail.do?re_seq=${list.re_seq}">${list.re_teacher }&nbsp;&nbsp;</a></td>
-							<td>${list.re_regdate }&nbsp;&nbsp;</td>
+							<td><a href="./reviewDetail.do?re_seq=${list.re_seq}">${list.re_title }&nbsp;&nbsp;</a></td>
+							<td>${list.re_teacher }&nbsp;&nbsp;</td>
 							<td>${list.re_star }&nbsp;&nbsp;</td>
+							<td>${list.re_regdate }&nbsp;&nbsp;</td>
 <%-- 							<c:if test="${newstart eq 'A' }"> --%>
 <%-- 								<td>${list.re_delete })</td> --%>
 <%-- 							</c:if> --%>

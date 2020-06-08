@@ -18,6 +18,7 @@ public class DTO_Review {
 		// TODO Auto-generated constructor stub
 	}
 
+	
 	public DTO_Review(int board_code, int re_seq, int user_seq, String re_title, String re_regdate, String re_content,
 			int re_teacher, int re_group, String re_reply, String re_delete, int re_star) {
 		super();
@@ -34,13 +35,22 @@ public class DTO_Review {
 		this.re_star = re_star;
 	}
 	
-
+	//게시글 작성
 	public DTO_Review(int user_seq, String re_title, String re_content, int re_teacher, int re_star) {
 		super();
 		this.user_seq = user_seq;
 		this.re_title = re_title;
 		this.re_content = re_content;
 		this.re_teacher = re_teacher;
+		this.re_star = re_star;
+	}
+
+	//게시글 수정
+	public DTO_Review(int re_seq, String re_title, String re_content, int re_star) {
+		super();
+		this.re_seq = re_seq;
+		this.re_title = re_title;
+		this.re_content = re_content;
 		this.re_star = re_star;
 	}
 
