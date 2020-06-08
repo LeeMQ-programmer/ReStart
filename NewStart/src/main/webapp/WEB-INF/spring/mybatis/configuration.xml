@@ -17,11 +17,8 @@
 		<typeAlias type="com.start.pro.dto.DTO_Review" alias="ReDto"/>
 		<typeAlias type="com.start.pro.dto.DTO_SMS" alias="SMSDto"/>
 		<typeAlias type="com.start.pro.dto.DTO_Declaration" alias="DecDto"/>
-<<<<<<< HEAD
-=======
 		
 		<typeAlias type="com.start.pro.dto.DTO_Email" alias="EmailDto"/>		
->>>>>>> branch 'workspace' of https://github.com/LeeMQ-programmer/NewStart.git
 		<typeAlias type="com.start.pro.security.Sc_User" alias="UserDetailsDto"/>
 	</typeAliases>
 
