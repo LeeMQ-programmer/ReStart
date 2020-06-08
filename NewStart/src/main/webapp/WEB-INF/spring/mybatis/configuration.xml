@@ -21,6 +21,7 @@
 		<typeAlias type="com.start.pro.dto.DTO_Email" alias="EmailDto"/>		
 		<typeAlias type="com.start.pro.security.Sc_User" alias="UserDetailsDto"/>
 		<typeAlias type="com.start.pro.dto.DTO_Filter" alias="FilterDto"/>
+		<typeAlias type="com.start.pro.dto.DTO_Mounui" alias="MDto"/>
 	</typeAliases>
 
 
@@ -39,6 +40,7 @@
 		<mapper resource="/sqls/Statement_SMS.xml"/>
 		<mapper resource="/sqls/Statement_User.xml"/>
 		<mapper resource="/sqls/Statement_Email.xml"/>
+		<mapper resource="/sqls/Statement_Mounui.xml"/>
 	</mappers>
 
 </configuration>
