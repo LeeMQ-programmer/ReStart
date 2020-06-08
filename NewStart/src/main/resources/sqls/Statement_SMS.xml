@@ -2,5 +2,36 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.start.pro.SMS">
 
-
+<!-- 문자 보내기 -->
+	<insert id="insertSend" parameterType="SMSDto">
+		INSERT INTO SMS_SEND
+		(SMS_SEQ, USER_SEQ, SMS_CONTYPE, SMS_TITLE, SMS_CONTENT)
+		VALUES(SMS_SEQS.NEXTVAL, #{user_seq}, #{sms_contype}, #{sms_title}, #{sms_content})
+	</insert>
+	
+	<!-- 결과 값 받기 -->
+	<insert id="insertResult" parameterType="SMSDto">
+		INSERT INTO SMS_RESULT
+		(SMS_SEQ, SMS_RESULTCODE)
+		VALUES(
+		(SELECT SMS_SEQ FROM SMS_SEND WHERE USER_SEQ =#{user_seq})
+		, #{sms_resultcode})
+	</insert>
+	
+	<!-- 발송 전체 조회 하기 -->
+	<select id="searchAll" resultType="SMSDto">
+		SELECT SMS_SEQ,USER_SEQ, SMS_TYPE, SMS_CONTYPE, SMS_TITLE, SMS_CONTENT, SMS_SENDTIME, SMS_RESUMTCODE
+		FROM SMS_SEND NATURAL JOIN SMS_RESULT
+	</select>
+	<!-- 발송 상세 조회 하기 -->
+	<select id="searchDetail" parameterType="java.lang.Integer" resultType="SMSDto">
+		SELECT SMS_SEQ,USER_SEQ, SMS_TYPE, SMS_CONTYPE, SMS_TITLE, SMS_CONTENT, SMS_SENDTIME, SMS_RESUMTCODE
+		FROM SMS_SEND NATURAL JOIN SMS_RESULT
+		WHERE USER_SEQ=#{user_seq}
+	</select>
+	
+	
+	
 </mapper>
+
+

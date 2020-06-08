@@ -10,6 +10,7 @@
 	<a href="./gongGiList.do">공지페이지 가기</a>
 	<a href="./gonggo.do">공고페이지 가기</a>
 	<a href="">문의페이지 가기</a>
+	<a href="./pay.do">결제페이지 가기</a>
 	<a href="./reviewMain.do">후기페이지 가기</a>
 </body>
 </html>

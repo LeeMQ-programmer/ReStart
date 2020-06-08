@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.start.pro.dto.DTO_Criteria;
 import com.start.pro.dto.DTO_Gonggi;
 
 @Repository
@@ -21,9 +22,15 @@ public class Dao_Gonggi implements IDao_Gonggi {
 	private SqlSessionTemplate sqlSession;
 	
 	@Override
-	public List<DTO_Gonggi> GI_AllSelect(DTO_Gonggi dto) {
+	public List<DTO_Gonggi> GI_AllSelect(DTO_Criteria cri) {
 		logger.info("GI_AllSelect");
-		return sqlSession.selectList(NS+"GI_AllSelect", dto);
+		return sqlSession.selectList(NS+"GI_AllSelect", cri);
+	}
+	
+	@Override
+	public int listCount() {
+		logger.info("listCount");
+		return sqlSession.selectOne(NS+"listCount");
 	}
 
 	@Override
@@ -59,5 +66,6 @@ public class Dao_Gonggi implements IDao_Gonggi {
 		int a = sqlSession.delete(NS+"GI_Delete", seq);
 		return  (a > 0) ? true : false;
 	}
+
 
 }

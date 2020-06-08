@@ -31,7 +31,7 @@
 	<!-- 게시물 수정 -->
 	<update id="updateReview" parameterType="ReDto">
 		UPDATE REVIEWBOARD 
-		SET RE_TITLE =#{re_title}, RE_CONTENT=#{re_content}
+		SET RE_TITLE =#{re_title}, RE_CONTENT=#{re_content},RE_STAR=#{re_star}
 		WHERE RE_SEQ =#{re_seq} AND RE_REPLY ='N'
 	</update>
 	
@@ -81,9 +81,13 @@
 	<!-- 성공한 공고의 강사 찾기 -->
 	<select id="searchTeacher" parameterType="java.lang.Integer" 
 			resultType="java.lang.String">
-		SELECT SUCCESS_PERSON
-		FROM BIDDING_W_LIST 
-		WHERE GONGGO_SEQ = #{gonggo_seq}
+		SELECT USER_NAME
+		FROM "USER"
+		WHERE USER_SEQ =(SELECT SUCCESS_PERSON 
+						FROM BIDDING_W_LIST 
+						WHERE GONGGO_SEQ = (SELECT GONGGO_SEQ 
+											FROM GONGO g 
+											WHERE USER_SEQ =#{user_seq} AND BIDDING ='Y'))
 	</select>
 </mapper>
 

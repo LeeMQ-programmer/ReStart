@@ -313,6 +313,17 @@
 			<version>1.4</version>
 		</dependency>
 
+		<!-- Coolsms JAVA SDK : 문자 전송, 전송내역 관리, 알림톡 전송 등 여러 서비스를 이용하기 위한 라이브러리 -->
+		<!-- https://developer.coolsms.co.kr/JAVA_SDK_Start_here -->
+		<!-- https://developer.coolsms.co.kr/opage/manual/java/index.html 에서 정확한 
+			분석 가능 -->
+		<dependency>
+			<groupId>net.nurigo</groupId>
+			<artifactId>javaSDK</artifactId>
+			<version>2.2</version>
+		</dependency>
+
+
 	</dependencies>
 
 	<build>
