@@ -3,14 +3,18 @@
 <mapper namespace="com.start.pro.pay">
 
 <!-- 결제 생성 -->
-<!-- INSERT INTO PAYMENT -->
-<!-- (PAY_SEQ, PAY_TOKEN, PAY_TYPE, PAY_AMOUNT, PAY_DATE, USER_SEQ) -->
-<!-- VALUES(PAY_SEQ.NEXTVAL, #{pay_token}, #{pay_type}, #{pay_amount}, SYSDATE, #{user_seq}) -->
+<insert id="creditPay" parameterType="PayDto">
+INSERT INTO PAYMENT
+(PAY_SEQ, PAY_TOKEN, PAY_TYPE, PAY_AMOUNT, PAY_DATE, USER_SEQ)
+VALUES(PAY_SEQ.NEXTVAL, #{pay_token}, #{pay_type}, #{pay_amount}, SYSDATE, #{user_seq})
+</insert>
 
 <!-- 결제내역 조회 -->
-<!-- SELECT PAY_SEQ, PAY_TOKEN, PAY_TYPE, PAY_AMOUNT, TO_CHAR(PAY_DATE,'YYYY-MM-DD') AS PAY_DATE, USER_SEQ -->
-<!-- 	FROM PAYMENT -->
-<!-- 		WHERE USER_SEQ = #{user_seq} -->
+<select id="selectPay" parameterType="java.lang.String" resultType="PayDto">
+SELECT PAY_SEQ, PAY_TOKEN, PAY_TYPE, PAY_AMOUNT, TO_CHAR(PAY_DATE,'YYYY-MM-DD') AS PAY_DATE, USER_SEQ
+	FROM PAYMENT
+		WHERE USER_SEQ = #{user_seq}
+</select>
 
 <!-- SELECT PAY_SEQ_TEST, PAY_TOKEN, PAY_TYPE, PAY_AMOUNT, PAY_DATE, u.USER_SEQ_TEST  -->
 <!-- 	FROM PAYMENT_TEST p JOIN USER_TEST u  -->
@@ -18,33 +22,45 @@
 <!-- 		WHERE p.USER_SEQ_TEST = 1; -->
 
 <!-- 결제 환불 -->
-<!-- INSERT INTO REFUND_PAYMENT  -->
-<!-- (REFUND_SEQ, REFUND_DATE, PAY_SEQ) -->
-<!-- VALUES(REFUND_SEQ.NEXTVAL, SYSDATE, #{pay_seq}) -->
+<insert id="refundPay" parameterType="java.lang.String">
+INSERT INTO REFUND_PAYMENT 
+(REFUND_SEQ, REFUND_DATE, PAY_SEQ)
+VALUES(REFUND_SEQ.NEXTVAL, SYSDATE, #{pay_seq})
+</insert>
 
 <!-- 환불내역 조회 -->
-<!-- SELECT REFUND_SEQ, TO_CHAR(REFUND_DATE,'YYYY-MM-DD') AS REFUND_DATE -->
-<!-- 	FROM REFUND_PAYMENT  -->
-<!-- 		WHERE PAY_SEQ = #{pay_seq} -->
+<select id="selectRef" parameterType="java.lang.String" resultType="RefundPayDto">
+SELECT REFUND_SEQ, TO_CHAR(REFUND_DATE,'YYYY-MM-DD') AS REFUND_DATE
+	FROM REFUND_PAYMENT 
+		WHERE PAY_SEQ = #{pay_seq}
+</select>
 
 <!-- 크레딧 생성 -->
-<!-- SELECT REFUND_SEQ, TO_CHAR(REFUND_DATE,'YYYY-MM-DD') AS REFUND_DATE -->
-<!-- 	FROM REFUND_PAYMENT  -->
-<!-- 		WHERE PAY_SEQ = #{pay_seq} -->
+<insert id="createCredit" parameterType="CreditDto">
+INSERT INTO CREDIT_TEST
+(CREDIT_SEQ, MILG_CREDIT, REMAIN_CREDIT, CREDIT_DATE, USER_SEQ)
+VALUES(CREDIT_SEQ.NEXTVAL, #{milg_credit}, #{remain_credit}, SYSDATE, 1)
+</insert>
 
 <!-- 크레딧 내역 조회 -->
-<!-- SELECT CREDIT_SEQ, MILG_CREDIT, TO_CHAR(CREDIT_DATE,'YYYY-MM-DD') AS CREDIT_DATE -->
-<!-- 	FROM CREDIT -->
-<!-- 		WHERE USER_SEQ = #{user_seq} -->
+<select id="selectCredit" parameterType="java.lang.String" resultType="CreditDto">
+SELECT CREDIT_SEQ, MILG_CREDIT, TO_CHAR(CREDIT_DATE,'YYYY-MM-DD') AS CREDIT_DATE
+	FROM CREDIT
+		WHERE USER_SEQ = #{user_seq}
+</select>
 
 <!-- 크레딧 환불 -->
-<!-- INSERT INTO REFUND_CREDIT -->
-<!-- (REFUNDCREDIT_SEQ, REFUNDCREDIT_DATE, CREDIT_SEQ) -->
-<!-- VALUES(REFUNDCREDIT_SEQ.NEXTVAL, SYSDATE, #{credit_seq}) -->
+<insert id="refundCredit" parameterType="java.lang.String">
+INSERT INTO REFUND_CREDIT
+(REFUNDCREDIT_SEQ, REFUNDCREDIT_DATE, CREDIT_SEQ)
+VALUES(REFUNDCREDIT_SEQ.NEXTVAL, SYSDATE, #{credit_seq})
+</insert>
 
 <!-- 크레딧 환불 내역 조회 -->
-<!-- SELECT REFUNDCREDIT_SEQ, TO_CHAR(REFUNDCREDIT_DATE,'YYYY-MM-DD') AS REFUNDCREDIT_DATE -->
-<!-- 	FROM REFUND_CREDIT -->
-<!-- 		WHERE REFUNDCREDIT_SEQ = #{refundcredit_seq}-->
+<select id="selectCreRef" parameterType="java.lang.String" resultType="RefundCreDto">
+SELECT REFUNDCREDIT_SEQ, TO_CHAR(REFUNDCREDIT_DATE,'YYYY-MM-DD') AS REFUNDCREDIT_DATE
+	FROM REFUND_CREDIT
+		WHERE REFUNDCREDIT_SEQ = #{refundcredit_seq}
+</select>
 
 </mapper>
