@@ -39,12 +39,14 @@
 <body>
 	<%@include file="/WEB-INF/Header.jsp"%>
 	<form action="./modifyForm.do" method="post" onsubmit="return validateForm()">
-	<input type="hidden" name="seq">
-	<input type="hidden" name="category">
+	<div>
+		<input type="hidden" id="seq" name="seq" value="${dto.gi_seq}">
+		<input type="hidden" name="category" id="category" value="${dto.gi_category}">
 	<table>
+		
 		<tr>
 			<th>제목</th>
-			<td><input class="form-control" type="text" name="title"></td>
+			<td><input class="form-control" id="title" type="text" name="title"></td>
 		</tr>
 		<tr>
 			<th>내용</th>
@@ -58,6 +60,7 @@
 		</td>
 	</tr>
 	</table>
+	</div>
 	</form>
 </body>
 </html>

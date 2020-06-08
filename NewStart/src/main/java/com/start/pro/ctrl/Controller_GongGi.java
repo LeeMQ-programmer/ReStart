@@ -16,8 +16,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.start.pro.dto.DTO_Gonggi;
+import com.start.pro.dto.DTO_PageMaker;
+import com.start.pro.dto.DTO_Criteria;
 import com.start.pro.models.gonggi.IService_Gonggi;
 
 @Controller
@@ -34,15 +37,17 @@ public class Controller_GongGi {
 	 * @return lists
 	 */
 	@RequestMapping(value = "/gongGiList.do", method = RequestMethod.GET)
-	public String gongGiList(Model model) {
+	public String gongGiList(Model model, DTO_Criteria cri) {
 		logger.info("gongGiList.do : \t {}", new Date());
 		System.out.println("▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒");
-		List<DTO_Gonggi> lists = service.GI_AllSelect(null);
-		
+		List<DTO_Gonggi> lists = service.GI_AllSelect(cri);
 		model.addAttribute("lists", lists);
+
+		DTO_PageMaker pageMaker = new DTO_PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(service.listCount());
 		
-		
-		System.out.println("▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒"+lists.toString()+"▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒");
+		model.addAttribute("pageMaker", pageMaker);
 		
 		return "board/gonggi/gonggi";
 	}
@@ -66,7 +71,8 @@ public class Controller_GongGi {
 	}
 	
 	@RequestMapping(value = "/modify.do", method = RequestMethod.GET)
-	public String modify(Model model, String seq, String title, String category, String content, String regdate) {
+	public String modify(Model model, String seq, String title, String category, 
+						String content, String regdate) {
 		logger.info("modify.do : \t {}", new Date());
 		System.out.println("▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒");
 		
@@ -79,12 +85,15 @@ public class Controller_GongGi {
 	}
 	
 	@RequestMapping(value = "/modifyForm.do", method = RequestMethod.POST)
-	public String modifyForm(String seq, String title, String content, String category) {
+	public String modifyForm(Model model, String seq, String title, String content, String category) {
 		logger.info("modifyForm.do : \t {}", new Date());
 		System.out.println("▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒");
 		
 		DTO_Gonggi dto = new DTO_Gonggi(seq, title, content, category);
 		System.out.println(category);
+		System.out.println(seq);
+		System.out.println(title);
+		System.out.println(content);
 		boolean n;
 		n = service.GI_Update(dto);
 		
@@ -103,11 +112,31 @@ public class Controller_GongGi {
 		return "redirect:/gongGiList.do";
 	}
 	
-	@RequestMapping(value = "/writeFrom.do", method = RequestMethod.POST)
-	public String writeForm() {
+	@RequestMapping(value = "/write.do", method = RequestMethod.GET)
+	public String write() {
+		logger.info("write.do : \t {}", new Date());
+		System.out.println("▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒");
 		
+		return "board/gonggi/gonggiWrite";
+	}
+	
+	@RequestMapping(value = "/writeForm.do", method = RequestMethod.POST)
+	public String writeForm(String title, String content, String category) {
+		logger.info("writeFrom.do : \t {}", new Date());
+		System.out.println("▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒");
+		System.out.println(category);
 		
-		return null;
+		DTO_Gonggi dto = new DTO_Gonggi(title, content);
+		
+		boolean n;
+		
+		if (category.equalsIgnoreCase("Y")) {
+			n = service.GI_Imp_Insert(dto);
+		} else {
+			n = service.GI_UImp_Insert(dto);
+		}
+		
+		return "redirect:/gongGiList.do";
 	}
 	
 	

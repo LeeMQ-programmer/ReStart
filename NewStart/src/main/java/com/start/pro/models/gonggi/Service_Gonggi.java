@@ -1,5 +1,6 @@
 package com.start.pro.models.gonggi;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -8,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.start.pro.dto.DTO_Criteria;
 import com.start.pro.dto.DTO_Gonggi;
 
 @Service
@@ -19,9 +21,15 @@ public class Service_Gonggi implements IService_Gonggi {
 	private IDao_Gonggi dao;
 	
 	@Override
-	public List<DTO_Gonggi> GI_AllSelect(DTO_Gonggi dto) {
-		logger.info("GI_AllSelect 전체조회, {}", dto);
-		return dao.GI_AllSelect(dto);
+	public List<DTO_Gonggi> GI_AllSelect(DTO_Criteria cri) {
+		logger.info("GI_AllSelect 전체조회, {}", cri);
+		return dao.GI_AllSelect(cri);
+	}
+	
+	@Override
+	public int listCount() {
+		logger.info("listCount 전체조회, {}", new Date());
+		return dao.listCount();
 	}
 
 	@Override
@@ -53,5 +61,7 @@ public class Service_Gonggi implements IService_Gonggi {
 		logger.info("GI_Delete 공지 삭제, {}", seq);
 		return dao.GI_Delete(seq);
 	}
+
+	
 
 }

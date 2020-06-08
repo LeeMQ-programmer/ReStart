@@ -3,6 +3,7 @@ package com.start.pro.models.gonggi;
 import java.util.List;
 import java.util.Map;
 
+import com.start.pro.dto.DTO_Criteria;
 import com.start.pro.dto.DTO_Gonggi;
 
 public interface IDao_Gonggi {
@@ -12,7 +13,13 @@ public interface IDao_Gonggi {
 	 * @param dto
 	 * @return List
 	 */
-	public List<DTO_Gonggi> GI_AllSelect(DTO_Gonggi dto);
+	public List<DTO_Gonggi> GI_AllSelect(DTO_Criteria cri);
+	
+	/**
+	 * 게시물 총 갯수
+	 * @return
+	 */
+	public int listCount();
 	
 	/**
 	 * 상세글 조회
