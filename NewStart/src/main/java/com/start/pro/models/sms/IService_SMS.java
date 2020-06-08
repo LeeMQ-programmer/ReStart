@@ -1,12 +1,10 @@
 package com.start.pro.models.sms;
 
-import java.util.Map;
-
-import com.start.pro.dto.DTO_User;
-import com.start.pro.security.Sc_User;
+import java.util.List;
 
 public interface IService_SMS {
 
+//	public List<E>
 
 	
 	
