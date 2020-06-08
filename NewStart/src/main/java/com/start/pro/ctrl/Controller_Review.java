@@ -110,7 +110,7 @@ public class Controller_Review {
 	}
 	
 	//답글 작성페이지 이동
-	@RequestMapping(value = "/moveReply.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/moveReply.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public String writeReply(Model model,HttpSession session,HttpServletRequest req) {
 		int re_seq = Integer.parseInt(req.getParameter("re_seq"));
 		DTO_User newstart = (DTO_User) session.getAttribute("user");

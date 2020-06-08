@@ -10,7 +10,7 @@
 	</insert>
 	
 	<!-- 결과 값 받기 -->
-	<insert id="insertResult" parameterMap="SMSDto">
+	<insert id="insertResult" parameterType="SMSDto">
 		INSERT INTO SMS_RESULT
 		(SMS_SEQ, SMS_RESULTCODE)
 		VALUES(
