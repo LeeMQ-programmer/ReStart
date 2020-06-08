@@ -23,8 +23,8 @@ public class Dao_EmailImpl implements IDao_Email{
 	}
 
 	@Override
-	public boolean LJKey(Map<String, String> map) {
-		return Integer.parseInt(session.selectOne(NS+"LJKey",map)) > 0 ? true : false;
+	public String LJKey(Map<String, String> map) {
+		return session.selectOne(NS+"LJKey",map);
 	}
 
 	@Override

@@ -16,6 +16,16 @@ public class DTO_Email {
 	
 	public DTO_Email() {}
 
+	
+	public DTO_Email(String user_email, String email_title, String email_content) {
+		super();
+		this.user_email = user_email;
+		this.email_title = email_title;
+		this.email_content = email_content;
+	}
+
+
+
 	public DTO_Email(String email_seq, String category_code, String user_email, String email_title,
 			String email_content, String filechk, String use_chk, String successchk, String fail_reason,
 			String regdate) {

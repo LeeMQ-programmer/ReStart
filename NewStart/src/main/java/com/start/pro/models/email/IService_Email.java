@@ -14,6 +14,7 @@ public interface IService_Email {
 	 * 필요한 키는 다음과 같습니다.
 	 * user_email : 보내는 유저의 이메일을 넣습니다. 
 	 * lj_key : 보내는 랜덤 인증번호를 넣습니다.
+	 * LJ_CODE : 0 - 회원가입 인증 / 1 - 아이디 찾기 / 2 - 휴면회원 인증
 	 * @param Map<String,String>
 	 * @return boolean(true/false)
 	 */
@@ -26,9 +27,9 @@ public interface IService_Email {
 	 * user_email : 인증할 유저의 이메일을 넣습니다.
 	 * lj_key : 인증할 키값을 넣습니다.
 	 * @param Map<String,String>
-	 * @return boolean(true/false)
+	 * @return String code
 	 */
-	public boolean LJKey(Map<String,String> map);
+	public String LJKey(Map<String,String> map);
 	
 	/**
 	 * 인증으로 보내진 이메일은 1년동안 보관하게 됩니다.

@@ -19,7 +19,7 @@ public class Service_EmailImpl implements IService_Email{
 	}
 
 	@Override
-	public boolean LJKey(Map<String, String> map) {
+	public String LJKey(Map<String, String> map) {
 		return dao.LJKey(map);
 	}
 

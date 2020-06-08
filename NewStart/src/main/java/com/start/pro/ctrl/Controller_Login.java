@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
@@ -21,7 +22,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.start.pro.captcha.ICaptchaKey;
+import com.start.pro.dto.DTO_Email;
 import com.start.pro.dto.DTO_User;
+import com.start.pro.email.AsyncTask_SendEmail;
+import com.start.pro.models.email.IService_Email;
 import com.start.pro.models.login.IService_Login;
 
 @Controller
@@ -29,7 +33,12 @@ public class Controller_Login {
 
 	@Autowired
 	private IService_Login service;
+	
+	@Autowired
+	private IService_Email email_service;
 
+	@Autowired
+	private AsyncTask_SendEmail emailSend;
 
 	//키를 받아오는 클래스
 	@Resource(name = "getKey")
@@ -104,10 +113,13 @@ public class Controller_Login {
 
 	//회원가입 완료시
 	@RequestMapping(value = "/singUpSc.do", method = RequestMethod.POST)
-	public String singUpSc(DTO_User dto) {
+	public String singUpSc(DTO_User dto, HttpServletResponse resp) {
 		System.out.println(dto.toString());
 		service.signUp(dto);
-		return "login/LoginForm_cham";
+		
+		emailSend.LJMail("0", dto.getUser_email(), resp);
+		
+		return "login/SignUp3";
 	}
 
 	//로그인 완료시
@@ -125,6 +137,7 @@ public class Controller_Login {
 	@RequestMapping(value = "/singUpform.do", method = RequestMethod.GET)
 	public String singUpForm() {
 		System.out.println("dd");
+	
 		return "login/SignUp2_cham";
 	}
 
@@ -190,7 +203,10 @@ public class Controller_Login {
 	
 	// 휴면이나 잠금계정 보내기 EmailChk.do
 	@RequestMapping(value = "/EmailChk.do", method = RequestMethod.GET)
-	public String EmailChk() {
+	public String EmailChk(String email, HttpServletResponse resp) {
+		
+		emailSend.LJMail("1", email, resp);
+		
 		return "login/EmailChk";
 	}
 	

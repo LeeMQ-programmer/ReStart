@@ -2,7 +2,9 @@ package com.start.pro.email;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 import javax.mail.Flags;
@@ -24,10 +26,12 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.start.pro.dto.DTO_Email;
+import com.start.pro.models.email.IService_Email;
 
-@Component
+@Service
 public class AsyncTask_SendEmail {
 
 	
@@ -36,21 +40,23 @@ public class AsyncTask_SendEmail {
 	@Autowired
 	private JavaMailSender mailSender;
 	
+	@Autowired
+	private IService_Email service;
 	
 	
 	// 단일 메세지 전송
 		@Async("myex")
-		public void sendOneMail(String toEmail, String title, String content, HttpServletResponse resp) {
+		public void sendOneMail(DTO_Email dto, HttpServletResponse resp) {
 			System.out.println("비동기 들어왔어");
 			MimeMessage message = mailSender.createMimeMessage();
 			try {
 				MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
 				messageHelper.setFrom(setFrom);
 				System.out.println("보낼사람이메일");
-				messageHelper.setTo(toEmail);
+				messageHelper.setTo(dto.getUser_email());
 				System.out.println("받는사람이메일");
-				messageHelper.setSubject(title);
-				messageHelper.setText(content,true);
+				messageHelper.setSubject(dto.getEmail_title());
+				messageHelper.setText(dto.getEmail_content(),true);
 
 				System.out.println("메세지 보내?");
 				mailSender.send(message);
@@ -69,6 +75,53 @@ public class AsyncTask_SendEmail {
 			}
 
 		}
+		
+		@Async("myex")
+		public void LJMail(String code, String email,HttpServletResponse resp) {
+			System.out.println("비동기 들어왔어");
+			
+			DTO_Email dto = service.SelDetailAuto(code);
+			System.out.println("잘가져왔어?"+dto.toString());
+			
+			String content = dto.getEmail_content();
+			content = content.replace("#{email}", email);
+			content =content.replace("#{key}", "1234");
+			dto.setEmail_content(content);
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("user_email", email);
+			map.put("lj_key","1234");
+			map.put("lj_code",code);
+			service.sendLJ(map);
+			
+			
+			MimeMessage message = mailSender.createMimeMessage();
+			try {
+				MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
+				messageHelper.setFrom(setFrom);
+				System.out.println("보낼사람이메일");
+				messageHelper.setTo(email);
+				System.out.println("받는사람이메일");
+				messageHelper.setSubject(dto.getEmail_title());
+				messageHelper.setText(dto.getEmail_content(),true);
+
+				System.out.println("메세지 보내?");
+				mailSender.send(message);
+				System.out.println("메세지 보냈어");
+			} catch (MessagingException e) {
+				System.out.println("메일발송 오류??");
+				PrintWriter out;
+				try {
+					out = resp.getWriter();
+					out.println("<script>alert('메일 발송을 실패했습니다.');</script>");
+					out.flush();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+				e.printStackTrace();
+			}
+
+		}
+		
 		
 		@Async("myex")
 		public void sendManyMail(List<DTO_Email> mailList) {

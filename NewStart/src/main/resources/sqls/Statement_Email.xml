@@ -8,15 +8,15 @@
 <!--인증 이메일 발송하면서 정보 입력-->
 <insert id="sendLJ" parameterType="java.util.Map">
  INSERT INTO LJ_EMAIL
-(LJ_SEQ, USER_EMAIL, LJ_KEY, REGDATE)
-VALUES(LJ_EMAIL_SEQS.NEXTVAL, #{user_email}, #{lj_key}, SYSDATE)
+(LJ_SEQ, LJ_CODE, USER_EMAIL, LJ_KEY, REGDATE)
+VALUES(LJ_EMAIL_SEQS.NEXTVAL,#{lj_code} ,#{user_email}, #{lj_key}, SYSDATE)
 </insert>
  
 
 
 <!-- 유저 인증받기 -->
-<select id="LJKey" parameterType="java.util.Map" resultType="java.lang.Integer">
-SELECT COUNT(*)
+<select id="LJKey" parameterType="java.util.Map" resultType="java.lang.String">
+SELECT LJ_CODE
  FROM LJ_EMAIL
   WHERE USER_EMAIL = #{user_email} AND LJ_KEY = #{lj_key}
 </select>
