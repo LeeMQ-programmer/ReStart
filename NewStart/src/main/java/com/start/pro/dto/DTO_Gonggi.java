@@ -89,11 +89,6 @@ public class DTO_Gonggi {
 		this.gi_regdate = gi_regdate;
 	}
 
-	public DTO_Gonggi(String seq, String category) {
-		super();
-		this.gi_seq = seq;
-		this.gi_category = category;
-	}
 
 	public DTO_Gonggi(String gi_seq, String gi_title, String gi_content, String gi_category) {
 		super();
@@ -101,6 +96,12 @@ public class DTO_Gonggi {
 		this.gi_title = gi_title;
 		this.gi_content = gi_content;
 		this.gi_category = gi_category;
+	}
+
+	public DTO_Gonggi(String gi_title, String gi_content) {
+		super();
+		this.gi_title = gi_title;
+		this.gi_content = gi_content;
 	}
 
 	
