@@ -54,6 +54,13 @@ public interface IService_Login {
 		public String PWFail(String user_email);
 		
 		
+		/**
+		 * 사용자 아이디(이메일)을 통해 해당 아이디에 대한 비밀번호 틀린 횟수를 가져옵니다.
+		 * @param 사용자 아이디(user_email)
+		 * @return 실패횟수(String)
+		 */
+		public String getPWFail(String user_email);
+		
 		//회원정보
 		/**
 		 * 회원가입을 할 때 아이디와 닉네임 중복검사를 실시합니다. 

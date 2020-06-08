@@ -24,7 +24,6 @@
             <span class="icon-bar"></span>
          </button>
          <a class="navbar-brand" href="./boardList.do"> 
-         	<img style="width: 25px; height: 25px;" alt="로고" src="./img/청하.jpg">
          </a>
       </div>
       <div class="collapse navbar-collapse" id="myNavbar">

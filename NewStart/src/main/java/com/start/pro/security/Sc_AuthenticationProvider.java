@@ -1,15 +1,22 @@
 package com.start.pro.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.LockedException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-public class Sc_AuthenticationProvider implements AuthenticationProvider {
+import com.start.pro.models.login.IService_Login;
 
+public class Sc_AuthenticationProvider implements AuthenticationProvider {
+	
+	@Autowired
+	private IService_Login service;
+	
 	@Autowired
 	private Sc_UserDetailsService userDetails;
 	
@@ -25,7 +32,10 @@ public class Sc_AuthenticationProvider implements AuthenticationProvider {
 		System.out.println("CustomAuthenticationProvider동작하거든?"+id+":"+pw+":"+"user.getPassword()");
 		
 		Sc_User user = (Sc_User) userDetails.loadUserByUsername(id);
-		
+		System.out.println((Integer.parseInt(service.getPWFail(id)) >= 5));
+		if(Integer.parseInt(service.getPWFail(id)) >= 5) {
+			throw new LockedException(id);
+		}
 		if(!matchPassword(user.getPassword(),pw)) {
 			throw new BadCredentialsException(id);
 		}

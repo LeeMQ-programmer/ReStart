@@ -10,8 +10,6 @@ import org.springframework.stereotype.Service;
 
 import com.start.pro.dto.DTO_Review;
 
-import oracle.net.aso.d;
-
 @Service
 public class Service_ReviewImpl implements IService_Review{
 
@@ -56,6 +54,21 @@ public class Service_ReviewImpl implements IService_Review{
 		log.info("Service@@@@@후기 게시판 답글 등록,{},{}",re_seq,dto);
 		return dao.updateParent(re_seq)&&dao.insertReply(dto);
 	}
+
+	@Override
+	public List<Integer> searchMaching(int user_seq) {
+		log.info("Service@@@@@후기 게시판 공고글 찾기,{}",user_seq);
+		return dao.searchMaching(user_seq);
+	}
+
+	@Override
+	public String searchTeacher(int gonggo_seq) {
+		log.info("Service@@@@@후기 게시판 매칭된 강사 찾기,{}",gonggo_seq);
+		return dao.searchTeacher(gonggo_seq);
+	}
+
+
+
 
 
 

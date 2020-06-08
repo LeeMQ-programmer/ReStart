@@ -74,6 +74,11 @@ public class Service_LoginImpl implements IService_Login{
 		boolean isc2 = dao.updatePWLog(map.get("user_email"));
 		return (isc1||isc2)? true : false;
 	}
+
+	@Override
+	public String getPWFail(String user_email) {
+		return dao.getPWFail(user_email);
+	}
 	
 	
 

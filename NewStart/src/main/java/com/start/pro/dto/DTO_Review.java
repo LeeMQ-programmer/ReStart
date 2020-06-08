@@ -33,6 +33,16 @@ public class DTO_Review {
 		this.re_delete = re_delete;
 		this.re_star = re_star;
 	}
+	
+
+	public DTO_Review(int user_seq, String re_title, String re_content, int re_teacher, int re_star) {
+		super();
+		this.user_seq = user_seq;
+		this.re_title = re_title;
+		this.re_content = re_content;
+		this.re_teacher = re_teacher;
+		this.re_star = re_star;
+	}
 
 	public int getBoard_code() {
 		return board_code;

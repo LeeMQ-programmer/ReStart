@@ -61,6 +61,18 @@ public class Dao_ReviewImpl implements IDao_Review {
 		return  session.update(NS+"insertReply", dto)>0?true:false;
 	}
 
+	@Override
+	public List<Integer> searchMaching(int user_seq) {
+		log.info("DAO@@@@@후기 게시판 공고글 찾기,{}",user_seq);
+		return session.selectList(NS+"searchMaching",user_seq);
+	}
+
+	@Override
+	public String searchTeacher(int gonggo_seq) {
+		log.info("DAO@@@@@후기 게시판 강사 찾기,{}",gonggo_seq);
+		return session.selectOne(NS+"searchTeacher",gonggo_seq);
+	}
+
 	
 
 
