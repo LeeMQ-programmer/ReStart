@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.UUID;
 
 import javax.mail.Flags;
 import javax.mail.Folder;
@@ -85,7 +86,7 @@ public class AsyncTask_SendEmail {
 			
 			String content = dto.getEmail_content();
 			content = content.replace("#{email}", email);
-			content =content.replace("#{key}", "1234");
+			content =content.replace("#{key}",randomKey());
 			dto.setEmail_content(content);
 			Map<String, String> map = new HashMap<String, String>();
 			map.put("user_email", email);
@@ -259,4 +260,15 @@ public class AsyncTask_SendEmail {
 		} 
 
 	
+		
+		private String randomKey() {
+			
+			String uuid = UUID.randomUUID().toString().replaceAll("-", "");
+			uuid = uuid.substring(0, 10);
+			
+			return uuid;
+			
+		}
+		
+		
 }

@@ -160,7 +160,12 @@ public class Controller_Login {
 	//비밀번호 찾자
 	@RequestMapping(value = "/goFPW.do", method = RequestMethod.GET)
 	public String goFPW() {
-		return "login/FindPW1";
+		return "login/FindPW0";
+	}
+
+	@RequestMapping(value = "/goFPW1.do", method = RequestMethod.POST)
+	public String goFPW1() {
+		return "login/EmailChk";
 	}
 
 	
@@ -206,6 +211,12 @@ public class Controller_Login {
 	public String EmailChk(String email, HttpServletResponse resp) {
 		
 		emailSend.LJMail("1", email, resp);
+		
+		return "login/EmailChk";
+	}
+	@RequestMapping(value = "/LEmailChk.do", method = RequestMethod.GET)
+	public String LEmailChk() {
+		
 		
 		return "login/EmailChk";
 	}

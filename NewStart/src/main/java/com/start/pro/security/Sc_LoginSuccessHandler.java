@@ -82,7 +82,9 @@ public class Sc_LoginSuccessHandler implements AuthenticationSuccessHandler{
 		
 		System.out.println("사용자 권한은?" + dto.getUser_type());
 		System.out.println("이건되고 왜 저건 안대"+defaultUrl);
-		if(dto.getUser_type().equalsIgnoreCase("L") || dto.getUser_type().equalsIgnoreCase("H")) {
+		if(dto.getUser_type().equalsIgnoreCase("L")) {
+			redirectStratgy.sendRedirect(req, resp, "/LEmailChk.do?email="+dto.getUser_email());
+		}else if(dto.getUser_type().equalsIgnoreCase("H")) {
 			redirectStratgy.sendRedirect(req, resp, "/EmailChk.do?email="+dto.getUser_email());
 		}else if(savedRequest!=null) {
 			String targetUrl = savedRequest.getRedirectUrl();
