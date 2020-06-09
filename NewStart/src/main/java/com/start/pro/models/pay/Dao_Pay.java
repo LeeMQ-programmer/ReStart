@@ -24,9 +24,9 @@ public class Dao_Pay implements IDao_Pay {
 
 	
 	@Override
-	public boolean creditPay(DTO_Pay dto) {
-		logger.info("creditPay");
-		int a = sqlSession.insert(NS+"creditPay", dto);
+	public boolean createPay(DTO_Pay dto) {
+		logger.info("createPay");
+		int a = sqlSession.insert(NS+"createPay", dto);
 		return a > 0 ? true : false;
 	}
 
@@ -73,6 +73,12 @@ public class Dao_Pay implements IDao_Pay {
 	public List<DTO_Refund_Credit> selectCreRef(String seq) {
 		logger.info("selectCreRef");
 		return sqlSession.selectList(NS+"selectCreRef", seq);
+	}
+
+	@Override
+	public int selectMax() {
+		logger.info("selectMax");
+		return sqlSession.selectOne(NS+"selectMax");
 	}
 
 }

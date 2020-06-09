@@ -21,6 +21,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.start.pro.dto.DTO_Pay;
 import com.start.pro.models.pay.IService_Pay;
 
 @Controller
@@ -32,13 +33,25 @@ public class Controller_Pay {
 	private IService_Pay service;
 	
 	@RequestMapping(value = "/pay.do", method = RequestMethod.GET)
-	public String payPage(Model model, HttpSession session) {
-		logger.info("payPage {}", new Date());
+	public String payPage() {
+		logger.info("pay.do {}", new Date());
 		System.out.println("▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒");
+		
+		return "pay/pay";
+	}
+	
+	@RequestMapping(value = "/payment.do", method = {RequestMethod.POST, RequestMethod.GET})
+	public String payPage(Model model, HttpSession session, String selCash) {
+		logger.info("payment.do {}", new Date());
+		System.out.println("▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒");
+		System.out.println(selCash);
 		
 		URL url = null;
 		URLConnection connection = null;
 		StringBuilder responseBody = new StringBuilder();
+		
+		int a = service.selectMax();
+		int orderNo = a + 1;
 		
 		try {
 			
@@ -49,16 +62,16 @@ public class Controller_Pay {
 			connection.setDoInput(true);
 			
 //			intent://pay?payToken={payToken}#Intent;scheme=supertoss;package=viva.republica.toss;end
-			org.json.simple.JSONObject jsonBody = new JSONObject();
-//			jsonBody.put("orderNo", num);
-//			jsonBody.put("amount", price);
+			JSONObject jsonBody = new JSONObject();
+			jsonBody.put("orderNo", orderNo);
+			jsonBody.put("amount", selCash);
 			jsonBody.put("amountTaxFree", 0);
 			jsonBody.put("productDesc", "테스트 결제");
 			jsonBody.put("autoExecute", true);
 			jsonBody.put("apiKey", "sk_test_w5lNQylNqa5lNQe013Nq");
-			jsonBody.put("resultCallback", "http://localhost:8093/paypay/callback.do");
-//		    jsonBody.put("retUrl", "http://localhost:8093/paypay/payresult.do?orderno="+num);
-		    jsonBody.put("retCancelUrl", "http://localhost:8093/paypay/cancel.do");
+			jsonBody.put("resultCallback", "http://localhost:8095/NewStart/callback.do");
+		    jsonBody.put("retUrl", "http://localhost:8095/NewStart/main.do?orderno=" + orderNo);
+		    jsonBody.put("retCancelUrl", "http://localhost:8095/NewStart/cancel.do");
 
 			BufferedOutputStream bos = new BufferedOutputStream(connection.getOutputStream());
 			
@@ -92,11 +105,14 @@ public class Controller_Pay {
 		System.out.println("잘담기나요??"+token);
 		System.out.println("잘담기나요??"+checkoutPage);
 		
+		DTO_Pay dto = new DTO_Pay(null, token, orderNo, selCash, null, 1);
+		service.createPay(dto);
 
 		model.addAttribute("payed", checkoutPage);
 		session.setAttribute("token", token);
 		
-		return "pay/pay";
+//		return null;
+		return "index";
 	}
 	
 }
