@@ -14,7 +14,7 @@ public interface IService_Pay {
 	 * @param dto
 	 * @return true
 	 */
-	public boolean creditPay(DTO_Pay dto);
+	public boolean createPay(DTO_Pay dto);
 	
 	/**
 	 * 결제 내역 조회
@@ -22,6 +22,13 @@ public interface IService_Pay {
 	 * @return List<DTO_Pay>
 	 */
 	public List<DTO_Pay> selectPay(String seq);
+	
+	/**
+	 * 상품 번호 조회
+	 * @param num
+	 * @return int
+	 */
+	public int selectMax();
 	
 	/**
 	 * 결제 환불

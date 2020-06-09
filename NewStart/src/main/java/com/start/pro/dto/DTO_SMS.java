@@ -9,6 +9,7 @@ public class DTO_SMS {
 	private String sms_content;
 	private String sms_sendtime;
 	private String sms_resultcode;
+	private String user_phone;
 
 	public DTO_SMS() {
 		// TODO Auto-generated constructor stub
@@ -20,9 +21,9 @@ public class DTO_SMS {
 		this.sms_resultcode = sms_resultcode;
 	}
 
-	public DTO_SMS(int user_seq, String sms_contype, String sms_title, String sms_content) {
+	public DTO_SMS(String user_phone, String sms_contype, String sms_title, String sms_content) {
 		super();
-		this.user_seq = user_seq;
+		this.user_phone = user_phone;
 		this.sms_contype = sms_contype;
 		this.sms_title = sms_title;
 		this.sms_content = sms_content;
@@ -105,11 +106,20 @@ public class DTO_SMS {
 		this.sms_resultcode = sms_resultcode;
 	}
 
+	protected String getUser_phone() {
+		return user_phone;
+	}
+
+	protected void setUser_phone(String user_phone) {
+		this.user_phone = user_phone;
+	}
+
 	@Override
 	public String toString() {
 		return "DTO_SMS [sms_seq=" + sms_seq + ", user_seq=" + user_seq + ", sms_type=" + sms_type + ", sms_contype="
 				+ sms_contype + ", sms_title=" + sms_title + ", sms_content=" + sms_content + ", sms_sendtime="
-				+ sms_sendtime + ", sms_resultcode=" + sms_resultcode + "]";
+				+ sms_sendtime + ", sms_resultcode=" + sms_resultcode + ", user_phone=" + user_phone + "]";
 	}
 
+	
 }

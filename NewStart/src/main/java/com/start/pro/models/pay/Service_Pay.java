@@ -1,5 +1,6 @@
 package com.start.pro.models.pay;
 
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -21,9 +22,9 @@ public class Service_Pay implements IService_Pay {
 	private IDao_Pay dao;
 	
 	@Override
-	public boolean creditPay(DTO_Pay dto) {
-		logger.info("creditPay, {}", dto);
-		return dao.creditPay(dto);
+	public boolean createPay(DTO_Pay dto) {
+		logger.info("createPay, {}", dto);
+		return dao.createPay(dto);
 	}
 
 	@Override
@@ -66,6 +67,12 @@ public class Service_Pay implements IService_Pay {
 	public List<DTO_Refund_Credit> selectCreRef(String seq) {
 		logger.info("selectCreRef, {}", seq);
 		return dao.selectCreRef(seq);
+	}
+
+	@Override
+	public int selectMax() {
+		logger.info("selectMax, {}", new Date());
+		return dao.selectMax();
 	}
 
 }
