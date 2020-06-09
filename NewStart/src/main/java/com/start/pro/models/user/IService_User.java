@@ -12,7 +12,8 @@ public interface IService_User {
 	 * @param 회원 번호user_seq
 	 * @return 회원 정보
 	 */
-	public List<DTO_User> searchUser(int user_seq);
+	public List<DTO_User> searchAll();
+	public DTO_User searchDetail(int user_seq);
 
 	
 	/**

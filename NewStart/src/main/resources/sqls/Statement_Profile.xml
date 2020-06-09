@@ -4,8 +4,8 @@
 
 	<!-- 프로필 조회하기 -->
 	<select id="searchProfile" parameterType="java.lang.Integer" resultType="ProDto">
-		SELECT USER_SEQ, PRO_SCHOOL, PRO_MAJOR, PRO_TECH, PRO_CAREER, PRO_INFO, PRO_STAR, CAREER_COMPANY, CAREER_DEPT, CAREER_JOB, CAREER_TERM
-			FROM CAREER  NATURAL JOIN PROFILE 
+		SELECT USER_SEQ, PRO_SCHOOL, PRO_MAJOR, PRO_TECH, PRO_INFO, PRO_STAR
+			FROM PROFILE NATURAL JOIN CAREER 
 				WHERE USER_SEQ =#{user_seq}
 	</select>
 	
@@ -19,7 +19,7 @@
 			   #{pro_tech}, #{pro_info})
 	</insert>
 	<!-- 경력 등록 -->
-	<insert id="insertCareer" parameterType="ProDto">
+	<insert id="insertCareer" parameterType="CarDto">
 		INSERT INTO CAREER
 		(USER_SEQ, CAREER_COMPANY, CAREER_DEPT, CAREER_JOB, CAREER_TERM)
 		VALUES(#{user_seq}, #{career_company}, #{career_dept}, 
@@ -37,7 +37,7 @@
 		WHERE USER_SEQ=#{user_seq}
 	</update>
 	<!-- 경력 수정 -->
-	<update id="updateCareer" parameterType="ProDto">
+	<update id="updateCareer" parameterType="CarDto">
 		UPDATE CAREER
 		SET CAREER_COMPANY=#{career_company}, CAREER_DEPT=#{career_dept},
 			CAREER_JOB=#{career_job}, CAREER_TERM=#{career_term}

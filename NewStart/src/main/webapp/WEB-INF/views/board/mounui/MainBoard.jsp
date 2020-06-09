@@ -7,7 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<%@include file="/WEB-INF/views/boardTopMenu.jsp"%>
-
+메인보드
 </body>
 </html>

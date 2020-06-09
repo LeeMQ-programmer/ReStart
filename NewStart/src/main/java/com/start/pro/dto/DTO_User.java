@@ -118,8 +118,7 @@ public class DTO_User {
 	@Override
 	public String toString() {
 		return "DTO_User [user_seq=" + user_seq + ", user_email=" + user_email + ", user_nickname=" + user_nickname
-				+ ", user_name=" + user_name + ", user_grade=" + user_grade + ", user_type=" + user_type + ", user_pw="
-				+ user_pw + ", user_phone=" + user_phone + ", user_adchk=" + user_adchk + ", user_regdate="
+				+ ", user_name=" + user_name + ", user_grade=" + user_grade + ", user_type=" + user_type + ", user_phone=" + user_phone + ", user_adchk=" + user_adchk + ", user_regdate="
 				+ user_regdate + ", user_tchk=" + user_tchk + "]";
 	}
 	

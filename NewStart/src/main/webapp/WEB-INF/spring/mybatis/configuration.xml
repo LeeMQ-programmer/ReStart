@@ -14,6 +14,7 @@
 		<typeAlias type="com.start.pro.dto.DTO_Refund_Credit" alias="RefundCreDto"/>
 		<typeAlias type="com.start.pro.dto.DTO_File" alias="FileDto"/>
 		<typeAlias type="com.start.pro.dto.DTO_Profile" alias="ProDto"/>
+		<typeAlias type="com.start.pro.dto.DTO_Career" alias="CarDto"/>
 		<typeAlias type="com.start.pro.dto.DTO_Review" alias="ReDto"/>
 		<typeAlias type="com.start.pro.dto.DTO_SMS" alias="SMSDto"/>
 		<typeAlias type="com.start.pro.dto.DTO_Declaration" alias="DecDto"/>
@@ -22,6 +23,7 @@
 		<typeAlias type="com.start.pro.security.Sc_User" alias="UserDetailsDto"/>
 		<typeAlias type="com.start.pro.dto.DTO_Filter" alias="FilterDto"/>
 		<typeAlias type="com.start.pro.dto.DTO_Mounui" alias="MDto"/>
+		<typeAlias type="com.start.pro.dto.DTO_FAQ" alias="FAQDto"/>
 	</typeAliases>
 
 
