@@ -3,23 +3,24 @@
 <mapper namespace="com.start.pro.pay">
 
 <!-- 결제 생성 -->
-<insert id="creditPay" parameterType="PayDto">
+<insert id="createPay" parameterType="PayDto">
 INSERT INTO PAYMENT
-(PAY_SEQ, PAY_TOKEN, PAY_TYPE, PAY_AMOUNT, PAY_DATE, USER_SEQ)
-VALUES(PAY_SEQ.NEXTVAL, #{pay_token}, #{pay_type}, #{pay_amount}, SYSDATE, #{user_seq})
+(PAY_SEQ, PAY_TOKEN, PAY_ORDERNO, PAY_AMOUNT, PAY_DATE, USER_SEQ)
+VALUES(PAY_SEQ.NEXTVAL, #{pay_token}, #{pay_orderno}, #{pay_amount}, SYSDATE, #{user_seq})
 </insert>
 
 <!-- 결제내역 조회 -->
 <select id="selectPay" parameterType="java.lang.String" resultType="PayDto">
-SELECT PAY_SEQ, PAY_TOKEN, PAY_TYPE, PAY_AMOUNT, TO_CHAR(PAY_DATE,'YYYY-MM-DD') AS PAY_DATE, USER_SEQ
+SELECT PAY_SEQ, PAY_TOKEN, PAY_AMOUNT, TO_CHAR(PAY_DATE,'YYYY-MM-DD') AS PAY_DATE, USER_SEQ
 	FROM PAYMENT
 		WHERE USER_SEQ = #{user_seq}
 </select>
 
-<!-- SELECT PAY_SEQ_TEST, PAY_TOKEN, PAY_TYPE, PAY_AMOUNT, PAY_DATE, u.USER_SEQ_TEST  -->
-<!-- 	FROM PAYMENT_TEST p JOIN USER_TEST u  -->
-<!-- 	ON p.USER_SEQ_TEST = u.USER_SEQ_TEST  -->
-<!-- 		WHERE p.USER_SEQ_TEST = 1; -->
+<!-- 결제 주문번호 구하는 쿼리 -->
+<select id="selectMax" parameterType="java.lang.String" resultType="java.lang.Integer">
+SELECT MAX(PAY_ORDERNO)
+	FROM PAYMENT
+</select>
 
 <!-- 결제 환불 -->
 <insert id="refundPay" parameterType="java.lang.String">
