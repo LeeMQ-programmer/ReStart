@@ -88,7 +88,7 @@ SELECT MOUNUI_SEQ, USER_SEQ, CATEGORY, TITLE, CONTENT, REGDATE, REPLYCHK, FILECH
 </delete>
 
 <!-- 카테고리 가져오기 -->
-<select id="getCategory" resultType="">
+<select id="getCategory" resultType="FAQDto">
 SELECT CATEGORY_SEQ, CATEGORY_TITLE FROM FAQ_CODE fc
 	ORDER BY CATEGORY_SORT
 </select>
