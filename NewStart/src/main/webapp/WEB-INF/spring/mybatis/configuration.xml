@@ -23,6 +23,7 @@
 		<typeAlias type="com.start.pro.security.Sc_User" alias="UserDetailsDto"/>
 		<typeAlias type="com.start.pro.dto.DTO_Filter" alias="FilterDto"/>
 		<typeAlias type="com.start.pro.dto.DTO_Mounui" alias="MDto"/>
+		<typeAlias type="com.start.pro.dto.DTO_FAQ" alias="FAQDto"/>
 	</typeAliases>
 
 
