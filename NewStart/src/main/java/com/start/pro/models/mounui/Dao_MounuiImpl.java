@@ -5,10 +5,13 @@ import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.start.pro.dto.DTO_FAQ;
 import com.start.pro.dto.DTO_Mounui;
 
+
+@Repository
 public class Dao_MounuiImpl implements IDao_Mounui {
 
 	@Autowired

@@ -4,10 +4,12 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.start.pro.dto.DTO_FAQ;
 import com.start.pro.dto.DTO_Mounui;
 
+@Service
 public class Service_MounuiImpl implements IService_Mounui{
 
 	@Autowired
