@@ -38,8 +38,8 @@ public class Dao_LoginImpl implements IDao_Login {
 	}
 
 	@Override
-	public boolean changeSleep(String user_seq) {
-		return (session.update(NS+"changeSleep",user_seq) > 0) ? true : false;
+	public boolean changeSleep(String user_email) {
+		return (session.update(NS+"changeSleep",user_email) > 0) ? true : false;
 	}
 
 	@Override
@@ -72,8 +72,8 @@ public class Dao_LoginImpl implements IDao_Login {
 
 
 	@Override
-	public boolean changeNomal(String user_seq) {
-		return session.update(NS+"changeNomal",user_seq) > 0 ? true : false;
+	public boolean changeNomal(String user_email) {
+		return session.update(NS+"changeNomal",user_email) > 0 ? true : false;
 	}
 
 	@Override

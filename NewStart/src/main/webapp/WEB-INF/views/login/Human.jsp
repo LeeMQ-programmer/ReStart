@@ -7,10 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form action="./ChangePW.do" method="POST">
-<input type="hidden" name="email" value="${email}">
-새로운 비밀번호 : <input type="text" name="newPW">
-<input type="submit">
-</form>
+휴먼 풀리셨습니다 
 </body>
 </html>

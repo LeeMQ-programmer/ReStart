@@ -29,7 +29,7 @@ SELECT USER_SEQ, USER_EMAIL, USER_NICKNAME, USER_NAME,
  <!-- 휴면회원을 일반회원으로 등급 변경  -->
  <update id="changeSleep" parameterType="java.lang.String">
  UPDATE "USER" SET USER_TYPE = 'N'
-  WHERE USER_SEQ  = #{user_seq}
+  WHERE USER_EMAIL  = #{user_email}
  </update>
  
  <!-- 비밀번호 틀린 횟수 +1해주기 -->
@@ -92,7 +92,7 @@ VALUES(USER_SEQS.NEXTVAL , #{user_email}, #{user_nickname}, #{user_name} ,#{user
 <!-- 유저 권한 일반 유저로 변환(이메일 인증 성공시)-->
  <update id="changeNomal" parameterType="java.lang.String">
  UPDATE "USER" SET USER_TYPE = 'N'
- 	 WHERE USER_SEQ = #{user_seq}
+ 	 WHERE USER_EMAIL = #{user_email}
  </update>
  
  

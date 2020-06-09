@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.start.pro.dto.DTO_Email;
+import com.start.pro.dto.DTO_Filter;
 
 public interface IDao_Email {
 
@@ -14,6 +15,7 @@ public interface IDao_Email {
 	 * 필요한 키는 다음과 같습니다.
 	 * user_email : 보내는 유저의 이메일을 넣습니다. 
 	 * lj_key : 보내는 랜덤 인증번호를 넣습니다.
+	 * LJ_CODE : 0 - 회원가입 인증 / 1 - 아이디 찾기 / 2 - 휴면회원 인증
 	 * @param Map<String,String>
 	 * @return boolean(true/false)
 	 */
@@ -26,9 +28,9 @@ public interface IDao_Email {
 	 * user_email : 인증할 유저의 이메일을 넣습니다.
 	 * lj_key : 인증할 키값을 넣습니다.
 	 * @param Map<String,String>
-	 * @return boolean(true/false)
+	 * @return String code
 	 */
-	public boolean LJKey(Map<String,String> map);
+	public String LJKey(Map<String,String> map);
 	
 	/**
 	 * 인증으로 보내진 이메일은 1년동안 보관하게 됩니다.
@@ -206,16 +208,15 @@ public interface IDao_Email {
 	
 	/**
 	 * 필터를 통한 부분 검색 시 실행됩니다.
-	 * 필요한 키는 다음과 같습니다.
+	 * 필요한 데이터는 다음과 같습니다.
 	 * firstDate : 시작 날짜 YYYYMMDD
 	 * lastDate : 마지막 날짜 YYYYMMDD
-	 * category_code : 카테고리 코드
-	 * user_grade : 유저 등급
-	 * user_type : 유저 타입
-	 * @param Map<String, String>
+	 * filter : 필터 조합 String
+	 * successchk : 발송 상태 Y, S, F
+	 * @param DTO_Filter
 	 * @return List<DTO_Email>
 	 */
-	public List<DTO_Email> SelMailFilter(Map<String, String> map);
+	public List<DTO_Email> SelMailFilter(DTO_Filter dto);
 	
 	
 	// 수동 이메일
@@ -226,8 +227,8 @@ public interface IDao_Email {
 	 * user_type : 유저의 타입
 	 * user_adchk : 유저의 광고수신상태(Y를 권장합니다.)
 	 * @param Map<String, String>
-	 * @return List<DTO_Email>
+	 * @return List<String>
 	 */
-	public List<DTO_Email> SelUserFiter(Map<String, String> map);
+	public List<String> SelUserFiter(Map<String, String[]> map);
 	
 }

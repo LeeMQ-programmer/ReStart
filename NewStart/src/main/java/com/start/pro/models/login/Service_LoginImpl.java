@@ -31,8 +31,8 @@ public class Service_LoginImpl implements IService_Login{
 	}
 
 	@Override
-	public boolean changeSleep(String user_seq) {
-		return dao.changeSleep(user_seq);
+	public boolean changeSleep(String user_email) {
+		return dao.changeSleep(user_email);
 	}
 
 	@Transactional
@@ -58,8 +58,8 @@ public class Service_LoginImpl implements IService_Login{
 	}
 
 	@Override
-	public boolean changeNomal(String user_seq) {
-		return dao.changeNomal(user_seq);
+	public boolean changeNomal(String user_email) {
+		return dao.changeNomal(user_email);
 	}
 
 	@Override

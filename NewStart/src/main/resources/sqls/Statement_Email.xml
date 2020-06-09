@@ -8,15 +8,15 @@
 <!--인증 이메일 발송하면서 정보 입력-->
 <insert id="sendLJ" parameterType="java.util.Map">
  INSERT INTO LJ_EMAIL
-(LJ_SEQ, USER_EMAIL, LJ_KEY, REGDATE)
-VALUES(LJ_EMAIL_SEQS.NEXTVAL, #{user_email}, #{lj_key}, SYSDATE)
+(LJ_SEQ, LJ_CODE, USER_EMAIL, LJ_KEY, REGDATE)
+VALUES(LJ_EMAIL_SEQS.NEXTVAL,#{lj_code} ,#{user_email}, #{lj_key}, SYSDATE)
 </insert>
  
 
 
 <!-- 유저 인증받기 -->
-<select id="LJKey" parameterType="java.util.Map" resultType="java.lang.Integer">
-SELECT COUNT(*)
+<select id="LJKey" parameterType="java.util.Map" resultType="java.lang.String">
+SELECT LJ_CODE
  FROM LJ_EMAIL
   WHERE USER_EMAIL = #{user_email} AND LJ_KEY = #{lj_key}
 </select>
@@ -102,9 +102,9 @@ WHERE CATEGORY_CODE=#{category_code}
  <insert id="SendEmail" parameterType="EmailDto">
   INSERT INTO EMAIL_SAVE 
 	(BOARD_CODE, EMAIL_SEQ, CATEGORY_CODE, EMAIL_TITLE, 
-	EMAIL_CONTENT, FILECHK, USER_EMAIL, SUCCESSCHK, REGDATE)
+	EMAIL_CONTENT, FILECHK, USER_EMAIL, SUCCESSCHK, REGDATE, FILTER)
  		VALUES(002, EMAIL_SAVE_SEQS.NEXTVAL, #{category_code}, #{email_title}, 
- 			#{email_content}, #{filechk}, #{user_email}, #{successchk}, SYSDATE)
+ 			#{email_content}, #{filechk}, #{user_email}, #{successchk}, SYSDATE, #{filter})
  <selectKey order="AFTER" resultType="java.lang.String" keyProperty="email_seq">
  	SELECT EMAIL_SAVE_SEQS.CURRVAL AS EMAIL_SEQ FROM DUAL
  </selectKey>
@@ -131,7 +131,7 @@ WHERE CATEGORY_CODE=#{category_code}
   
  <!-- 재전송 -->
  <select id="mailresend" parameterType="java.lang.String" resultType="EmailDto">
- SELECT CATEGORY_CODE, EMAIL_TITLE, EMAIL_CONTENT, FILECHK, USER_EMAIL
+ SELECT EMAIL_SEQ, CATEGORY_CODE, EMAIL_TITLE, EMAIL_CONTENT, FILECHK, USER_EMAIL
 	FROM EMAIL_SAVE es 
 		WHERE EMAIL_SEQ = #{email_seq}
  </select> 
@@ -150,6 +150,7 @@ SELECT EMAIL_SEQ, CATEGORY_CODE,
 	CASE WHEN LENGTH(EMAIL_TITLE)>10 THEN SUBSTR(EMAIL_TITLE,1,10) || '....' ELSE EMAIL_TITLE END AS EMAIL_TITLE
 	, USER_EMAIL, SUCCESSCHK, REGDATE 
 	FROM EMAIL_SAVE es
+		ORDER BY EMAIL_SEQ desc
 </select>
 
 
@@ -172,23 +173,26 @@ SELECT EMAIL_SEQ, CATEGORY_CODE,
 			OR (SELECT USER_TYPE FROM "USER" u WHERE u.USER_EMAIL = es.USER_EMAIL) = 'N'
  -->
 
-<select id="SelMailFilter" parameterType="java.util.Map" resultType="EmailDto">
-SELECT EMAIL_SEQ, CATEGORY_CODE,
-	CASE WHEN LENGTH(EMAIL_TITLE)>10 THEN SUBSTR(EMAIL_TITLE,1,10) || '....' ELSE EMAIL_TITLE END AS EMAIL_TITLE,
-	USER_EMAIL, SUCCESSCHK, REGDATE 
-	FROM EMAIL_SAVE es
+<select id="SelMailFilter" parameterType="FilterDto" resultType="EmailDto">
+SELECT EMAIL_SEQ, CATEGORY_CODE, 
+CASE WHEN LENGTH(EMAIL_TITLE)>10 THEN SUBSTR(EMAIL_TITLE,1,10) || '....' ELSE EMAIL_TITLE
+END AS EMAIL_TITLE, USER_EMAIL, SUCCESSCHK, REGDATE 
+	FROM EMAIL_SAVE es 
 	<where>
-		<if test="first != null">
-		 <![CDATA[(REGDATE >= #{firstDate} AND REGDATE <= #{lastDate})]]>
+		<if test="filter != 'X/X'">
+		"FILTER" = #{filter} 
 		</if>
-		<if test="category_code != null">
-		AND CATEGORY_CODE = #{category_code}
+		<if test="successchk != null">
+		AND SUCCESSCHK IN 
+		<foreach collection="successchk" item="successchk" open="(" close=")" separator=",">
+				#{successchk}
+			</foreach>
 		</if>
-		<if test="user_grade != null">
-		AND (SELECT USER_GRADE FROM "USER" u WHERE u.USER_EMAIL = es.USER_EMAIL) = #{user_grade} 
+		<if test="firstDate != ''">
+		  <![CDATA[AND REGDATE >= #{firstDate}]]>
 		</if>
-		<if test="user_type != null">
-		AND (SELECT USER_TYPE FROM "USER" u WHERE u.USER_EMAIL = es.USER_EMAIL) = #{user_type}
+		<if test="lastDate != ''">
+		  <![CDATA[AND REGDATE <= #{lastDate}]]>
 		</if>
 	</where>
 </select>
@@ -200,17 +204,20 @@ SELECT EMAIL_SEQ, CATEGORY_CODE,
 SELECT USER_EMAIL FROM "USER" u 
  WHERE USER_GRADE = 'M' AND USER_ADCHK = 'Y'
  -->
-<select id="SelUserFiter" parameterType="java.util.Map" resultType="EmailDto">
+<select id="SelUserFiter" parameterType="java.util.Map" resultType="java.lang.String">
 SELECT USER_EMAIL FROM "USER" u 
 	<where>
 		<if test="user_grade != null">
-			USER_GRADE = #{user_grade} 
+			USER_GRADE IN
+			<foreach collection="user_grade" item="grade" open="(" close=")" separator=",">
+				#{grade}
+			</foreach>
 		</if>
 		<if test="user_type != null">
-		AND	USER_TYPE = #{user_type}
-		</if>
-		<if test="user_adchk != null">
-		AND USER_ADCHK = #{user_adchk}
+		AND	USER_TYPE IN  
+		<foreach collection="user_type" item="type" open="(" close=")" separator=",">
+				#{type}
+			</foreach>
 		</if>
 	</where>
 </select>

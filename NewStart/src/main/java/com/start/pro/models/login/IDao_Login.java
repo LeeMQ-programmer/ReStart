@@ -37,10 +37,10 @@ public interface IDao_Login {
 		/**
 		 * 사용자 회원번호를 통해 휴면회원(H)를 일반 유저(N)으로 변경합니다.
 		 * 휴면회원이 이메일 인증을 했을 시 사용합니다.
-		 * @param 회원번호(user_seq)
+		 * @param 회원이메일(user_email)
 		 * @return boolean(성공, 실패)
 		 */
-		public boolean changeSleep(String user_seq);
+		public boolean changeSleep(String user_email);
 		
 		/**
 		 * 사용자 아이디(이메일)을 통해 아이디에 해당하는 비밀번호 틀린 횟수를 1 추가해줍니다.
@@ -86,10 +86,10 @@ public interface IDao_Login {
 		
 		/**
 		 * 회원가입 성공 후 이메일 인증 성공 시 회원 권한을 잠금(L)에서 일반(N)으로 변경해줍니다.
-		 * @param 회원번호(user_seq)
+		 * @param 회원이메일(user_email)
 		 * @return boolean(성공, 실패)
 		 */
-		public boolean changeNomal(String user_seq);
+		public boolean changeNomal(String user_email);
 		
 		//아이디 찾기
 		/**

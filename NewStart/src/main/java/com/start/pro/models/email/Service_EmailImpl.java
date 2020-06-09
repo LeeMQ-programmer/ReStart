@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.start.pro.dto.DTO_Email;
+import com.start.pro.dto.DTO_Filter;
 @Service
 public class Service_EmailImpl implements IService_Email{
 
@@ -19,7 +20,7 @@ public class Service_EmailImpl implements IService_Email{
 	}
 
 	@Override
-	public boolean LJKey(Map<String, String> map) {
+	public String LJKey(Map<String, String> map) {
 		return dao.LJKey(map);
 	}
 
@@ -79,12 +80,12 @@ public class Service_EmailImpl implements IService_Email{
 	}
 
 	@Override
-	public List<DTO_Email> SelMailFilter(Map<String, String> map) {
-		return dao.SelMailFilter(map);
+	public List<DTO_Email> SelMailFilter(DTO_Filter dto) {
+		return dao.SelMailFilter(dto);
 	}
 
 	@Override
-	public List<DTO_Email> SelUserFiter(Map<String, String> map) {
+	public List<String> SelUserFiter(Map<String, String[]> map) {
 		return dao.SelUserFiter(map);
 	}
 

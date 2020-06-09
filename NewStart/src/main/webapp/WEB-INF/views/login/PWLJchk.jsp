@@ -7,9 +7,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form action="./ChangePW.do" method="POST">
+<form action="./ljmailchk.do" method="post">
+인증번호 : 
+<input type="text" name="key">
 <input type="hidden" name="email" value="${email}">
-새로운 비밀번호 : <input type="text" name="newPW">
 <input type="submit">
 </form>
 </body>
