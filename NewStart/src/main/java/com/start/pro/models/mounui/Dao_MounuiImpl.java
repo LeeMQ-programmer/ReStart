@@ -6,6 +6,7 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.start.pro.dto.DTO_FAQ;
 import com.start.pro.dto.DTO_Mounui;
 
 public class Dao_MounuiImpl implements IDao_Mounui {
@@ -58,6 +59,11 @@ public class Dao_MounuiImpl implements IDao_Mounui {
 	@Override
 	public boolean adminDelBoard(Map<String, String[]> map) {
 		return session.delete(NS+"adminDelBoard", map) > 0 ? true : false;
+	}
+
+	@Override
+	public List<DTO_FAQ> getCategory() {
+		return session.selectList(NS+"getCategory");
 	}
 
 }

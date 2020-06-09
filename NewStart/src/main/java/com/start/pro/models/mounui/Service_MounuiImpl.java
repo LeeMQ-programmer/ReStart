@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.start.pro.dto.DTO_FAQ;
 import com.start.pro.dto.DTO_Mounui;
 
 public class Service_MounuiImpl implements IService_Mounui{
@@ -56,6 +57,11 @@ public class Service_MounuiImpl implements IService_Mounui{
 	@Override
 	public boolean adminDelBoard(Map<String, String[]> map) {
 		return dao.adminDelBoard(map);
+	}
+
+	@Override
+	public List<DTO_FAQ> getCategory() {
+		return dao.getCategory();
 	}
 
 }

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,10 +14,10 @@
     <div class="form-group">
      <label for="sel1">Select list (select one):</label>
       <select class="form-control" id="sel1">
-        <option value="0">1</option>
-        <option value="0">2</option>
-        <option value="0">3</option>
-        <option value="0">4</option>
+        
+        <c:forEach items="${Fdto}" var="fdto">
+	        <option value="0">1</option>
+        </c:forEach>
       </select>
       <label for="usr">Name:</label>
       <input type="text" class="form-control" id="usr">
