@@ -5,8 +5,12 @@
 <!-- 문자 보내기 -->
 	<insert id="insertSend" parameterType="SMSDto">
 		INSERT INTO SMS_SEND
-		(SMS_SEQ, USER_SEQ, SMS_CONTYPE, SMS_TITLE, SMS_CONTENT)
-		VALUES(SMS_SEQS.NEXTVAL, #{user_seq}, #{sms_contype}, #{sms_title}, #{sms_content})
+			(SMS_SEQ, 
+			USER_SEQ, 
+			SMS_CONTYPE, SMS_TITLE, SMS_CONTENT, USER_PHONE)
+		VALUES(SMS_SEQS.NEXTVAL, 
+			(SELECT USER_SEQ FROM USER WHERE USER_PHONE =#{user_phone}),
+			 #{sms_contype}, #{sms_title}, #{sms_content},#{user_phone})
 	</insert>
 	
 	<!-- 결과 값 받기 -->
@@ -25,7 +29,7 @@
 	</select>
 	<!-- 발송 상세 조회 하기 -->
 	<select id="searchDetail" parameterType="java.lang.Integer" resultType="SMSDto">
-		SELECT SMS_SEQ,USER_SEQ, SMS_TYPE, SMS_CONTYPE, SMS_TITLE, SMS_CONTENT, SMS_SENDTIME, SMS_RESUMTCODE
+		SELECT SMS_SEQ,USER_SEQ,USER_PHONE, SMS_TYPE, SMS_CONTYPE, SMS_TITLE, SMS_CONTENT, SMS_SENDTIME, SMS_RESUMTCODE
 		FROM SMS_SEND NATURAL JOIN SMS_RESULT
 		WHERE USER_SEQ=#{user_seq}
 	</select>

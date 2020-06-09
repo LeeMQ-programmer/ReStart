@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<%@include file="./WEB-INF/views/boardTopMenu.jsp"%>
+	<%@include file="/WEB-INF/views/boardTopMenu.jsp"%>
 <div>
 	<h1>멘티들은 강사공고가 메인으로 뜨게 지정</h1>
 	<a href="./t_main.do">강사 공고 메인페이지 </a>

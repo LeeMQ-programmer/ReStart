@@ -19,7 +19,7 @@
 			   #{pro_tech}, #{pro_info})
 	</insert>
 	<!-- 경력 등록 -->
-	<insert id="insertCareer" parameterType="ProDto">
+	<insert id="insertCareer" parameterType="CareerDto">
 		INSERT INTO CAREER
 		(USER_SEQ, CAREER_COMPANY, CAREER_DEPT, CAREER_JOB, CAREER_TERM)
 		VALUES(#{user_seq}, #{career_company}, #{career_dept}, 
@@ -37,7 +37,7 @@
 		WHERE USER_SEQ=#{user_seq}
 	</update>
 	<!-- 경력 수정 -->
-	<update id="updateCareer" parameterType="ProDto">
+	<update id="updateCareer" parameterType="CareerDto">
 		UPDATE CAREER
 		SET CAREER_COMPANY=#{career_company}, CAREER_DEPT=#{career_dept},
 			CAREER_JOB=#{career_job}, CAREER_TERM=#{career_term}

@@ -4,15 +4,22 @@
 
 
 	<!-- 회원 정보 전체 조회 -->
-	<select id="searchUser" parameterType="java.lang.Integer" resultType="UserDto">
+	<select id="searchAll" resultType="UserDto">
 		SELECT USER_SEQ,USER_EMAIL ,USER_NAME
 			   ,USER_NICKNAME ,USER_GRADE ,USER_TYPE
 			   ,USER_ADCHK ,USER_TCHK,USER_REGDATE
-		FROM USER
-		<if test="user_seq != null">
-			WHERE USER_SEQ =#{user_seq}
-		</if>
+		FROM "USER"
 	</select>
+	
+	<select id="searchDetail" parameterType="java.lang.Integer" resultType="UserDto">
+		SELECT USER_SEQ,USER_EMAIL ,USER_NAME
+			   ,USER_NICKNAME ,USER_GRADE ,USER_TYPE
+			   ,USER_ADCHK ,USER_TCHK,TO_CHAR(USER_REGDATE,'YY-MM-DD HH24:MI:SS') USER_REGDATE
+		FROM "USER"
+		WHERE USER_SEQ = #{user_seq}
+		
+	</select>
+	
 <!-- 	강사인증을 한 회원 등급 변경 -->
 	<update id="updateTeacher" parameterType="java.lang.Integer">
 		UPDATE USER SET USER_GRADE ='T' ,USER_TCHK='Y'
