@@ -25,26 +25,34 @@ public class Controller_Header {
 	@Autowired
 	private IService_Profile proFileService;
 	
+	//마이 페이지로 이동
 	@RequestMapping(value = "/myPage.do", method = RequestMethod.GET)
 	public String mypage(HttpSession session,Model model) {
 		
-		log.info("마이페이지 이동!");
-		DTO_User newstart = (DTO_User) session.getAttribute("user");
+		log.info("@@@@마이페이지 이동!@@@@");
+		DTO_User newstart = (DTO_User) session.getAttribute("newstart");
 		
 		model.addAttribute("newstart",newstart);
 		return "board/user/mypage";
 	}
 	
-	
+	//프로필로 이동(프로필 정보 없으면 프로필 작성란으로 이동)
 	@RequestMapping(value = "/proFile.do", method = RequestMethod.GET)
 	public String searchProfile(HttpSession session,Model model) {
-		DTO_User newstart = (DTO_User) session.getAttribute("user");
-		DTO_Profile profileDto = proFileService.searchProfile(Integer.parseInt(newstart.getUser_seq()));
-		
+		log.info("@@@@프로필 이동!@@@@");
+		DTO_User newstart = (DTO_User) session.getAttribute("newstart");
+		DTO_Profile profileDto = null;
 		model.addAttribute("newstart",newstart);
-		model.addAttribute("profileDto", profileDto);
+//		log.info(newstart.getUser_seq()+" : @@@@프로124213필 이123123동213124!@@@@");
+		if (proFileService.searchProfile(Integer.parseInt(newstart.getUser_seq())) != null) {
+			profileDto = proFileService.searchProfile(Integer.parseInt(newstart.getUser_seq()));
+			model.addAttribute("profileDto", profileDto);
+			return "board/user/profile";
+		}else {
+			return "board/user/writeProfile";
+			
+		}
 		
-		return "board/user/profile";
 	}
 }
 

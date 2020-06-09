@@ -31,7 +31,7 @@ public class Controller_Review {
 		log.info("@@@@@@@@@후기 전체 페이지@@@@@@@@@@@@@@@@2");
 
 		List<DTO_Review> lists = service.searchAll();
-		DTO_User newstart = (DTO_User) session.getAttribute("user");
+		DTO_User newstart = (DTO_User) session.getAttribute("newstart");
 
 		model.addAttribute("lists",lists);
 		model.addAttribute("newstart",newstart);
@@ -44,7 +44,7 @@ public class Controller_Review {
 	public String searchDetail(Model model,HttpServletRequest req,HttpSession session) {
 		log.info("@@@@@@@@@후기 상세 페이지@@@@@@@@@@@@@@@@2");
 		int re_seq = Integer.parseInt(req.getParameter("re_seq"));
-		DTO_User newstart = (DTO_User) session.getAttribute("user");
+		DTO_User newstart = (DTO_User) session.getAttribute("newstart");
 		DTO_Review dto = service.searchDetail(re_seq);
 		model.addAttribute("dto",dto);
 		model.addAttribute("newstart",newstart);
@@ -56,7 +56,7 @@ public class Controller_Review {
 	@RequestMapping(value = "/writeReview.do", method = RequestMethod.GET)
 	public String writeReview(HttpSession session,Model model) {
 		log.info("@@@@@@@@@@@@@@@@후기 작성 페이지 이동@@@@@@@@@@@@@");
-		DTO_User newstart  = (DTO_User) session.getAttribute("user");
+		DTO_User newstart  = (DTO_User) session.getAttribute("newstart");
 
 		model.addAttribute("newstart",newstart);
 		return "board/review/writeReview";
@@ -113,7 +113,7 @@ public class Controller_Review {
 	@RequestMapping(value = "/moveReply.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public String writeReply(Model model,HttpSession session,HttpServletRequest req) {
 		int re_seq = Integer.parseInt(req.getParameter("re_seq"));
-		DTO_User newstart = (DTO_User) session.getAttribute("user");
+		DTO_User newstart = (DTO_User) session.getAttribute("newstart");
 		DTO_Review uDto = service.searchDetail(re_seq);
 		
 		model.addAttribute("uDto",uDto);

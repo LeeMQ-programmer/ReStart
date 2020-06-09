@@ -26,7 +26,7 @@ public class Controller_Gonggo {
 	@RequestMapping(value="/gonggo.do", method = RequestMethod.GET)
 	public String Gonggo(HttpSession session) {
 		
-		session.setAttribute("newstart", "21");
+//		session.setAttribute("newstart", "21");
 		return "board/gonggo/GonggoDiv";
 	}
 	

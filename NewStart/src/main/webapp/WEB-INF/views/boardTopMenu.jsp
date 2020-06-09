@@ -15,7 +15,7 @@
 <script type="text/javascript" src="./js/sweetalert.min.js">
 	
 </script>
-
+${newstart }
 <nav class="navbar navbar-inverse">
 	<div class="container-fluid">
 		<div class="navbar-header">
@@ -30,35 +30,37 @@
 			<li><a href="#">FAQ게시판</a></li>
 		</ul>
 		<ul class="nav navbar-nav navbar-right">
+		<c:if test="${newstart eq null }">
 			<!-- 로그아웃 상태면 SignUp -->
 			<li>
-				<a href="#">
+				<a href="./singUpform.do">
 					<span class="glyphicon glyphicon-user"></span>Sign Up
 				</a>
 			</li>
 			<!-- 로그아웃 상태면 LogIn -->
 			<li>
-				<a href="#">
+				<a href="./loginForm.do">
 					<span class="glyphicon glyphicon-log-in"></span>Login
 				</a>
 			</li>
-
+		</c:if>
+		<c:if test="${newstart ne null  }">
 			<!-- 로그인 상태면 MyPage -->
-<!-- 			 <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">마이 페이지 <span class="caret"></span></a> -->
-<!--         		<ul class="dropdown-menu"> -->
-<!--         			<li><a href="./myPage.do">마이 페이지</a></li> -->
-<!-- 					<li><a href="./proFile.do">프로필</a></li> -->
-<!--           			<li><a href="./logout.do" style="color:red;">로그아웃</a></li> -->
-<!--         		</ul> -->
-<!--       		</li> -->
+			 <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">마이 페이지 <span class="caret"></span></a>
+        		<ul class="dropdown-menu">
+        			<li><a href="./myPage.do">마이 페이지</a></li>
+					<li><a href="./proFile.do">프로필</a></li>
+          			<li><a href="./logout.do" style="color:red;">로그아웃</a></li>
+        		</ul>
+      		</li>
 
 			<!-- 로그인 상태면 Logout -->
-<!-- 			<li> -->
-<!-- 				<a href="#"> -->
-<!-- 					<span class="glyphicon glyphicon-log-in"></span> Login -->
-<!-- 				</a> -->
-<!-- 			</li> -->
-
+			<li>
+				<a href="#">
+					<span class="glyphicon glyphicon-log-out"></span> Login
+				</a>
+			</li>
+			</c:if>
 		</ul>
 	</div>
 </nav>
