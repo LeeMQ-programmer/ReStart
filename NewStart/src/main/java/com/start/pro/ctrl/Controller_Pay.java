@@ -20,6 +20,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.start.pro.dto.DTO_Pay;
 import com.start.pro.models.pay.IService_Pay;
@@ -32,7 +33,7 @@ public class Controller_Pay {
 	@Autowired
 	private IService_Pay service;
 	
-	@RequestMapping(value = "/pay.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/pay.do", method = {RequestMethod.POST, RequestMethod.GET})
 	public String payPage() {
 		logger.info("pay.do {}", new Date());
 		System.out.println("▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒");
@@ -40,6 +41,7 @@ public class Controller_Pay {
 		return "pay/pay";
 	}
 	
+	@ResponseBody
 	@RequestMapping(value = "/payment.do", method = {RequestMethod.POST, RequestMethod.GET})
 	public String payPage(Model model, HttpSession session, String selCash) {
 		logger.info("payment.do {}", new Date());
@@ -106,13 +108,13 @@ public class Controller_Pay {
 		System.out.println("잘담기나요??"+checkoutPage);
 		
 		DTO_Pay dto = new DTO_Pay(null, token, orderNo, selCash, null, 1);
+		
 		service.createPay(dto);
-
+		
 		model.addAttribute("payed", checkoutPage);
 		session.setAttribute("token", token);
 		
-//		return null;
-		return "index";
+		return checkoutPage;
 	}
 	
 }
