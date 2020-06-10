@@ -264,7 +264,7 @@ public class AsyncTask_SendEmail {
 				
 				//실패한 메일 모음
 				List<String> failMails = new ArrayList<String>();
-				
+				int failcnt = 0;
 				for (int i = 0; i < msgArray.length; i++) {
 
 					Message msg = msgArray[i];
@@ -280,9 +280,11 @@ public class AsyncTask_SendEmail {
 							
 
 						}
+						failcnt++;
 					} catch (Exception e) {
 						e.printStackTrace();
 					} 
+					
 				}
 				folder.close(true);
 				store.close();
@@ -290,7 +292,7 @@ public class AsyncTask_SendEmail {
 				store = null;
 				session = null;
 				
-				
+				if(failcnt>0) {
 				// 성공에서 실패한거 빼고 수정..
 				// 실패한 메일들 삭제
 				System.out.println("삭제 전"+mails.toString());
@@ -324,9 +326,18 @@ public class AsyncTask_SendEmail {
 					map.put("email_seq", mailList.getEmail_seq());
 					service.MailSuccess(map);
 				}
+				}else {
+					//메일은 있으나 실패한게 없음
+					Map<String, String> map = new HashMap<String, String>();
+					map.put("email_seq", mailList.getEmail_seq());
+					map.put("successchk", "Y");
+					service.MailSuccess(map);
+					return;
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+			
 		}
 
 		private String saveParts(Object content) throws Exception { 

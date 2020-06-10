@@ -5,7 +5,8 @@ public class DTO_Mounui {
 	private String board_code;
 	private String mounui_seq;
 	private String user_seq;
-	private String category;
+	private String category_seq;
+	private String category_title;
 	private String title;
 	private String content;
 	private String regdate;
@@ -15,22 +16,6 @@ public class DTO_Mounui {
 	
 	
 	public DTO_Mounui() {}
-
-
-	public DTO_Mounui(String board_code, String mounui_seq, String user_seq, String category, String title,
-			String content, String regdate, String replychk, String filechk, String delchk) {
-		super();
-		this.board_code = board_code;
-		this.mounui_seq = mounui_seq;
-		this.user_seq = user_seq;
-		this.category = category;
-		this.title = title;
-		this.content = content;
-		this.regdate = regdate;
-		this.replychk = replychk;
-		this.filechk = filechk;
-		this.delchk = delchk;
-	}
 
 
 	public String getBoard_code() {
@@ -63,13 +48,23 @@ public class DTO_Mounui {
 	}
 
 
-	public String getCategory() {
-		return category;
+	public String getCategory_seq() {
+		return category_seq;
 	}
 
 
-	public void setCategory(String category) {
-		this.category = category;
+	public void setCategory_seq(String category_seq) {
+		this.category_seq = category_seq;
+	}
+
+
+	public String getCategory_title() {
+		return category_title;
+	}
+
+
+	public void setCategory_title(String category_title) {
+		this.category_title = category_title;
 	}
 
 
@@ -136,9 +131,10 @@ public class DTO_Mounui {
 	@Override
 	public String toString() {
 		return "DTO_Mounui [board_code=" + board_code + ", mounui_seq=" + mounui_seq + ", user_seq=" + user_seq
-				+ ", category=" + category + ", title=" + title + ", content=" + content + ", regdate=" + regdate
-				+ ", replychk=" + replychk + ", filechk=" + filechk + ", delchk=" + delchk + "]";
+				+ ", category_seq=" + category_seq + ", category_title=" + category_title + ", title=" + title
+				+ ", content=" + content + ", regdate=" + regdate + ", replychk=" + replychk + ", filechk=" + filechk
+				+ ", delchk=" + delchk + "]";
 	}
-	
+
 	
 }

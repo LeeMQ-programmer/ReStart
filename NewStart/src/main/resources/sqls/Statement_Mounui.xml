@@ -8,18 +8,19 @@
 <!-- 문의글 등록하기 -->
 <insert id="insertBoard" parameterType="MDto">
 INSERT INTO MOUNUI
-(BOARD_CODE, MOUNUI_SEQ, USER_SEQ, CATEGORY, TITLE, CONTENT, REGDATE, REPLYCHK, FILECHK, DELCHK)
-VALUES('0', MOUNUI_SEQS.NEXTVAL , #{user_seq}, #{category}, #{title}, #{content}, SYSDATE, 'N', #{filechk}, 'N')
+(BOARD_CODE, MOUNUI_SEQ, USER_SEQ, CATEGORY_SEQ, TITLE, CONTENT, REGDATE, REPLYCHK, FILECHK, DELCHK)
+VALUES('0', MOUNUI_SEQS.NEXTVAL , #{user_seq}, #{category_seq}, #{title}, #{content}, SYSDATE, 'N', #{filechk}, 'N')
 </insert>
 
 
 <!--회원번호로 문의글 정보 가져오기-->
  <select id="userBoard" parameterType="java.lang.String" resultType="MDto">
- SELECT MOUNUI_SEQ, 
+ SELECT fc.CATEGORY_TITLE, MOUNUI_SEQ, 
 	 CASE WHEN LENGTH(TITLE)>10 THEN SUBSTR(TITLE,1,10) || '....' ELSE TITLE END AS TITLE,
  	CONTENT, TO_CHAR(REGDATE,'YYYY-MM-DD') AS REGDATE , REPLYCHK 
- 		FROM MOUNUI m 
-  			WHERE USER_SEQ = #{user_seq} AND DELCHK = 'N'
+ 		FROM MOUNUI m JOIN FAQ_CODE fc 
+ 			ON m.CATEGORY_SEQ = fc.CATEGORY_SEQ 
+  			AND USER_SEQ = #{seq} AND DELCHK = 'N'
  </select>
  
  
@@ -32,15 +33,15 @@ VALUES('0', MOUNUI_SEQS.NEXTVAL , #{user_seq}, #{category}, #{title}, #{content}
    DELCHK = 'N'0
   -->
  <select id="userBoardDetail" parameterType="java.lang.String" resultType="MDto">
- SELECT MOUNUI_SEQ, TITLE, CONTENT, TO_CHAR(REGDATE,'YYYY-MM-DD') AS REGDATE , REPLYCHK, FILECHK 
- 	FROM MOUNUI m 
-  		WHERE BOARD_CODE = '0' AND MOUNUI_SEQ = #{mounui_seq} AND DELCHK = 'N'
+  SELECT MOUNUI_SEQ, f.CATEGORY_TITLE ,TITLE, CONTENT, TO_CHAR(REGDATE,'YYYY-MM-DD') AS REGDATE , REPLYCHK, FILECHK 
+ 	FROM MOUNUI m JOIN FAQ_CODE f ON m.CATEGORY_SEQ = f.CATEGORY_SEQ 
+ 		AND BOARD_CODE = '0' AND MOUNUI_SEQ = #{mounui_seq} AND DELCHK = 'N'
  </select>
   
  <!--글 seq로 문의글 정보 수정하기-->
 <update id="updateBoard" parameterType="MDto">
 UPDATE MOUNUI 
- SET CATEGORY = #{category}, TITLE = #{title}, CONTENT = #{content},
+ SET CATEGORY_SEQ = #{category_seq}, TITLE = #{title}, CONTENT = #{content},
  	REGDATE = SYSDATE, FILECHK = #{filechk}
   		 WHERE MOUNUI_SEQ = #{mounui_seq}
 </update>
@@ -59,7 +60,7 @@ UPDATE MOUNUI
  
  <!--전체 글 가져오기(삭제된 것까지)-->
 <select id="adminBoard" resultType="MDto">
-SELECT MOUNUI_SEQ, USER_SEQ, CATEGORY, 
+SELECT MOUNUI_SEQ, USER_SEQ, CATEGORY_SEQ, 
  CASE WHEN LENGTH(TITLE)>10 THEN SUBSTR(TITLE,1,10) || '....' ELSE TITLE END AS TITLE,
  REGDATE, REPLYCHK, FILECHK, DELCHK  
  	FROM MOUNUI m
@@ -67,7 +68,7 @@ SELECT MOUNUI_SEQ, USER_SEQ, CATEGORY,
 
 <!-- 글 상세조회-->
 <select id="adminBoardDetail" parameterType="java.lang.String" resultType="MDto">
-SELECT MOUNUI_SEQ, USER_SEQ, CATEGORY, TITLE, CONTENT, REGDATE, REPLYCHK, FILECHK, DELCHK 
+SELECT MOUNUI_SEQ, USER_SEQ, CATEGORY_SEQ, TITLE, CONTENT, REGDATE, REPLYCHK, FILECHK, DELCHK 
  	FROM MOUNUI m 
  	 WHERE BOARD_CODE = '0' AND MOUNUI_SEQ =#{mounui_seq}
 </select>
