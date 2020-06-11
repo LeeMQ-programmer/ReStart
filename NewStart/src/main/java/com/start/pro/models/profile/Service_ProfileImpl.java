@@ -52,6 +52,12 @@ public class Service_ProfileImpl implements IService_Profile{
 		return dao.updateCareer(cDto);
 	}
 
+	@Override
+	public Double avgStar(int user_seq) {
+		log.info("Service@@@@@경력 수정,{}",user_seq);
+		return dao.avgStar(user_seq);
+	}
+
 
 
 }

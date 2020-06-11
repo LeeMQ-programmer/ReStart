@@ -13,6 +13,7 @@ public class DTO_Review {
 	private String re_reply;
 	private String re_delete;
 	private int re_star;
+	private String fileox;
 	
 	public DTO_Review() {
 		// TODO Auto-generated constructor stub
@@ -36,16 +37,18 @@ public class DTO_Review {
 	}
 	
 	//게시글 작성
-	public DTO_Review(int user_seq, String re_title, String re_content, int re_teacher, int re_star) {
+	public DTO_Review(int user_seq, String re_title, String re_content, int re_teacher, int re_star,String fileox) {
 		super();
 		this.user_seq = user_seq;
 		this.re_title = re_title;
 		this.re_content = re_content;
 		this.re_teacher = re_teacher;
 		this.re_star = re_star;
+		this.fileox = fileox;
 	}
 
 	//게시글 수정
+	//답글 작성
 	public DTO_Review(int re_seq, String re_title, String re_content, int re_star) {
 		super();
 		this.re_seq = re_seq;
@@ -53,10 +56,15 @@ public class DTO_Review {
 		this.re_content = re_content;
 		this.re_star = re_star;
 	}
+	
+	
 
 	public int getBoard_code() {
 		return board_code;
 	}
+
+	
+
 
 	public void setBoard_code(int board_code) {
 		this.board_code = board_code;
@@ -142,12 +150,25 @@ public class DTO_Review {
 		this.re_star = re_star;
 	}
 
+
+	public String getFileox() {
+		return fileox;
+	}
+
+
+	public void setFileox(String fileox) {
+		this.fileox = fileox;
+	}
+
+
 	@Override
 	public String toString() {
 		return "DTO_Review [board_code=" + board_code + ", re_seq=" + re_seq + ", user_seq=" + user_seq + ", re_title="
 				+ re_title + ", re_regdate=" + re_regdate + ", re_content=" + re_content + ", re_teacher=" + re_teacher
 				+ ", re_group=" + re_group + ", re_reply=" + re_reply + ", re_delete=" + re_delete + ", re_star="
-				+ re_star + "]";
+				+ re_star + ", fileox=" + fileox + "]";
 	}
+	
+
 	
 }

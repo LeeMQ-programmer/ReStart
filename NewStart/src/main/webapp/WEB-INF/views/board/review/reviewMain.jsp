@@ -29,15 +29,22 @@
 				<tbody>
 					<c:forEach var="list" items="${lists}" varStatus="vs">
 						<tr>
+						<c:if test="${list.re_delete eq 'N' }">
+						
 							<td>${list.re_seq }&nbsp;&nbsp;</td>
 							<td>${list.user_seq }&nbsp;&nbsp;</td>
-							<td><a href="./reviewDetail.do?re_seq=${list.re_seq}">${list.re_title }&nbsp;&nbsp;</a></td>
+							<td><a href="./reviewDetail.do?re_seq=${list.re_seq}">
+							<c:if test="${list.re_teacher eq '0' }">&nbsp;&nbsp;&nbsp;&nbsp;</c:if>
+							${list.re_title }&nbsp;&nbsp;
+							</a></td>
 							<td>${list.re_star }&nbsp;&nbsp;</td>
 							<td>${list.re_teacher }&nbsp;&nbsp;</td>
 							<td>${list.re_regdate }&nbsp;&nbsp;</td>
 							<c:if test="${newstart eq 'A' }">
 								<td>${list.re_delete })</td>
 							</c:if>
+							
+						</c:if>
 						</tr>
 					</c:forEach>
 				</tbody>

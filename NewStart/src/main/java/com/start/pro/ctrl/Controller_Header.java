@@ -31,8 +31,8 @@ public class Controller_Header {
 		
 		log.info("@@@@마이페이지 이동!@@@@");
 		DTO_User newstart = (DTO_User) session.getAttribute("newstart");
-		
-		model.addAttribute("newstart",newstart);
+		DTO_User dto = userService.searchDetail(Integer.parseInt(newstart.getUser_seq()));
+		model.addAttribute("newstart",dto);
 		return "board/user/mypage";
 	}
 	
@@ -46,10 +46,11 @@ public class Controller_Header {
 //		log.info(newstart.getUser_seq()+" : @@@@프로124213필 이123123동213124!@@@@");
 		if (proFileService.searchProfile(Integer.parseInt(newstart.getUser_seq())) != null) {
 			profileDto = proFileService.searchProfile(Integer.parseInt(newstart.getUser_seq()));
+			profileDto.setPro_star(proFileService.avgStar(Integer.parseInt(newstart.getUser_seq())));
 			model.addAttribute("profileDto", profileDto);
 			return "board/user/profile";
 		}else {
-			return "board/user/writeProfile";
+			return "board/profile/writeProfile";
 			
 		}
 		

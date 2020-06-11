@@ -6,17 +6,15 @@ public class DTO_Profile {
 	private String pro_major;
 	private String pro_tech;
 	private String pro_info;
-	private double pro_star;
+	private Double pro_star;
 
-	public DTO_Profile(int user_seq, String pro_school, String pro_major, String pro_tech, String pro_info,
-			double pro_star) {
+	public DTO_Profile(int user_seq, String pro_school, String pro_major, String pro_tech, String pro_info) {
 		super();
 		this.user_seq = user_seq;
 		this.pro_school = pro_school;
 		this.pro_major = pro_major;
 		this.pro_tech = pro_tech;
 		this.pro_info = pro_info;
-		this.pro_star = pro_star;
 	}
 
 	public DTO_Profile() {
@@ -63,11 +61,11 @@ public class DTO_Profile {
 		this.pro_info = pro_info;
 	}
 
-	public double getPro_star() {
+	public Double getPro_star() {
 		return pro_star;
 	}
 
-	public void setPro_star(double pro_star) {
+	public void setPro_star(Double pro_star) {
 		this.pro_star = pro_star;
 	}
 

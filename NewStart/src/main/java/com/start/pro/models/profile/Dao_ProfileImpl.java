@@ -60,4 +60,10 @@ public class Dao_ProfileImpl implements IDao_Profile {
 		return isc>0?true:false;
 	}
 
+	@Override
+	public Double avgStar(int user_seq) {
+		log.info("DAO@@@@@경력 수정,{}",user_seq);
+		return session.selectOne(NS+"avgStar",user_seq);
+	}
+
 }

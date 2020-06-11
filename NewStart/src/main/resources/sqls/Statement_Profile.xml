@@ -23,7 +23,7 @@
 		INSERT INTO CAREER
 		(USER_SEQ, CAREER_COMPANY, CAREER_DEPT, CAREER_JOB, CAREER_TERM)
 		VALUES(#{user_seq}, #{career_company}, #{career_dept}, 
-			   #{career_job},TO_DATE(#{career_term},YYYY-MM-DD))
+			   #{career_job},#{career_term})
 	</insert>
 	
 
@@ -43,6 +43,13 @@
 			CAREER_JOB=#{career_job}, CAREER_TERM=#{career_term}
 		WHERE USER_SEQ=#{user_seq}
 	</update>
+	
+	<select id="avgStar" parameterType="java.lang.Integer" resultType="java.lang.Double">
+		SELECT ROUND(SUM(RE_STAR)/COUNT(*),1)
+			FROM REVIEWBOARD
+			GROUP BY RE_TEACHER
+			HAVING RE_TEACHER =#{re_star}
+	</select>
 </mapper>
 
 
