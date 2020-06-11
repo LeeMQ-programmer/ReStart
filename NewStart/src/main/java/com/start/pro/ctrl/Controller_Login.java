@@ -113,11 +113,11 @@ public class Controller_Login {
 
 	//회원가입 완료시
 	@RequestMapping(value = "/singUpSc.do", method = RequestMethod.POST)
-	public String singUpSc(DTO_User dto, HttpServletResponse resp) {
+	public String singUpSc(DTO_User dto) {
 		System.out.println(dto.toString());
 		service.signUp(dto);
 		
-		emailSend.LJMail("0", dto.getUser_email(), resp);
+		emailSend.LJMail("0", dto.getUser_email());
 		
 		return "login/SignUp3";
 	}
@@ -164,11 +164,11 @@ public class Controller_Login {
 	}
 
 	@RequestMapping(value = "/goFPW1.do", method = RequestMethod.POST)
-	public String goFPW1(String email,Model model, HttpServletResponse resp) {
+	public String goFPW1(String email,Model model) {
 		
 		model.addAttribute("email", email);
 		
-		emailSend.LJMail("1", email, resp);
+		emailSend.LJMail("1", email);
 		
 		return "login/PWLJchk";
 	}
@@ -215,9 +215,9 @@ public class Controller_Login {
 	
 	// 휴면이나 잠금계정 보내기 EmailChk.do
 	@RequestMapping(value = "/EmailChk.do", method = RequestMethod.GET)
-	public String EmailChk(String email, HttpServletResponse resp) {
+	public String EmailChk(String email) {
 		
-		emailSend.LJMail("2", email, resp);
+		emailSend.LJMail("2", email);
 		
 		return "login/EmailChk";
 	}

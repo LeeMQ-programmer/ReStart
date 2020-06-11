@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.start.pro.dto.DTO_Email;
 import com.start.pro.dto.DTO_Filter;
+import com.start.pro.dto.DTO_Mounui;
 @Service
 public class Service_EmailImpl implements IService_Email{
 
@@ -87,6 +88,18 @@ public class Service_EmailImpl implements IService_Email{
 	@Override
 	public List<String> SelUserFiter(Map<String, String[]> map) {
 		return dao.SelUserFiter(map);
+	}
+
+	@Override
+	public boolean SendReply(DTO_Mounui dto) {
+		return dao.SendReply(dto);
+	}
+
+
+
+	@Override
+	public DTO_Mounui selReplyAemail(String seq) {
+		return dao.selReplyAemail(seq);
 	}
 
 }

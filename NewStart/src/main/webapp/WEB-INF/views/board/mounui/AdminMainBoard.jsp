@@ -59,7 +59,7 @@ function chk(){
 
 
 <div class="container">
-<form action="./UserMBoardDel.do" method="post" id="del">
+<form action="./AdminMBoardDel.do" method="get" id="del">
   <h2>Basic Table</h2>
   <p>The .table class adds basic styling (light padding and only horizontal dividers) to a table:</p>            
   <table class="table">
@@ -68,8 +68,10 @@ function chk(){
       	<th><input type="checkbox" name='allcheck' onclick="checkAll(this.checked)"><th>
         <th>카테고리</th>
         <th>제목</th>
+        <th>작성자</th>
         <th>등록일</th>
         <th>답변 처리 여부</th>
+        <th>글 삭제 여부</th>
       </tr>
     </thead>
     <tbody>
@@ -78,12 +80,19 @@ function chk(){
 		      	 <td><input type="checkbox" name="seq" value="${dto.mounui_seq}" onclick="chk()"></td>
        			 <td>${fn:length(dtos)-idx.index}</td>
        			 <td>${dto.category_title}</td>
-        		 <td><a href="./UserMBoardDetail.do?seq=${dto.mounui_seq}">${dto.title}</a></td>
+        		 <td><a href="./AdminMBoardDetail.do?seq=${dto.mounui_seq}">${dto.title}</a></td>
+        		 <td>${dto.category_seq}&lt;${dto.board_code}&gt;</td>
         		 <td>${dto.regdate}</td>
         		 <td>
         		 	<c:choose>
 						<c:when test="${dto.replychk eq 'N'}">답변 처리 중</c:when>
 						<c:when test="${dto.replychk eq 'Y'}">답변 완료</c:when>
+					</c:choose>
+        		 </td>
+        		 <td>
+        		 	<c:choose>
+						<c:when test="${dto.delchk eq 'N'}">존재</c:when>
+						<c:when test="${dto.delchk eq 'Y'}">삭제</c:when>
 					</c:choose>
         		 </td>
       		</tr>

@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.start.pro.dto.DTO_Email;
 import com.start.pro.dto.DTO_FAQ;
 import com.start.pro.dto.DTO_Mounui;
 
@@ -67,6 +68,11 @@ public class Dao_MounuiImpl implements IDao_Mounui {
 	@Override
 	public List<DTO_FAQ> getCategory() {
 		return session.selectList(NS+"getCategory");
+	}
+
+	@Override
+	public DTO_Email getReply(String seq) {
+		return session.selectOne(NS+"getReply",seq);
 	}
 
 }

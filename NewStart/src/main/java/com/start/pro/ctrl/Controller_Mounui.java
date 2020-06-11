@@ -1,8 +1,12 @@
 package com.start.pro.ctrl;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +14,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.start.pro.dto.DTO_Email;
 import com.start.pro.dto.DTO_FAQ;
 import com.start.pro.dto.DTO_Mounui;
 import com.start.pro.dto.DTO_User;
+import com.start.pro.email.AsyncTask_SendEmail;
+import com.start.pro.models.email.IService_Email;
 import com.start.pro.models.mounui.IService_Mounui;
 
 @Controller
@@ -21,7 +29,14 @@ public class Controller_Mounui {
 
 	@Autowired
 	private IService_Mounui service;
+	
+	@Autowired
+	private IService_Email mservice;
 
+	@Autowired
+	private AsyncTask_SendEmail emailSender;
+	
+	
 	@RequestMapping(value = "/mounuiboard.do", method = RequestMethod.GET)
 	public String mounuiboard(Model model){
 
@@ -68,14 +83,83 @@ public class Controller_Mounui {
 	}
 
 	
-	@RequestMapping(value = "/UserMBoardDel.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/UserMBoardDel.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public String UserMBoardDel(String[] seq) {
-//		Map<String, String>
-//		service.delBoard(map);
+		Map<String, String[]> map = new HashMap<String, String[]>();
+		map.put("seq", seq);
+		service.delBoard(map);
 		
-		System.out.println(seq[0]);
+//		System.out.println(seq[0]);
 		
 		return "redirect:/UserMBoard.do";
+	}
+
+	// 관리자 문의 게시판
+	@RequestMapping(value = "/AdminMBoard.do", method = RequestMethod.GET)
+	public String AdminMBoard(Model model){
+		
+		List<DTO_Mounui> dtos = service.adminBoard();
+		System.out.println(dtos.toString());
+		model.addAttribute("dtos", dtos);
+		
+		return "board/mounui/AdminMainBoard";
+	}
+	
+	// 관리자 문의 상세보기
+	@RequestMapping(value = "/AdminMBoardDetail.do", method = RequestMethod.GET)
+	public String AdminMBoardDetail(String seq, Model model){
+		
+		DTO_Mounui dto = service.adminBoardDetail(seq);
+		
+		System.out.println("왜안돼"+dto.toString());
+		
+		if(dto.getReplychk().equalsIgnoreCase("Y")) {
+			DTO_Email edto = service.getReply(seq);
+			model.addAttribute("edto", edto);
+		}
+		
+		model.addAttribute("dto", dto);
+		return "board/mounui/AdminMBoardD";
+	}
+	
+	
+	//문의 게시판 답장하기
+	@RequestMapping(value = "/MBoardReply.do", method = RequestMethod.GET)
+	public String MBoardReply(String seq, String email, Model model){
+		
+		model.addAttribute("seq", seq);
+		model.addAttribute("email", email);
+
+		return "board/mounui/EmailReply";
+	}
+
+	//문의 게시판 답장 메일 보내기
+	@ResponseBody
+	@RequestMapping(value = "/MReplySend.do", method = RequestMethod.POST)
+	public boolean MReplySend(DTO_Mounui dto, String user_email) throws IOException{
+
+		if(emailSender.sendReplyMail(user_email, dto.getTitle(), dto.getContent())) {
+			dto.setDelchk("Y");
+			mservice.SendReply(dto);
+			service.replyMounui(dto.getMounui_seq());
+			return true;
+			
+		}else {
+			return false;
+		}
+	}
+	
+	
+//	./AdminMBoardDel.do
+	//문의 게시판 삭제하기
+	@RequestMapping(value = "/AdminMBoardDel.do", method = RequestMethod.GET)
+	public String AdminMBoardDel(String[] seq, Model model){
+		
+		Map<String, String[]> map = new HashMap<String,String[]>();
+		map.put("seq", seq);
+		service.adminDelBoard(map);
+
+		return "redirect:/AdminMBoard.do";
 	}
 	
 }

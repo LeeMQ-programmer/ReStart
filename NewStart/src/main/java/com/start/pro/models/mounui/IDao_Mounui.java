@@ -3,6 +3,7 @@ package com.start.pro.models.mounui;
 import java.util.List;
 import java.util.Map;
 
+import com.start.pro.dto.DTO_Email;
 import com.start.pro.dto.DTO_FAQ;
 import com.start.pro.dto.DTO_Mounui;
 
@@ -96,5 +97,14 @@ public interface IDao_Mounui {
 	 * @return List<DTO_FAQ>
 	 */
 	public List<DTO_FAQ> getCategory();
+	
+	/**
+	 * 답변 정보를 가져옵니다.
+	 * 가져오는 데이터는 다음과 같습니다.<br>
+	 * TITLE, CONTENT, SUCCESSCHK, REGDATE
+	 * @param seq
+	 * @return DTO_Email
+	 */
+	public DTO_Email getReply(String seq);
 	
 }

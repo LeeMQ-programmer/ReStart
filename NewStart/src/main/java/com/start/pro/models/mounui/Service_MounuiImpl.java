@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.start.pro.dto.DTO_Email;
 import com.start.pro.dto.DTO_FAQ;
 import com.start.pro.dto.DTO_Mounui;
 
@@ -64,6 +65,11 @@ public class Service_MounuiImpl implements IService_Mounui{
 	@Override
 	public List<DTO_FAQ> getCategory() {
 		return dao.getCategory();
+	}
+
+	@Override
+	public DTO_Email getReply(String seq) {
+		return dao.getReply(seq);
 	}
 
 }
