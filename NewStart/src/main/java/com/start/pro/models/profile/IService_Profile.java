@@ -41,6 +41,4 @@ public interface IService_Profile {
 	 * @return 입력 성공 시 true, 실패시 false
 	 */
 	public boolean updateCareer(DTO_Career cDto);
-	
-	public Double avgStar(int user_seq);
 }

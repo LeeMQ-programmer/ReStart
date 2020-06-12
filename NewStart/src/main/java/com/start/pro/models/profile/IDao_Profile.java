@@ -41,7 +41,5 @@ public interface IDao_Profile {
 	public boolean updateCareer(DTO_Career cDto);
 	
 	
-	public Double avgStar(int user_seq);
-
-
+		
 }

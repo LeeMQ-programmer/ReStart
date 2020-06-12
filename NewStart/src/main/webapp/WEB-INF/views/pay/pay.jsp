@@ -11,6 +11,25 @@
 	}
 </style>
 </head>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script type="text/javascript">
+	function pay(){
+		var selCash = $('input[name=selCash]:checked').val();
+		
+		$.ajax({
+			url : "./payment.do",
+			type : "post",
+			data : {"selCash" : selCash},
+			dataType : "text",
+			success : function(data){
+				$("a").attr('href', data);
+			},
+			error : function(request, status, error){
+				alert("code: " + request.status + "\n message: " + request.responseText + "\n error: " + error);
+			}
+		});
+	}
+</script>
 <body>
 	<%@include file="/WEB-INF/Header.jsp"%>
 	<form action="./payment.do" method="post">
@@ -27,15 +46,15 @@
 					<div> <!-- 1마넌 -->
 						<label>
 							<div>
-								<input type="radio" name="selCash" value="10000">
+								<input type="radio" name="selCash" value="10000" onclick="pay()">
 								<span>+1만원</span>
-								<input type="radio" name="selCash" value="50000">
+								<input type="radio" name="selCash" value="50000" onclick="pay()">
 								<span>+5만원</span>
-								<input type="radio" name="selCash" value="100000">
+								<input type="radio" name="selCash" value="100000" onclick="pay()">
 								<span>+10만원</span>
-								<input type="radio" name="selCash" value="200000">
+								<input type="radio" name="selCash" value="200000" onclick="pay()">
 								<span>+20만원</span>
-								<input type="radio" name="selCash" value="500000">
+								<input type="radio" name="selCash" value="500000" onclick="pay()">
 								<span>+50만원</span>
 							</div>
 						</label>
@@ -56,8 +75,10 @@
 						</li>
 					</ul>
 				</div>
-				<div>
-					<input type="submit" value="충전하기">
+				<div id="pay">
+					<a>
+						<input type="button"  value="충전하기">
+					</a>
 				</div>
 			</div>
 		</div>

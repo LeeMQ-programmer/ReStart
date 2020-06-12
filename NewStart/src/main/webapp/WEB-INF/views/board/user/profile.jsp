@@ -22,39 +22,10 @@
 <div class="container">
 ${newstart }<br>
 ${profileDto }
-
-
-  <h2>${newstart.user_name }님의 경력 보기</h2>
+  <h2>경력 보기</h2>
   <!-- Trigger the modal with a button -->
-  
-<div class="container">
-  <form action="#" method="post">
-    <div class="form-group">
-      <label for="usr">학교 :</label>
-      <input type="text" class="form-control" id="usr" value="${profileDto.pro_school }">
-    </div>
-    <div class="form-group">
-      <label for="user_nickname">전공 :</label>
-      <input type="text" class="form-control" id="user_nickname" value="${profileDto.pro_major }">
-    </div>
-    <div class="form-group">
-      <label for="user_phone">기술 :</label>
-      <input type="text" class="form-control" id="user_phone" value="${profileDto.pro_tech}">
-    </div>
-    <div class="form-group">
-      <label for="user_phone">소개 :</label>
-      <input type="text" class="form-control" id="user_phone" value="${profileDto.pro_info }">
-    </div>
-
-    <div class="form-group">
-      <label for="user_tchk">별점 :</label>
-      <input type="text" class="form-control" id="user_tchk" value="${profileDto.pro_star }" readonly="readonly">
-    </div>
-    
-    <input type="button" id="modify" value="수정하기">
-  </form>
-</div>
   <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myCareer">경력 보기</button>
+
   <!-- Modal -->
   <div class="modal fade" id="myCareer" role="dialog">
     <div class="modal-dialog">
@@ -66,7 +37,7 @@ ${profileDto }
           <h4 class="modal-title">Modal Header</h4>
         </div>
         <div class="modal-body">
-          	<input type="text" >
+          <p>Some text in the modal.</p>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

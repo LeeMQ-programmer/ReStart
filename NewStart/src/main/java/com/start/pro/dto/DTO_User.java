@@ -13,12 +13,6 @@ public class DTO_User {
 	private String user_adchk;
 	private String user_regdate;
 	private String user_tchk;
-	private String user_treq;
-	
-	//강사 인증 시간
-	private String tea_date;
-	private String tea_handate;
-	
 	
 	public DTO_User() {}
 
@@ -31,14 +25,6 @@ public class DTO_User {
 		this.user_pw = user_pw;
 		this.user_phone = user_phone;
 		this.user_adchk = user_adchk;
-	}
-
-	
-	public DTO_User(String user_seq,String user_nickname, String user_phone) {
-		super();
-		this.user_seq = user_seq;
-		this.user_nickname = user_nickname;
-		this.user_phone = user_phone;
 	}
 
 	public String getUser_seq() {
@@ -129,42 +115,12 @@ public class DTO_User {
 		this.user_tchk = user_tchk;
 	}
 
-	
-	public String getUser_treq() {
-		return user_treq;
-	}
-
-	public void setUser_treq(String user_treq) {
-		this.user_treq = user_treq;
-	}
-	
-	//-----------강사 인증 시간
-
-	public String getTea_date() {
-		return tea_date;
-	}
-
-	public void setTea_date(String tea_date) {
-		this.tea_date = tea_date;
-	}
-
-	public String getTea_handate() {
-		return tea_handate;
-	}
-
-	public void setTea_handate(String tea_handate) {
-		this.tea_handate = tea_handate;
-	}
-
 	@Override
 	public String toString() {
 		return "DTO_User [user_seq=" + user_seq + ", user_email=" + user_email + ", user_nickname=" + user_nickname
-				+ ", user_name=" + user_name + ", user_grade=" + user_grade + ", user_type=" + user_type
-				+ ", user_phone=" + user_phone + ", user_adchk=" + user_adchk + ", user_regdate=" + user_regdate
-				+ ", user_tchk=" + user_tchk + ", user_treq=" + user_treq + "]";
+				+ ", user_name=" + user_name + ", user_grade=" + user_grade + ", user_type=" + user_type + ", user_phone=" + user_phone + ", user_adchk=" + user_adchk + ", user_regdate="
+				+ user_regdate + ", user_tchk=" + user_tchk + "]";
 	}
-
-	
 	
 	
 }

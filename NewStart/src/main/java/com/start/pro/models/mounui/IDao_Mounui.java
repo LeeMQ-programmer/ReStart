@@ -3,6 +3,8 @@ package com.start.pro.models.mounui;
 import java.util.List;
 import java.util.Map;
 
+import com.start.pro.dto.DTO_Email;
+import com.start.pro.dto.DTO_FAQ;
 import com.start.pro.dto.DTO_Mounui;
 
 public interface IDao_Mounui {
@@ -87,5 +89,22 @@ public interface IDao_Mounui {
 	 */
 	public boolean adminDelBoard(Map<String, String[]> map);
 	
+	
+	/**
+	 * 카테고리 목록을 가져올 때 사용한다.
+	 * 가져오는 데이터는 다음과 같다.<BR>
+	 * CATEGORY_SEQ, CATEGORY_TITLE
+	 * @return List<DTO_FAQ>
+	 */
+	public List<DTO_FAQ> getCategory();
+	
+	/**
+	 * 답변 정보를 가져옵니다.
+	 * 가져오는 데이터는 다음과 같습니다.<br>
+	 * TITLE, CONTENT, SUCCESSCHK, REGDATE
+	 * @param seq
+	 * @return DTO_Email
+	 */
+	public DTO_Email getReply(String seq);
 	
 }

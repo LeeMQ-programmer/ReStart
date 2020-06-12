@@ -94,7 +94,7 @@ public class Sc_LoginSuccessHandler implements AuthenticationSuccessHandler{
 			redirectStratgy.sendRedirect(req, resp, defaultUrl);
 		}
 	}
-//	loginResult
+	
 	@SuppressWarnings("unused")
 	private void clearErrorSession(HttpServletRequest req, DTO_User userDto) {
 		HttpSession session = req.getSession(false);

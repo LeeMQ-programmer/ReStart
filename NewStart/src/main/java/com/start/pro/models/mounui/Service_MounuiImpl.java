@@ -4,9 +4,13 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import com.start.pro.dto.DTO_Email;
+import com.start.pro.dto.DTO_FAQ;
 import com.start.pro.dto.DTO_Mounui;
 
+@Service
 public class Service_MounuiImpl implements IService_Mounui{
 
 	@Autowired
@@ -56,6 +60,16 @@ public class Service_MounuiImpl implements IService_Mounui{
 	@Override
 	public boolean adminDelBoard(Map<String, String[]> map) {
 		return dao.adminDelBoard(map);
+	}
+
+	@Override
+	public List<DTO_FAQ> getCategory() {
+		return dao.getCategory();
+	}
+
+	@Override
+	public DTO_Email getReply(String seq) {
+		return dao.getReply(seq);
 	}
 
 }
