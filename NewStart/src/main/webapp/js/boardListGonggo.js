@@ -9,12 +9,13 @@ function CreditUseing(){
          if(data == "true"){
         	 alert("공고 작성이 완료되었습니다.");
          } else {
-        	 alert("결제를 진행해주세요");
+        	 alert("결제 해주세요");
         	 location.href="./pay.do";
          }
       },
       error : function(){
          alert("공고작성이 취소되었습니다.");
+         
       }   
    });
 }
@@ -105,16 +106,19 @@ function GonggoCreate(){
 
 //첫번째 데이터는 lists로 하고 페이지 처리된 것들을 5개 칸에 5개의 글이 있을 때 10개의 글이 있으면 3페이지로 바꾸게 만들어주는 역할을 할 예정
 function pageAjax(){
+//   alert("아작아작");
    $.ajax({
       url:"./page.do",
       type:"post",
       async: true,
-      data: $("#frm").serialize(), 
+      data: $("#frm").serialize(), // 키는 벨류 형태로 자동으로 만들어준다.
       dataType: "json",
       success: function(msg){
-         $.each(msg, function(key,value){  
+//         alert(msg.lists[1].title);
+//         alert(msg.row.total);
+         $.each(msg, function(key,value){  // lists, {"",[]}  // row,{}
             var varHtml = "";
-            var n = $(".table tr:eq(0) th").length; 
+            var n = $(".table tr:eq(0) th").length; // 테이블에 첫번째 tr에 th의 개수
             if(key == "lists"){
                varHtml += "<tr>";
                varHtml += "   <th><input type='checkbox' onclick='checkAll(this.checked)'></th>";
@@ -127,6 +131,10 @@ function pageAjax(){
                }
                varHtml += "   <th>작성일</th>";
                varHtml += "</tr>";
+               
+               // 위에 형태들을 보면
+               //[{dto},{dto},{dto}]
+               // 그래서 또 for문 필요
                $.each(value,function(k,v){
                   varHtml += "<tr>";
                   varHtml += "   <td><input type='checkbox' name='chkVal' value='"+v.seq+"'></td>";
@@ -135,10 +143,14 @@ function pageAjax(){
                   varHtml += "             <td>"+v.id+"</td>";
                   varHtml += "   <td>"+v.readcount+"</td>";
                   if(n == 7){
-                	  varHtml += "   <td>"+v.delflag+"</td>";
+                  varHtml += "   <td>"+v.delflag+"</td>";
                   }
                   varHtml += "   <td>"+v.regdate+"</td>";
                   varHtml += "</tr>"; 
+               
+               
+               
+               
                // 글 내용 입력하기
                varHtml += "<tr>";
                varHtml += "   <td colspan='"+n+"'>";                                                                                     
@@ -150,13 +162,13 @@ function pageAjax(){
                varHtml += "         <div>";
                varHtml += "            <div class ='form-group'>";
                if(v.id == v.meid){
-            	   varHtml += "               <input class='btn btn-primary btn-center' type='button' value='글 수정' onclick='modify(\""+v.seq+"\")'>";
+               varHtml += "               <input class='btn btn-primary btn-center' type='button' value='글 수정' onclick='modify(\""+v.seq+"\")'>";
                }
                if(v.id == v.meid || n == 7){
-            	   varHtml += "               <input class='btn btn-primary btn-center' type='button' value='글 삭제' onclick='del(\""+v.seq+"\")'>";
+               varHtml += "               <input class='btn btn-primary btn-center' type='button' value='글 삭제' onclick='del(\""+v.seq+"\")'>";
                }
                if(v.id == v.meid || n != 7){
-            	   varHtml += "               <input class='btn btn-primary btn-center' type='button' value='답글' onclick='reply(\""+v.seq+"\")'>";
+               varHtml += "               <input class='btn btn-primary btn-center' type='button' value='답글' onclick='reply(\""+v.seq+"\")'>";
                }
                varHtml += "            </div>";
                varHtml += "         </div>";
@@ -172,12 +184,17 @@ function pageAjax(){
                }
                varHtml += "<li><a  href='#' onclick='pageNext("+value.pageNum+", "+value.pageList+", "+value.total+", "+value.listNum+")'>&rsaquo;</a></li>";
                varHtml += "<li><a  href='#' onclick='pageLast("+value.pageNum+", "+value.pageList+", "+value.total+", "+value.listNum+")'>&raquo;</a></li>";
+         
             }
+            
+            
             if(key == "lists"){
                $("table > tbody").html(varHtml);
             } else{
                $(".pagination").html(varHtml);
             }
+            
+            
          });
       },
       error: function(){

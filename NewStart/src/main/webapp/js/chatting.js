@@ -14,6 +14,7 @@ function chatListOpen(){
 			}
 			html += "</div>"
 			$("body").html(html);
+			//location.href = "./gonggo.do";
 			$('#exit').click(function(){
 				setTimeout(function(){
 					// 1초 후 작동해야할 코드
